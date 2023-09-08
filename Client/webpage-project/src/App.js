@@ -1,8 +1,6 @@
 import {useState, useRef, useLayoutEffect} from "react";
 import './App.css';
 
-const MIN_HEIGHT = 16;
-
 function App() {
   const textareaRef = useRef(null);
   const [value, setValue] = useState("");
@@ -11,12 +9,9 @@ function App() {
   
   useLayoutEffect(() => {
     // Reset height
-    textareaRef.current.style.height = "inherit";
+    textareaRef.current.style.height = 'auto';
     // Set height
-    textareaRef.current.style.height = `${Math.max(
-      textareaRef.current.scrollHeight,
-      MIN_HEIGHT
-    )}px`;
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
   }, [value]);
   
   return (
@@ -24,8 +19,10 @@ function App() {
       <header className="App-header">
           Ask the Virtual TA any question about CS4349!
       </header>
-      <label htmlFor="review-text">Query:</label>
+      <label className = "App-label"
+      htmlFor="textBox">Query: </label>
       <textarea
+        id="textBox"
         className="App-textarea"
         onChange={onChange}
         ref={textareaRef}
