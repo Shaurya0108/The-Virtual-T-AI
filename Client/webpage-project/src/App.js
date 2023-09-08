@@ -20,7 +20,9 @@ function App() {
           Ask the Virtual TA any question about CS4349!
       </header>
       <label className = "App-label"
-      htmlFor="textBox">Query: </label>
+        htmlFor="textBox">
+          Query: 
+      </label>
       <textarea
         id="textBox"
         className="App-textarea"
