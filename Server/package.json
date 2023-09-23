@@ -1,6 +1,7 @@
 {
     "type": "module",
     "scripts": {
+        "build": "npm ci",
         "dev": "nodemon src/server.js",
         "start": "node src/server.js"
     },
