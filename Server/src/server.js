@@ -37,7 +37,7 @@ virtualTAServer.use('/chatBot', routes.chatBotroutes());
 
 
 var server = http.createServer(virtualTAServer)
-var port = 3001// use env file later process.env.PORT
+var port = 443// use env file later process.env.PORT
 server.listen(port, ()=>{
     console.log('server running at port '+port);
     
