@@ -26,7 +26,6 @@ virtualTAServer.use((req, res, next)=>{
     new Promise((resolve, reject)=> {
         auth(req.headers, resolve, reject)
     }).then(authorized =>{
-
         next()
     }).catch(Error =>{
         res.status(401).json(Error)
