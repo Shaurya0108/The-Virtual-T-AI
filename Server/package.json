@@ -1,9 +1,11 @@
 {
     "type": "module",
     "scripts": {
-        "start": "nodemon src/server.js"
+        "dev": "nodemon src/server.js",
+        "start": "node src/server.js"
     },
     "dependencies": {
+        "aws-sdk": "^2.1463.0",
         "cors": "^2.8.5",
         "dependencies": "^0.0.1",
         "dotenv": "^16.3.1",
