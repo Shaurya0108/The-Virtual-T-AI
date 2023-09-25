@@ -11,8 +11,13 @@ export const chatBotroutes = () => {
     });
 
     router.get('/dbTempTest', (req, res) => {
-        let exampleDBEntry = {"id": 40296, "Query": "whaaaaa noooo, she said that??? wow you think you know someone", "timestamp": 101}
+        let exampleDBEntry = {"RequestItems":{"id": 40296, "Query": "whaaaaa noooo, she said that??? wow you think you know someone", "timestamp": 101}, TableName: "TempTableOne"}
         var result = dbConnection.insert(exampleDBEntry); //check console to see if it worked
+        return res.status(200).json({"res": result})
+    });
+    router.get('/dynamoConnectionTest', (req, res) => {
+        let exampleDBEntry = {"UserId": 0, "Category": "Query", "Querie": [ { "S" : "Hello my querie is blah blah blah" } ], "TimeStamp": 638309637250000000}
+        var result = dbConnection.read(exampleDBEntry); //check console to see if it worked
         return res.status(200).json({"res": result})
     });
 
