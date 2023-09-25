@@ -2,7 +2,8 @@ import AWS from 'aws-sdk'
 
 export class DynamoDBConnector{
     constructor() {
-        //this.db = new AWS.DynamoDB.DocumentClient()
+        this.db = new AWS.DynamoDB({accessKeyId: process.env.access_key,
+                                    secretAccessKey: process.env.secret_access_key})
     }
     checkConnection() {
         //add logging here
@@ -16,7 +17,12 @@ export class DynamoDBConnector{
         return `needs to have logic`;
     }
     read(params) {
+        var result = this.db.batchGetItem(params, function(err, data) {
+            if (err) console.log(err, err.stack); // an error occurred
+            else     console.log(data);           // successful response
+          });
         console.log('reading entry with params '+params )
+        console.log('result is ', result)
         return `have return the objects matching parametors`;
     }
     update(entry, newEntry){
