@@ -1,8 +1,15 @@
 import AWS from 'aws-sdk'
 
+import dotenv from 'dotenv'
+dotenv.config();
+
 export class DynamoDBConnector{
     constructor() {
-        this.db = new AWS.DynamoDB()
+        this.db = new AWS.DynamoDB({
+            accessKeyId: process.env.access_key,
+            secretAccessKey: process.env.secret_access_key,
+            region: process.env.region
+        })
     }
     checkConnection() {
         //add logging here
@@ -11,19 +18,30 @@ export class DynamoDBConnector{
         console.log("The DB connection resulted in "+result);
         return 'needs to have logic';
     }
-    insert(entry){
-        console.log('adding entry '+ entry)
-        return 'needs to have logic';
+    insert(params) {
+        return new Promise((resolve, reject) => {
+    
+            this.db.putItem(params, function(err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
     }
     read(params) {
-        console.log(AWS.config);
-        var result = this.db.batchGetItem(params, function(err, data) {
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
-          });
-        //console.log('reading entry with params '+params )
-        //console.log('result is ', result)
-        return `have return the objects matching parametors`;
+        return new Promise((resolve, reject) => {
+            this.db.batchGetItem(params, function(err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    reject(err);
+                } else {
+                    resolve(data.Responses);
+                }
+            });
+        });
     }
     update(entry, newEntry){
         console.log('updating entry '+entry+' with '+newEntry )

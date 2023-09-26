@@ -10,18 +10,49 @@ export const chatBotroutes = () => {
         return res.status(200).json({"res": "chatBot routes working"})
     });
 
-    router.get('/dynamoConnectionTest', (req, res) => {
-        let exampleDBEntry = {
-            "RequestItems":{
-                "TempTableOne":{
-                    "Keys":[
-                        {"userId": {N: "1"}}
+    router.post('/insertItemTest', async (req, res) => {
+        const exampleDBEntry = {
+            TableName: 'TempTableOne',
+            Item: {
+                "UserId": { N: "1" },
+                "Category": { S: "Query2" },
+                "Querie": {
+                    L: [
+                        { S: "test" }
                     ]
-                }
-            }, 
+                },
+                "TimeStamp": { S: "1234567890" }
+            }
         }
-        var result = dbConnection.read(exampleDBEntry); //check console to see if it worked
-        return res.status(200).json({"res": result})
+    
+        try {
+            await dbConnection.insert(exampleDBEntry);
+            return res.status(200).json({ "message": "Item inserted successfully" });
+        } catch (error) {
+            console.error('Error while inserting item:', error);
+            return res.status(500).json({ "error": "Failed to insert item into DynamoDB" });
+        }
+    });
+    
+
+    router.get('/dynamoConnectionTest', async (req, res) => {
+        let exampleDBEntry = {
+            "RequestItems": {
+                "TempTableOne": {
+                    "Keys": [{
+                        "UserId": { N: "1" },
+                        "Category": { S: "Query2" }
+                    }]
+                }
+            },
+        };
+        try {
+            let result = await dbConnection.read(exampleDBEntry);
+            return res.status(200).json({ "res": result });
+        } catch (error) {
+            console.error('Error while fetching data:', error);
+            return res.status(500).json({ "error": "Failed to fetch data from DynamoDB" });
+        }
     });
 
     router.get('/clientTempTest', (req, res) => {
