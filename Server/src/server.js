@@ -4,16 +4,20 @@ import http from 'http'
 import * as routes from './routes/index.js';
 import {auth} from './library/auth.js';
 import AWS from 'aws-sdk'
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 
 var virtualTAServer = express();
 virtualTAServer.use(cors())
 
 //AWS/NoSQL DB set up
 AWS.config.update({
-    // accessKeyId: process.env.accessKeyId,
-    // secretAccessKey: process.env.secretAccessKey,
-    // region: process.env.region,
-    // endpoint: process.env.endpoint,
+    accessKeyId: process.env.access_key,
+    secretAccessKey: process.env.secret_access_key,
+    region: process.env.region,
+    endpoint: process.env.endpoint
 });
 
 
@@ -26,6 +30,7 @@ virtualTAServer.use((req, res, next)=>{
     new Promise((resolve, reject)=> {
         auth(req.headers, resolve, reject)
     }).then(authorized =>{
+
         next()
     }).catch(Error =>{
         res.status(401).json(Error)
@@ -39,5 +44,4 @@ var server = http.createServer(virtualTAServer)
 var port = 443// use env file later process.env.PORT
 server.listen(port, ()=>{
     console.log('server running at port '+port);
-    
 });
