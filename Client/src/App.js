@@ -19,7 +19,7 @@ function App() {
       <header className="App-header">
           Ask the Virtual TA any question about CS4349!
       </header>
-      <label className = "App-label"
+      <label className = "App-label" 
         htmlFor="textBox">
           Query: 
       </label>

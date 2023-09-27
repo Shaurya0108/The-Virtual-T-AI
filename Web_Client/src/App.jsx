@@ -1,33 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useState, useRef, useLayoutEffect} from "react";
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const textareaRef = useRef(null);
+  const [value, setValue] = useState("");
+  const onChange = (event) => setValue(event.target.value);
+
+  
+  useLayoutEffect(() => {
+    // Reset height
+    textareaRef.current.style.height = 'auto';
+    // Set height
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  }, [value]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="App">
+      <header className="App-header">
+          Ask the Virtual TA any question about CS4349!
+      </header>
+      <label className = "App-label" 
+        htmlFor="textBox">
+          Query: 
+      </label>
+      <textarea
+        id="textBox"
+        className="App-textarea"
+        onChange={onChange}
+        ref={textareaRef}
+        value={value}
+      />
+    </div>
     </>
   )
 }
