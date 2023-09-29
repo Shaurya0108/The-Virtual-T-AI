@@ -20,6 +20,7 @@ AWS.config.update({
     endpoint: process.env.endpoint
 });
 
+virtualTAServer.use(express.json());
 
 virtualTAServer.get('/', (req, res)=> {
     res.status(200).json('Virtual TA Team Two project name')
