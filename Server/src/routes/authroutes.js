@@ -8,7 +8,7 @@ export const authroutes = () => {
 
     router.get('/getByUserId', async (req, res) => {
         try {
-            let result = await dbConnection.getByUserId(req.body)
+            let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
         } catch (error) {
             return res.status(500).json({"error": "Failed to fetch user"});

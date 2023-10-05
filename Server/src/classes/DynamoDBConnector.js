@@ -11,7 +11,7 @@ export class DynamoDBConnector{
             region: process.env.region
         })
     }
-    getByUserId(params){
+    getById(params){
         return new Promise((resolve, reject) => {
             this.db.query(params, function(err, data) {
                 if (err){
