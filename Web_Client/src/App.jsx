@@ -1,5 +1,5 @@
 import {useState, useRef, useLayoutEffect} from "react";
-import './App.css';
+import './App.css'
 
 function App() {
   const textareaRef = useRef(null);
@@ -13,8 +13,9 @@ function App() {
     // Set height
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
   }, [value]);
-  
+
   return (
+    <>
     <div className="App">
       <header className="App-header">
           Ask the Virtual TA any question about CS4349!
@@ -31,7 +32,8 @@ function App() {
         value={value}
       />
     </div>
-  );
+    </>
+  )
 }
 
-export default App;
+export default App
