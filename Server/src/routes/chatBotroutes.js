@@ -41,6 +41,15 @@ export const chatBotroutes = () => {
         }
     });
 
+    router.delete('/deleteBySessionId', async (req, res) => {
+        try {
+            const result = dbConnection.deleteSession(req.body);
+            return res.status(204).json(result);
+        }
+        catch (error) {
+            return res.status.apply(500).json({"error": "Failed to delete by Session Id"});
+        }
+    })
 
     return router;
 }
