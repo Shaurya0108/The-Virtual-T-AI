@@ -83,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n        \"Item\": {\r\n            \"UserID\": { \"S\": \"1001\" },\r\n            \"Time\": { \"S\": \"2023-10-3\"},\r\n            \"sessionId\": { \"S\": \"10002\" },\r\n            \"Query\": {\r\n                \"M\": {\r\n                    \"question\": { \"S\": \"testQuestion1\" },\r\n                    \"answer\": { \"S\": \"testAnswer1\" }\r\n                }\r\n            },\r\n            \"queryId\": { \"S\": \"100002\" }\r\n    }\r\n}",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n        \"Item\": {\r\n            \"UserID\": { \"S\": \"1001\" },\r\n            \"Time\": { \"S\": \"2023-10-2\"},\r\n            \"sessionId\": { \"S\": \"10002\" },\r\n            \"Query\": {\r\n                \"M\": {\r\n                    \"question\": { \"S\": \"testQuestion1\" },\r\n                    \"answer\": { \"S\": \"testAnswer1\" }\r\n                }\r\n            },\r\n            \"queryId\": { \"S\": \"100002\" }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,6 +158,33 @@
 							"path": [
 								"chatBot",
 								"getByQueryId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBySessionId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"sessionId-index\",\r\n    \"KeyConditionExpression\": \"#sessionId = :sessionIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#sessionId\": \"sessionId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":sessionIdVal\": { \"S\": \"10002\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot/deleteBySessionId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot",
+								"deleteBySessionId"
 							]
 						}
 					},
