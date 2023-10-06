@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "6413d2ed-0a49-4e19-ac15-7d1802ec87b1",
+		"name": "ChatBotRoutes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29520426"
+	},
+	"item": [
+		{
+			"name": "DBTest",
+			"item": [
+				{
+					"name": "chatBotRouteHomeGetAPICall",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "tokenToken",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByUserId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "12e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"KeyConditionExpression\": \"#UserID = :UserIDval\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#UserID\": \"UserID\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":UserIDval\": { \"S\": \"1001\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/auth/getByUserId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"auth",
+								"getByUserId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insertItemTest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n        \"Item\": {\r\n            \"UserID\": { \"S\": \"1001\" },\r\n            \"Time\": { \"S\": \"2023-10-2\"},\r\n            \"sessionId\": { \"S\": \"10002\" },\r\n            \"Query\": {\r\n                \"M\": {\r\n                    \"question\": { \"S\": \"testQuestion1\" },\r\n                    \"answer\": { \"S\": \"testAnswer1\" }\r\n                }\r\n            },\r\n            \"queryId\": { \"S\": \"100002\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot/insertRow",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot",
+								"insertRow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBySessionId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"sessionId-index\",\r\n    \"KeyConditionExpression\": \"#sessionId = :sessionIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#sessionId\": \"sessionId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":sessionIdVal\": { \"S\": \"10002\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot/getBySessionId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot",
+								"getBySessionId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByQueryId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"queryId-index\",\r\n    \"KeyConditionExpression\": \"#queryId = :queryIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#queryId\": \"queryId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":queryIdVal\": { \"S\": \"100001\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot/getByQueryId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot",
+								"getByQueryId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBySessionId",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"sessionId-index\",\r\n    \"KeyConditionExpression\": \"#sessionId = :sessionIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#sessionId\": \"sessionId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":sessionIdVal\": { \"S\": \"10002\" }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/chatBot/deleteBySessionId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"chatBot",
+								"deleteBySessionId"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "yesTokenHere",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}

@@ -6,20 +6,50 @@ var dbConnection = new DynamoDBConnector();
 export const chatBotroutes = () => {
     const router = express.Router();
 
+
     router.get('/', (req, res) => {
         return res.status(200).json({"res": "chatBot routes working"})
     });
 
-    router.get('/dbTempTest', (req, res) => {
-        let exampleDBEntry = {"RequestItems":{"id": 40296, "Query": "whaaaaa noooo, she said that??? wow you think you know someone", "timestamp": 101}, TableName: "TempTableOne"}
-        var result = dbConnection.insert(exampleDBEntry); //check console to see if it worked
-        return res.status(200).json({"res": result})
+
+    router.post('/insertRow', async (req, res) => {
+    
+        try {
+            let result = await dbConnection.insert(req.body);
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error('Error while inserting item:', error);
+            return res.status(500).json({ "error": "Failed to insert item into DynamoDB" });
+        }
     });
-    router.get('/dynamoConnectionTest', (req, res) => {
-        let exampleDBEntry = {"UserId": 0, "Category": "Query", "Querie": [ { "S" : "Hello my querie is blah blah blah" } ], "TimeStamp": 638309637250000000}
-        var result = dbConnection.read(exampleDBEntry); //check console to see if it worked
-        return res.status(200).json({"res": result})
+
+    router.get('/getBySessionId', async (req, res) => {
+        try {
+            let result = await dbConnection.getById(req.body);
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status.apply(500).json({"error": "Failed to get by session Id"})
+        }
     });
+
+    router.get('/getByQueryId', async (req, res) => {
+        try {
+            let result = await dbConnection.getById(req.body);
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status.apply(500).json({"error": "Failed to get by query Id"});
+        }
+    });
+
+    router.delete('/deleteBySessionId', async (req, res) => {
+        try {
+            const result = dbConnection.deleteSession(req.body);
+            return res.status(204).json(result);
+        }
+        catch (error) {
+            return res.status.apply(500).json({"error": "Failed to delete by Session Id"});
+        }
+    })
 
     return router;
 }
