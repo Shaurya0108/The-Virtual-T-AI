@@ -77,7 +77,7 @@
 					"response": []
 				},
 				{
-					"name": "insertItemTest",
+					"name": "insertQuery",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -91,13 +91,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{serverEndpoint}}/chatBot/insertRow",
+							"raw": "{{serverEndpoint}}/chatBot/insertQuery",
 							"host": [
 								"{{serverEndpoint}}"
 							],
 							"path": [
 								"chatBot",
-								"insertRow"
+								"insertQuery"
 							]
 						}
 					},
@@ -170,7 +170,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"sessionId-index\",\r\n    \"KeyConditionExpression\": \"#sessionId = :sessionIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#sessionId\": \"sessionId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":sessionIdVal\": { \"S\": \"10002\" }\r\n    }\r\n}",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"IndexName\": \"sessionId-index\",\r\n    \"KeyConditionExpression\": \"#sessionId = :sessionIdVal\",\r\n    \"ExpressionAttributeNames\": {\r\n        \"#sessionId\": \"sessionId\"\r\n    },\r\n    \"ExpressionAttributeValues\": {\r\n        \":sessionIdVal\": { \"S\": \"10001\" }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
