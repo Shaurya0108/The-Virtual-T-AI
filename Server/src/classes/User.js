@@ -16,7 +16,7 @@ export class User{
         DB.insert(params)
         return 1; //if no matching userName found return one for new user created else return zero
     }
-    getUser() {
+    getUserId() {
         var params = {Key: {'userName':{ S: this.userName},'password':{ S: this.password}}, TableName: "Users"};
         var result = DB.read(params)
         if(result== null) return 0; // no user matches
