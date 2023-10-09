@@ -13,7 +13,6 @@ export const chatBotroutes = () => {
 
 
     router.post('/insertQuery', async (req, res) => {
-    
         try {
             let result = await dbConnection.insert(req.body);
             return res.status(200).json(result);

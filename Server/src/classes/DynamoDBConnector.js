@@ -21,6 +21,8 @@ export class DynamoDBConnector{
                 else {
                     let items = []
                     data.Items.forEach(obj => {
+                        console.log(obj);
+                        console.log(AWS.DynamoDB.Converter.unmarshall(obj));
                         items.push(AWS.DynamoDB.Converter.unmarshall(obj));
                     });
                     resolve(items);
@@ -66,8 +68,16 @@ export class DynamoDBConnector{
             }
         });
     }
-    deleteEntries(params){
-        console.log('deleting entries with params '+params)
-        return 'needs to have logic';
+    getByPrimaryKey(params) {
+        return new Promise((resolve, reject) => {
+            this.db.getItem(params, (error, data) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(data.Item);
+                }
+            })
+        })
     }
 };

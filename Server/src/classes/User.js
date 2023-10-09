@@ -1,4 +1,5 @@
-import { DynamoDBConnector } from "./DynamoDBConnector";
+import { DynamoDBConnector } from "./DynamoDBConnector.js";
+import AWS from "aws-sdk";
 
 var DB = new DynamoDBConnector();
 export class User{
@@ -7,8 +8,39 @@ export class User{
         this.password = password;
     }
     createUser(){
-        var params = {Key: {'userName':{ S: this.userName}}, TableName: "Users"}; //dont want to set to username and password here only allow users to see if username exists
-        var result = DB.read(params)
+        return new Promise(async (resolve, reject) => {
+            try{
+                var params = {
+                    TableName: 'Users',
+                    Key: {
+                        'username': { S: this.userName } 
+                    }
+                };
+                const user = await DB.getByPrimaryKey(params);
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
+                let userId;
+                if (user) {
+                    userId = res.userId;
+                }
+                else {
+                    const Id = "1002"   //hardcoded for now, will change later
+                    const param = {
+                        TableName: "Users",
+                        Item: {
+                            UserID: { "S": Id },
+                            username: { "S": this.userName },
+                            password: { "S": this.password }
+                        }
+                    }
+                    DB.insert(param);
+                    userId = Id;
+                }
+                resolve(userId);
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        })
         var userAlreadyExists = (result != null)
         if(userAlreadyExists) return 0;  
 
@@ -17,14 +49,23 @@ export class User{
         return 1; //if no matching userName found return one for new user created else return zero
     }
     getUserId() {
-        var params = {Key: {'userName':{ S: this.userName},'password':{ S: this.password}}, TableName: "Users"};
-        var result = DB.read(params)
-        if(result== null) return 0; // no user matches
-
-        //add parsing and assigning user items here
-        //this.userId = result[0] need to get schema names for unique id from charles
-
-        return 1; //if valid user found return one else return zero
+        return new Promise(async (resolve, reject) => {
+            try{
+                var params = {
+                    TableName: 'Users',
+                    Key: {
+                        'username': { S: this.userName } 
+                    }
+                };
+                const user = await DB.getByPrimaryKey(params);
+                console.log(user);
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
+                resolve(res.UserId);
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        })
     }
 
 };
