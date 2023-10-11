@@ -20,20 +20,37 @@ export class User{
                 const res = AWS.DynamoDB.Converter.unmarshall(user);
                 let userId;
                 if (user) {
-                    userId = res.userId;
+                    userId = res.UserId;
                 }
                 else {
-                    const Id = "1002"   //hardcoded for now, will change later
+                    const params = {
+                        TableName: 'Users',
+                        ProjectionExpression: 'UserId',
+                    };
+            
+                    const result = await DB.scanTable(params);
+
+                    let highestUserId = 1001;
+            
+                    for (let item of result) {
+                        const currentUserId = parseInt(item.UserId.S, 10);
+                        if (currentUserId > highestUserId) {
+                            highestUserId = currentUserId;
+                        }
+                    }
+
+                    highestUserId += 1;
+                    const newUserIdStr = highestUserId.toString();
                     const param = {
                         TableName: "Users",
                         Item: {
-                            UserID: { "S": Id },
+                            UserId: { "S": newUserIdStr },
                             username: { "S": this.userName },
                             password: { "S": this.password }
                         }
                     }
                     DB.insert(param);
-                    userId = Id;
+                    userId = newUserIdStr;
                 }
                 resolve(userId);
             } catch (err) {
@@ -41,12 +58,6 @@ export class User{
                 reject(err);
             }
         })
-        var userAlreadyExists = (result != null)
-        if(userAlreadyExists) return 0;  
-
-        params = {Key: {'userName':{ S: this.userName},'password':{ S: this.password}}, TableName: "Users"};
-        DB.insert(params)
-        return 1; //if no matching userName found return one for new user created else return zero
     }
     getUserId() {
         return new Promise(async (resolve, reject) => {

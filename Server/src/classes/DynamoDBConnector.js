@@ -80,4 +80,16 @@ export class DynamoDBConnector{
             })
         })
     }
+    scanTable(params) {
+        return new Promise((resolve, reject) => {
+            this.db.scan(params, (error, data) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(data.Items);
+                }
+            })
+        })
+    }
 };
