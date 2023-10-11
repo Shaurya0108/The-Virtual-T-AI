@@ -4,6 +4,21 @@
   /* padding: 2rem; */
   text-align: left;
 }
+.DisplayWindow{
+  background-color: blue;
+}
+.mainCheese{
+}
+.Navbar{
+}
+.SessionBar{
+  background-color: brown;
+
+}
+
+.TextBox{
+  background-color: greenyellow;
+}
 /*
 .logo {
   height: 6em;

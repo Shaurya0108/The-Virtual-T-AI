@@ -1,4 +1,4 @@
-import UTDIcon from "./Images/UTD Icon.png";
+import UTDIcon from "../images/UTD Icon.png";
 export default function Navbar() {
     return (
         <nav className="nav">
@@ -10,5 +10,4 @@ export default function Navbar() {
             
         </nav>
     );
-     
 }
