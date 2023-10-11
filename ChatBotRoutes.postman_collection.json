@@ -83,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n        \"Item\": {\r\n            \"UserID\": { \"S\": \"1001\" },\r\n            \"Time\": { \"S\": \"2023-10-2\"},\r\n            \"sessionId\": { \"S\": \"10002\" },\r\n            \"Query\": {\r\n                \"M\": {\r\n                    \"question\": { \"S\": \"testQuestion1\" },\r\n                    \"answer\": { \"S\": \"testAnswer1\" }\r\n                }\r\n            },\r\n            \"queryId\": { \"S\": \"100002\" }\r\n    }\r\n}",
+							"raw": "{\r\n    \"TableName\": \"table-dev\",\r\n    \"Item\": {\r\n        \"UserID\": { \"S\": \"1001\" },\r\n        \"Time\": { \"S\": \"2023-10-2\"},\r\n        \"sessionId\": { \"S\": \"10002\" },\r\n        \"Query\": {\r\n            \"M\": {\r\n                \"question\": { \"S\": \"testQuestion1\" },\r\n                \"answer\": { \"S\": \"testAnswer1\" }\r\n            }\r\n        },\r\n        \"queryId\": { \"S\": \"100002\" }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -219,6 +219,88 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "UserTest",
+			"item": [
+				{
+					"name": "getUserIdByUsername",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "12e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"hongjun200\",\r\n    \"password\": \"test123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/auth/getUserId",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"auth",
+								"getUserId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "12e",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"hongjun2002\",\r\n    \"password\": \"test123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{serverEndpoint}}/auth/createUser",
+							"host": [
+								"{{serverEndpoint}}"
+							],
+							"path": [
+								"auth",
+								"createUser"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

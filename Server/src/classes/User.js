@@ -1,4 +1,5 @@
-import { DynamoDBConnector } from "./DynamoDBConnector";
+import { DynamoDBConnector } from "./DynamoDBConnector.js";
+import AWS from "aws-sdk";
 
 var DB = new DynamoDBConnector();
 export class User{
@@ -7,24 +8,75 @@ export class User{
         this.password = password;
     }
     createUser(){
-        var params = {Key: {'userName':{ S: this.userName}}, TableName: "Users"}; //dont want to set to username and password here only allow users to see if username exists
-        var result = DB.read(params)
-        var userAlreadyExists = (result != null)
-        if(userAlreadyExists) return 0;  
+        return new Promise(async (resolve, reject) => {
+            try{
+                var params = {
+                    TableName: 'Users',
+                    Key: {
+                        'username': { S: this.userName } 
+                    }
+                };
+                const user = await DB.getByPrimaryKey(params);
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
+                let userId;
+                if (user) {
+                    userId = res.UserId;
+                }
+                else {
+                    const params = {
+                        TableName: 'Users',
+                        ProjectionExpression: 'UserId',
+                    };
+            
+                    const result = await DB.scanTable(params);
 
-        params = {Key: {'userName':{ S: this.userName},'password':{ S: this.password}}, TableName: "Users"};
-        DB.insert(params)
-        return 1; //if no matching userName found return one for new user created else return zero
+                    let highestUserId = 1001;
+            
+                    for (let item of result) {
+                        const currentUserId = parseInt(item.UserId.S, 10);
+                        if (currentUserId > highestUserId) {
+                            highestUserId = currentUserId;
+                        }
+                    }
+
+                    highestUserId += 1;
+                    const newUserIdStr = highestUserId.toString();
+                    const param = {
+                        TableName: "Users",
+                        Item: {
+                            UserId: { "S": newUserIdStr },
+                            username: { "S": this.userName },
+                            password: { "S": this.password }
+                        }
+                    }
+                    DB.insert(param);
+                    userId = newUserIdStr;
+                }
+                resolve(userId);
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        })
     }
     getUserId() {
-        var params = {Key: {'userName':{ S: this.userName},'password':{ S: this.password}}, TableName: "Users"};
-        var result = DB.read(params)
-        if(result== null) return 0; // no user matches
-
-        //add parsing and assigning user items here
-        //this.userId = result[0] need to get schema names for unique id from charles
-
-        return 1; //if valid user found return one else return zero
+        return new Promise(async (resolve, reject) => {
+            try{
+                var params = {
+                    TableName: 'Users',
+                    Key: {
+                        'username': { S: this.userName } 
+                    }
+                };
+                const user = await DB.getByPrimaryKey(params);
+                console.log(user);
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
+                resolve(res.UserId);
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        })
     }
 
 };
