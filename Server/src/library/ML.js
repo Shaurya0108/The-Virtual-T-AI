@@ -4,13 +4,13 @@ export async function query(Text) {
     myHeaders.append("Authorization", "Bearer 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");
     
     var raw = JSON.stringify({
-        "inputs": "nooo yes no"
+        "inputs": Text
     });
     
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        body: Text,
+        body: raw,
         redirect: 'follow'
     };
     
