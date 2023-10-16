@@ -11,12 +11,12 @@ export const chatBotroutes = () => {
         return res.status(200).json({"res": "chatBot routes working"})
     });
 
-    router.get('/query', (req, res) => {
+    router.get('/query', async (req, res) => {
         
-        const chatResponse = query(req.body)
+        const chatResponse = await  query(req.body)
         //let result = await dbConnection.insert(req.body);
         //add to session logic
-        return res.status(200).json({"res": chatResponse})
+        return res.status(200).json({"res": chatResponse.substring(2, chatResponse.length-2)}) 
     });
 
     //convert this to helper called by query after getting ml response

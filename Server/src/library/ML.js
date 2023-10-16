@@ -3,14 +3,14 @@ export async function query(Text) {
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "Bearer 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");
     
-    var raw = JSON.stringify({
-        "inputs": Text
+    var queryBody = JSON.stringify({
+        "inputs": Text.body.substring(1, Text.body.length-1)
     });
     
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        body: raw,
+        body: queryBody,
         redirect: 'follow'
     };
     
@@ -19,5 +19,5 @@ export async function query(Text) {
     .then(response => response.text())
     .then( result => result)
     .catch(error => console.log('error', error))
-    return await response;
+    return response;
 };
