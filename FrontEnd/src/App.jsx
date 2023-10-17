@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import DisplayWindow from './components/DisplayWindow';
 import TextBox from './components/TextBox';
 import SessionBar from './components/SessionBar';
+import ChatBox2 from './components/ChatBox2';
 
 
 export default function App() {
@@ -22,6 +23,9 @@ export default function App() {
     <div>
       <DisplayWindow />
       <TextBox />
+    </div>
+    <div>
+      <ChatBox2 />
     </div>
 
   </body>

@@ -3,9 +3,14 @@
   margin: 0;
   /* padding: 2rem; */
   text-align: left;
+  height: 100vh;
+  position: relative;
 }
 .DisplayWindow{
   background-color: blue;
+  position: absolute;
+  top: 0;
+  width: 100%
 }
 .mainCheese{
 }
@@ -13,11 +18,16 @@
 }
 .SessionBar{
   background-color: brown;
-
+  position: absolute;
+  bottom: 0;
+  width: 100%
 }
 
 .TextBox{
   background-color: greenyellow;
+  position: absolute;
+  bottom: 0;
+  width: 100%
 }
 /*
 .logo {
@@ -67,9 +77,10 @@
 .nav {
   background-color: #154734;
   color: white;
-  display: flex; 
+  display: flex;
   position: absolute;
   top: 0px;
+  width: 100%;
   /* justify-content: space-between; */
   /*align-items: center;*/
   /*gap: 2rem;*/
@@ -96,4 +107,14 @@
   margin-top: 1.5rem;
   margin-left: 3rem;
   font-size: 30px;
+}
+
+.ChatBox2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
 }
