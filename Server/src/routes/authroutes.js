@@ -1,6 +1,7 @@
 import express from 'express';
 import  {DynamoDBConnector}  from '../classes/DynamoDBConnector.js';
 import {User} from '../classes/User.js';
+import { UnauthorizedError, ConflictError } from '../classes/Error.js';
 
 var dbConnection = new DynamoDBConnector();
 
@@ -21,10 +22,14 @@ export const authroutes = () => {
         try {
             var user = new User(req.body.username, req.body.password);
             let result = await user.createUser();
-            console.log(result);
             return res.status(200).json(result);
         } catch (error) {
-            return res.status(500).json({"error": "Failed to fetch user"});
+            if (error instanceof ConflictError) {
+                return res.status(409).json({"error": error.message});
+            }
+            else {
+                return res.status(500).json({"error": "Internal Server Error"});
+            }
         }
     });
 
@@ -34,7 +39,12 @@ export const authroutes = () => {
             let result = await user.getUserId();
             return res.status(200).json(result);
         } catch (error) {
-            return res.status(500).json({"error": "Failed to fetch user"});
+            if (error instanceof UnauthorizedError) {
+                return res.status(401).json({"error": error.message});
+            }
+            else {
+                return res.status(500).json({"error": "Internal Server Error"});
+            }
         }
     });
 

@@ -1,6 +1,8 @@
 import { DynamoDBConnector } from "./DynamoDBConnector.js";
 import AWS from "aws-sdk";
 import bcrypt from 'bcrypt';
+import { UnauthorizedError, ConflictError } from "./Error.js";
+
 
 var DB = new DynamoDBConnector();
 export class User{
@@ -18,10 +20,8 @@ export class User{
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
-                let userId;
                 if (user) {
-                    userId = res.UserId;
+                    throw new ConflictError("Username already exist");
                 }
                 else {
                     const params = {
@@ -53,9 +53,8 @@ export class User{
                         }
                     }
                     DB.insert(param);
-                    userId = newUserIdStr;
+                    resolve(newUserIdStr);
                 }
-                resolve(userId);
             } catch (err) {
                 console.log(err);
                 reject(err);
@@ -72,16 +71,16 @@ export class User{
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
                 if (!user) {
-                    resolve("User does not exist.");
+                    throw new UnauthorizedError("Not Allowed");
                 }
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
                 const password = res.password;
                 if (await bcrypt.compare(this.password, password)){
                     resolve(res.UserId);
                 }
                 else {
-                    resolve("Wrong password");
+                    throw new UnauthorizedError("Not Allowed");
                 }
             } catch (err) {
                 console.log(err);
