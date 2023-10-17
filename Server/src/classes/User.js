@@ -1,5 +1,6 @@
 import { DynamoDBConnector } from "./DynamoDBConnector.js";
 import AWS from "aws-sdk";
+import bcrypt from 'bcrypt';
 
 var DB = new DynamoDBConnector();
 export class User{
@@ -41,12 +42,14 @@ export class User{
 
                     highestUserId += 1;
                     const newUserIdStr = highestUserId.toString();
+                    const salt = await bcrypt.genSalt();
+                    const hashedPassword = await bcrypt.hash(this.password, salt);
                     const param = {
                         TableName: "Users",
                         Item: {
                             UserId: { "S": newUserIdStr },
                             username: { "S": this.userName },
-                            password: { "S": this.password }
+                            password: { "S": hashedPassword }
                         }
                     }
                     DB.insert(param);
@@ -69,9 +72,17 @@ export class User{
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
-                console.log(user);
                 const res = AWS.DynamoDB.Converter.unmarshall(user);
-                resolve(res.UserId);
+                if (!user) {
+                    resolve("User does not exist.");
+                }
+                const password = res.password;
+                if (await bcrypt.compare(this.password, password)){
+                    resolve(res.UserId);
+                }
+                else {
+                    resolve("Wrong password");
+                }
             } catch (err) {
                 console.log(err);
                 reject(err);
