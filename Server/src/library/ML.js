@@ -1,7 +1,7 @@
 export async function query(Text) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer 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");
+    myHeaders.append("Authorization", process.env.model_key);
     
     var queryBody = JSON.stringify({
         "inputs": Text.body.substring(1, Text.body.length-1)
@@ -15,7 +15,7 @@ export async function query(Text) {
     };
     
 
-    const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-v0.1",requestOptions)
+    const response = await fetch(process.env.model_route,requestOptions)
     .then(response => response.text())
     .then( result => result)
     .catch(error => console.log('error', error))
