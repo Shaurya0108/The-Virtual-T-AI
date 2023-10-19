@@ -97,3 +97,68 @@
   margin-left: 3rem;
   font-size: 30px;
 }
+
+.Login {
+  display: flex;
+}
+
+.student-login {
+  background-color: #fbb239;
+  color: white;
+  position: absolute;
+  top: 27%;
+  left: 35%;
+  border-radius: 30px;
+  width: 30%;
+  height: 9%;
+  font-size: 150%;
+  padding-bottom: 3.5%;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.grad-icon {
+  position: absolute;
+  top: 45%;
+  left: 25%;
+  width: 20%;
+}
+
+.login-input {
+  height: 20%;
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid;
+  border-color: #fbb239;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-input:focus {
+  outline: none;
+}
+
+.login-input-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 58%;
+  left: 55%;
+  height: 30%;
+  width: 15%;
+  justify-content: space-between;
+  
+}
+
+.login-button {
+  background-color: #fbb239;
+  color: white;
+  border-radius: 30px;
+  width: 70%;
+  height: 20%;
+  font-size: 90%;
+
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  left: 15%;
+}
