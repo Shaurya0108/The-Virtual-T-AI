@@ -1,95 +1,74 @@
-#root {
-  max-width: 1280px;
-  margin: 0;
-  /* padding: 2rem; */
-  text-align: left;
-  height: 100vh;
-  position: relative;
-}
-.DisplayWindow{
-  background-color: blue;
-  position: absolute;
-  top: 0;
-  width: 100%
-}
-.mainCheese{
-}
-.Navbar{
-}
-.SessionBar{
-  background-color: brown;
-  position: absolute;
-  bottom: 0;
-  width: 100%
-}
-
-.TextBox{
-  background-color: greenyellow;
-  position: absolute;
-  bottom: 0;
-  width: 100%
-}
-/*
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
- *{
+/* Global styles and box-sizing reset */
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* body {
+html, body {
+  height: 100%;
+  width: 100%;
   margin: 0;
-} */
+  padding: 0;
+  background-color: white;
+}
 
-.nav {
+#root {
+  /* max-width: 1280px; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* position: relative;
+  padding-top: 136px;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  box-sizing: border-box; */
+}
+
+.Navbar, .nav {
   background-color: #154734;
   color: white;
   display: flex;
   position: absolute;
   top: 0px;
+  left: 0px;
   width: 100%;
-  /* justify-content: space-between; */
-  /*align-items: center;*/
-  /*gap: 2rem;*/
-  /* padding: 0 1rem; */
+  /* new */
+  justify-content: space-between; /* Uncommented to spread items */
+  align-items: center;
+  padding: 0 1rem; /* Small padding around the edges */
+  min-height: 50px;  /* minimum height */
+  max-height: 136px; /* maximum height */
+  box-sizing: border-box;
+  z-index: 10;
+  /* new */
 }
 
+ /* .SessionBar {
+  background-color: #D9D9D9;
+  position: absolute;
+  left: 0; 
+  top: 60px;
+  bottom: 0;
+  width: 300px;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y:
+} */
+
+ /* *{
+  box-sizing: border-box;
+} */
+
+
+
 .utd-icon {
-  max-width: 15%;
+  max-width: 12%;
   margin-left: 7rem;
+  margin-right: 3rem;
 }
 
 .navbar-caption {
@@ -98,23 +77,46 @@
 
 .navbar-cap-1 {
   margin: 0;
-  margin-left: 3rem;
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 7rem;
 }
 
 .navbar-cap-2 {
   margin: 0;
-  margin-top: 1.5rem;
-  margin-left: 3rem;
-  font-size: 30px;
+  margin-top: 0.5rem;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 7rem;
 }
 
-.ChatBox2 {
+/* .ChatBox2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
   text-align: center;
-  padding: 20px;
+  padding: 2px;
+  box-sizing: border-box;
+  width: 300px;
+  height: auto;
+} */
+
+.ChatBox2 {
+  display: flex;
+  justify-content: center; /* Center vertically */
+  align-items: center;     /* Center horizontally */
+  flex-direction: column;
+  text-align: center;
+  padding: 2px;
+  box-sizing: border-box;
+  width: 300px;
+  height: auto;
+  margin-top: auto;  /* To ensure it sticks below the navbar */
+  margin-bottom: auto; /* If there's space below, it stays centered */
+  position: relative;
 }

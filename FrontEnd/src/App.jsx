@@ -18,14 +18,14 @@ export default function App() {
       <Navbar />
     </div>
     <div>
-      <SessionBar/>
-    </div>
-    <div>
-      <DisplayWindow />
-      <TextBox />
-    </div>
-    <div>
       <ChatBox2 />
+    </div>
+    <div>
+      {/* <SessionBar/> */}
+    </div>
+    <div>
+      {/* <DisplayWindow />
+      <TextBox /> */}
     </div>
 
   </body>

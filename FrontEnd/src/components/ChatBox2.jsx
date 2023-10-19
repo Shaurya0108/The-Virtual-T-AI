@@ -45,14 +45,14 @@ export default class ChatBox extends React.Component {
   render() {
     // Styles
     const chatContainerStyles = {
-      height: '50vh',
+      height: '60vh',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
       border: '1px solid #ccc',
       padding: '10px',
-      borderRadius: '8px',
-      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+      borderRadius: '10px',
+      // boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
       overflow: 'hidden',
     };
 
