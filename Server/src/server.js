@@ -5,6 +5,7 @@ import * as routes from './routes/index.js';
 import {auth} from './library/auth.js';
 import AWS from 'aws-sdk'
 import dotenv from 'dotenv'
+import { UnauthorizedError } from './classes/Error.js';
 
 dotenv.config();
 
@@ -31,10 +32,15 @@ virtualTAServer.use((req, res, next)=>{
     new Promise((resolve, reject)=> {
         auth(req.headers, resolve, reject)
     }).then(authorized =>{
-
         next()
     }).catch(Error =>{
-        res.status(401).json(Error)
+        if (Error instanceof UnauthorizedError){
+            res.status(Error.statusCode).json({error: Error.message});
+        }
+        else {
+            console.log(Error);
+            res.status(500).json({error: "Internal Server Error"});
+        }
     })
 })
 
