@@ -7,7 +7,6 @@ export default function Navbar() {
                 <h2 className="navbar-cap-1">Virtual TA</h2>
                 <h2 className="navbar-cap-2">CS4349 Advanced Algorithms Design and Analysis</h2>
             </div>
-            
         </nav>
     );
 }

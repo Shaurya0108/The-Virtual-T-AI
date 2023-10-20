@@ -1,65 +1,104 @@
-import React from 'react'
-import axios from 'axios'
-async function getDataAxios(Text){
+import React from 'react';
+import axios from 'axios';
 
-  //get response here
-  var response = "initialized"
 
-  return "\n the query responce is "+response
+async function getDataAxios(text) {
+
+  let data = JSON.stringify({
+    "body": text
+  });
+  const config = {
+    method: 'get',
+    url: 'http://localhost:443/chatBot/query',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAyIiwiaWF0IjoxNjk3ODI4NzczLCJleHAiOjE2OTc4MzA1NzN9.q3bnQmakZbG_z5agR04LbEz8H-rQEei45GqVsmgmvZ8',
+    },
+    data: data,
+  };
+
+  try {
+    const response = await axios(config);
+    console.log('Response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('There was an error!', error);
+    return "Error occurred";
+  }
 }
-//   let data = JSON.stringify({
-//     "inputs": Text
-//   });
-  
-
-// let config = {
-//   method: 'get',
-//   maxBodyLength: Infinity,
-//   url: 'localhost:443/chatBot/query',
-//   headers: { 
-//     'Content-Type': 'application/json', 
-//     'Authorization': 'Bearer tokenToken'
-//   },
-//   data : data
-// };
-
-//   axios.request(config)
-//   .then((response) => {
-//     return response.data;
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
 
 export default class TextBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = { value: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
+    console.log("User input:", event.target.value);
   }
 
   async handleSubmit(event) {
-    //make call to backend here
-    var response = await getDataAxios(this.state.value);
-    
-    alert('A query was submitted: ' + this.state.value +'\n query response is'+ response);
     event.preventDefault();
+    console.log('A query was submitted: ' + this.state.value);
+    const response = await getDataAxios(this.state.value);
+    alert('A query was submitted: ' + this.state.value + '\n query response is ' + response);
   }
 
   render() {
+    const styles = {
+      form: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        maxWidth: '400px',
+        margin: '0 auto',
+        padding: '22px',
+        borderRadius: '8px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      },
+      label: {
+        marginBottom: '10px',
+        fontWeight: 'bold',
+      },
+      input: {
+        padding: '10px',
+        borderRadius: '4px',
+        border: '1px solid #ddd',
+        marginBottom: '20px',
+        fontSize: '30px',
+      },
+      submitButton: {
+        padding: '7px',
+        borderRadius: '5px',
+        border: 'none',
+        backgroundColor: '#f22222',
+        color: 'white',
+        fontSize: '14px',
+        cursor: 'pointer',
+        fontWeight: 'bold',
+      }
+    };
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <form onSubmit={this.handleSubmit} style={styles.form}>
+        <label style={styles.label}>
           Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <input 
+            type="text" 
+            value={this.state.value} 
+            onChange={this.handleChange} 
+            style={styles.input} 
+          />
         </label>
-        <input type="submit" value="Submit" />
+        <input 
+          type="submit" 
+          value="Submit" 
+          style={styles.submitButton} 
+        />
       </form>
     );
   }
