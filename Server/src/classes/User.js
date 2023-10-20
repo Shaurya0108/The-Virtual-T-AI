@@ -21,7 +21,7 @@ export class User{
                 };
                 const user = await DB.getByPrimaryKey(params);
                 if (user) {
-                    throw new ConflictError("Username already exist");
+                    throw new ConflictError("Username already exist", 409);
                 }
                 else {
                     const params = {
@@ -72,7 +72,7 @@ export class User{
                 };
                 const user = await DB.getByPrimaryKey(params);
                 if (!user) {
-                    throw new UnauthorizedError("Not Allowed");
+                    throw new UnauthorizedError("Not Allowed", 401);
                 }
                 const res = AWS.DynamoDB.Converter.unmarshall(user);
                 const password = res.password;
@@ -80,7 +80,7 @@ export class User{
                     resolve(res.UserId);
                 }
                 else {
-                    throw new UnauthorizedError("Not Allowed");
+                    throw new UnauthorizedError("Not Allowed", 401);
                 }
             } catch (err) {
                 console.log(err);
