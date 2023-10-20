@@ -35,7 +35,7 @@ virtualTAServer.use((req, res, next)=>{
         next()
     }).catch(Error =>{
         if (Error instanceof UnauthorizedError){
-            res.status(Error.statusCode).json(Error);
+            res.status(Error.statusCode).json({error: Error.message});
         }
         else {
             console.log(Error);
