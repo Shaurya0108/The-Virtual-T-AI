@@ -44,7 +44,7 @@ export const authroutes = () => {
 
             const accessToken = jwt.sign({
                 userId: result
-            }, process.env.secret_access_token)
+            }, process.env.secret_access_token, {expiresIn: '30m'})
 
             return res.status(200).json({accessToken: accessToken});
         } catch (error) {
