@@ -3,14 +3,16 @@ import axios from 'axios';
 
 
 async function getDataAxios(text) {
-  const data = JSON.stringify({ inputs: text });
 
+  let data = JSON.stringify({
+    "body": text
+  });
   const config = {
     method: 'get',
     url: 'http://localhost:443/chatBot/query',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer tokenToken',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAyIiwiaWF0IjoxNjk3ODI4NzczLCJleHAiOjE2OTc4MzA1NzN9.q3bnQmakZbG_z5agR04LbEz8H-rQEei45GqVsmgmvZ8',
     },
     data: data,
   };
