@@ -147,7 +147,6 @@
   height: 30%;
   width: 15%;
   justify-content: space-between;
-  
 }
 
 .login-button {
@@ -161,4 +160,101 @@
   font-family: 'Roboto', sans-serif;
   position: relative;
   left: 15%;
+}
+
+
+.SessionBar {
+  height: 100%; /* Specify a height */
+  width: 0%; /* 0 width - change this with JavaScript */
+  position: absolute; /* Stay in place */
+  top: 0;
+  z-index: 1; /* Stay on top */
+  
+  background-color: #d9d9d9; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+  
+  flex-grow: 1;
+}
+
+/* The sidepanel links */
+.SessionBar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.SessionBar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.SessionBar .closebtn {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  font-size: 36px;
+  margin-left: 50px;
+
+  background-image: url('./images/Sidebar Icon - right.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 9%;
+  width: 8%;
+}
+
+.session-container {
+  position: absolute;
+  top: 24%;
+  left: 1%;
+  height: 75%;
+  width: 17%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  /* font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none; */
+  background-image: url('./images/Sidebar Icon - left.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 9%;
+  width: 8%;
+}
+
+.openbtn:focus {
+  outline: none;
+}
+
+.openbtn:hover {
+  border: none;
+}
+
+.new-session {
+  background-color: #808080;
+  color: white;
+  position: absolute;
+  top: 2%;
+  left: 15%;
+  border-radius: 30px;
+
+  height: 10%;
+  width: 60%;
+
+  font-size: 15px;
 }
