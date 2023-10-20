@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './index.css'
 import Navbar from "./components/Navbar";
 import DisplayWindow from './components/DisplayWindow';
 import TextBox from './components/TextBox';
@@ -14,18 +14,25 @@ export default function Home() {
   const [count, setCount] = useState(0)
 
   return (
+    <home>
+      
     <body>
-      <div className="App">
-        <Navbar />
-      </div>
-      <div>
-        <SessionBar/>
-      </div>
-      <div>
-        <DisplayWindow />
-        <TextBox />
+      <div class="chat-container">
+        <div className="navbar">
+          <Navbar />
+        </div>
+        <div class="session-bar">
+          <SessionBar/>
+        </div>
+        <div class="chat-display">
+          <DisplayWindow />
+        </div>
+        <div class="user-input">
+          <TextBox />
+        </div>
       </div>
     </body>
+    </home>
     
 
   )
