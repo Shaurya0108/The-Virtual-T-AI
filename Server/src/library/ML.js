@@ -4,7 +4,7 @@ export async function query(Text) {
     myHeaders.append("Authorization", process.env.model_key);
     
     var queryBody = JSON.stringify({
-        "inputs": Text.body.substring(1, Text.body.length-1)
+        "inputs": Text.body
     });
     
     var requestOptions = {
