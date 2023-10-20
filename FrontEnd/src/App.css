@@ -1,74 +1,84 @@
-/* Global styles and box-sizing reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-}
-
 #root {
-  /* max-width: 1280px; */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* position: relative;
-  padding-top: 136px;
-  position: relative;
-  width: 100%;
+  max-width: 1280px;
   margin: 0;
+  /* padding: 2rem; */
   text-align: left;
-  box-sizing: border-box; */
+}
+.DisplayWindow{
+  background-color: blue;
+}
+.mainCheese{
+}
+.Navbar{
+}
+.SessionBar{
+  background-color: brown;
+
 }
 
-.Navbar, .nav {
+.TextBox{
+  background-color: greenyellow;
+}
+/*
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+ *{
+  box-sizing: border-box;
+}
+
+/* body {
+  margin: 0;
+} */
+
+.nav {
   background-color: #154734;
   color: white;
-  display: flex;
+  display: flex; 
   position: absolute;
   top: 0px;
-  left: 0px;
-  width: 100%;
-  /* new */
-  justify-content: space-between; /* Uncommented to spread items */
-  align-items: center;
-  padding: 0 1rem; /* Small padding around the edges */
-  min-height: 50px;  /* minimum height */
-  max-height: 136px; /* maximum height */
-  box-sizing: border-box;
-  z-index: 10;
-  /* new */
+  /* justify-content: space-between; */
+  /*align-items: center;*/
+  /*gap: 2rem;*/
+  /* padding: 0 1rem; */
 }
 
- /* .SessionBar {
-  background-color: #D9D9D9;
-  position: absolute;
-  left: 0; 
-  top: 60px;
-  bottom: 0;
-  width: 300px;
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow-y:
-} */
-
- /* *{
-  box-sizing: border-box;
-} */
-
-
-
 .utd-icon {
-  max-width: 12%;
+  max-width: 15%;
   margin-left: 7rem;
-  margin-right: 3rem;
 }
 
 .navbar-caption {
@@ -77,46 +87,174 @@ html, body {
 
 .navbar-cap-1 {
   margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 7rem;
+  margin-left: 3rem;
+  font-size: 30px;
 }
 
 .navbar-cap-2 {
   margin: 0;
-  margin-top: 0.5rem;
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 7rem;
+  margin-top: 1.5rem;
+  margin-left: 3rem;
+  font-size: 30px;
 }
 
-/* .ChatBox2 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.Login {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2px;
-  box-sizing: border-box;
-  width: 300px;
-  height: auto;
-} */
+}
 
-.ChatBox2 {
+.student-login {
+  background-color: #fbb239;
+  color: white;
+  position: absolute;
+  top: 27%;
+  left: 35%;
+  border-radius: 30px;
+  width: 30%;
+  height: 9%;
+  font-size: 150%;
+  padding-bottom: 3.5%;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.grad-icon {
+  position: absolute;
+  top: 45%;
+  left: 25%;
+  width: 20%;
+}
+
+.login-input {
+  height: 20%;
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid;
+  border-color: #fbb239;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-input:focus {
+  outline: none;
+}
+
+.login-input-container {
   display: flex;
-  justify-content: center; /* Center vertically */
-  align-items: center;     /* Center horizontally */
   flex-direction: column;
-  text-align: center;
-  padding: 2px;
-  box-sizing: border-box;
-  width: 300px;
-  height: auto;
-  margin-top: auto;  /* To ensure it sticks below the navbar */
-  margin-bottom: auto; /* If there's space below, it stays centered */
+  position: absolute;
+  top: 58%;
+  left: 55%;
+  height: 30%;
+  width: 15%;
+  justify-content: space-between;
+}
+
+.login-button {
+  background-color: #fbb239;
+  color: white;
+  border-radius: 30px;
+  width: 70%;
+  height: 20%;
+  font-size: 90%;
+
+  font-family: 'Roboto', sans-serif;
   position: relative;
+  left: 15%;
+}
+
+
+.SessionBar {
+  height: 100%; /* Specify a height */
+  width: 0%; /* 0 width - change this with JavaScript */
+  position: absolute; /* Stay in place */
+  top: 0;
+  z-index: 1; /* Stay on top */
+  
+  background-color: #d9d9d9; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
+  
+  flex-grow: 1;
+}
+
+/* The sidepanel links */
+.SessionBar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.SessionBar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.SessionBar .closebtn {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+  font-size: 36px;
+  margin-left: 50px;
+
+  background-image: url('./images/Sidebar Icon - right.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 9%;
+  width: 8%;
+}
+
+.session-container {
+  position: absolute;
+  top: 24%;
+  left: 1%;
+  height: 75%;
+  width: 17%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  position: absolute;
+  top: 1%;
+  left: 2%;
+  /* font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none; */
+  background-image: url('./images/Sidebar Icon - left.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 9%;
+  width: 8%;
+}
+
+.openbtn:focus {
+  outline: none;
+}
+
+.openbtn:hover {
+  border: none;
+}
+
+.new-session {
+  background-color: #808080;
+  color: white;
+  position: absolute;
+  top: 2%;
+  left: 15%;
+  border-radius: 30px;
+
+  height: 10%;
+  width: 60%;
+
+  font-size: 15px;
 }

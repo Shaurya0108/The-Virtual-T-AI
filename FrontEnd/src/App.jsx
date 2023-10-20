@@ -6,29 +6,25 @@ import Navbar from "./components/Navbar";
 import DisplayWindow from './components/DisplayWindow';
 import TextBox from './components/TextBox';
 import SessionBar from './components/SessionBar';
-import ChatBox2 from './components/ChatBox2';
+import { Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import Login from './Login';
 
 
 export default function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <body>
-    <div className="App">
-      <Navbar />
-    </div>
-    <div>
-      <ChatBox2 />
-    </div>
-    <div>
-      {/* <SessionBar/> */}
-    </div>
-    <div>
-      {/* <DisplayWindow />
-      <TextBox /> */}
-    </div>
-
-  </body>
+    <>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path= "/login" element={<Login />} />
+      </Routes>
+      <div className="App">
+        <Navbar />
+      </div>
+    </>
+    
 
   )
 }
