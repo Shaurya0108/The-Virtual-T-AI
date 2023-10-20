@@ -1,4 +1,36 @@
 import React from 'react'
+import axios from 'axios'
+async function getDataAxios(Text){
+
+  //get response here
+  var response = "initialized"
+
+  return "\n the query responce is "+response
+}
+//   let data = JSON.stringify({
+//     "inputs": Text
+//   });
+  
+
+// let config = {
+//   method: 'get',
+//   maxBodyLength: Infinity,
+//   url: 'localhost:443/chatBot/query',
+//   headers: { 
+//     'Content-Type': 'application/json', 
+//     'Authorization': 'Bearer tokenToken'
+//   },
+//   data : data
+// };
+
+//   axios.request(config)
+//   .then((response) => {
+//     return response.data;
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
 export default class TextBox extends React.Component {
   constructor(props) {
     super(props);
@@ -12,9 +44,11 @@ export default class TextBox extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     //make call to backend here
-    alert('A name was submitted: ' + this.state.value);
+    var response = await getDataAxios(this.state.value);
+    
+    alert('A query was submitted: ' + this.state.value +'\n query response is'+ response);
     event.preventDefault();
   }
 

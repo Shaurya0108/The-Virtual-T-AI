@@ -28,11 +28,41 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.chat-container {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.session-bar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.chat-display {
+  flex: 1;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+.user-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 h1 {
