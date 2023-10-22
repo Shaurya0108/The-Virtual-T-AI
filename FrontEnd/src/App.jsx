@@ -1,32 +1,20 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import Navbar from "./components/Navbar";
-import DisplayWindow from './components/DisplayWindow';
-import TextBox from './components/TextBox';
-import SessionBar from './components/SessionBar';
-import { Routes, Route } from 'react-router-dom';
-import Home from './Home';
+import {BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './Login';
-
+import Home from './Home'
 
 export default function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path= "/login" element={<Login />} />
-      </Routes>
-      <div className="App">
-        <Navbar />
-      </div>
-    </>
     
-
-  )
+      <Routes>
+        <Route path="/home" element={<Home/>} />
+        <Route path="/" element={<Login/>} />
+      </Routes>
+    
+  );
 }
 
 
