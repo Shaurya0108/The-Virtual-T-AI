@@ -1,22 +1,23 @@
 import { DynamoDBConnector } from "./DynamoDBConnector.js";
 import AWS from "aws-sdk";
-import bcrypt from 'bcrypt';
 import { UnauthorizedError, ConflictError } from "./Error.js";
 
 
 var DB = new DynamoDBConnector();
-export class User{
-    constructor(userName, password) {
-        this.userName = userName;
-        this.password = password;
+export class Session{
+
+    constructor(){
+        this.sessionId = null;
     }
-    createUser(){
+
+    //needs filling
+    createSession(){
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: 'Users',
+                    TableName: 'sessions',
                     Key: {
-                        'username': { S: this.userName } 
+                        'sessions': { S: this.userName } 
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
@@ -60,12 +61,14 @@ export class User{
                 reject(err);
             }
         })
+        //reminder to set the sesion Id
     }
-    getUserId() {
+    //needs filling
+    getId() {
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: 'Users',
+                    TableName: '', // this needs to be updated 
                     Key: {
                         'username': { S: this.userName } 
                     }
@@ -88,14 +91,14 @@ export class User{
             }
         })
     }
-    // need to fill out
-    getSession() {
+    //needs filling
+    getStartDate() {
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: 'Users',
+                    TableName: '', // this needs to be updated 
                     Key: {
-                        'username': { S: this.userName } 
+                        'sessionId': { S: this.sessionID } 
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
@@ -116,14 +119,42 @@ export class User{
             }
         })
     }
-    // need to fill out
-    getSessions() {
+
+    deleteSession() {
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: 'Users',
+                    TableName: '', // this needs to be updated 
                     Key: {
-                        'username': { S: this.userName } 
+                        'sessionId': { S: this.sessionID } 
+                    }
+                };
+                const user = await DB.getByPrimaryKey(params);
+                if (!user) {
+                    throw new UnauthorizedError("Not Allowed", 401);
+                }
+                const res = AWS.DynamoDB.Converter.unmarshall(user);
+                const password = res.password;
+                if (await bcrypt.compare(this.password, password)){
+                    resolve(res.UserId);
+                }
+                else {
+                    throw new UnauthorizedError("Not Allowed", 401);
+                }
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        })
+    }
+    //need to fill out
+    addChatResponse() {
+        return new Promise(async (resolve, reject) => {
+            try{
+                var params = {
+                    TableName: '', // this needs to be updated 
+                    Key: {
+                        'sessionId': { S: this.sessionID } 
                     }
                 };
                 const user = await DB.getByPrimaryKey(params);
