@@ -7,26 +7,29 @@ export default class ChatBox extends React.Component {
 
     async query(Text) {
         
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAyIiwiaWF0IjoxNjk3OTQ3NjQ2LCJleHAiOjE2OTc5NDk0NDZ9.3IKjpaImfWCN_wc66Nnc8f_UN6k7HBv2GSPsoje1xUw");
-        alert("sending the floowing to backed: "+Text)
-        var raw = JSON.stringify({
-            "body": Text
-        });
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "body": Text
+            });
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow',
+                credentials: 'include'
+            };
+            const response = await fetch("http://localhost:443/chatBot/query", requestOptions)
+            .then(response => response.json())
 
-        const response = await fetch("localhost:443/chatBot/query", requestOptions).then(alert(response))
-        .then(response => response.text())
-        .then( result => result)
-        .catch(error => console.log('error', error))
-        return response;
+            const result = response.res.generated_text
+
+            return result;
+        } catch (err) {
+            alert(err.message)
+        }
         
     }
 

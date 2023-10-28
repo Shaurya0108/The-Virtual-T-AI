@@ -11,12 +11,16 @@ export const chatBotroutes = () => {
         return res.status(200).json({"res": "chatBot routes working"})
     });
 
-    router.get('/query', async (req, res) => {
-        
-        const chatResponse = await  query(req.body)
-        //let result = await dbConnection.insert(req.body);
-        //add to session logic
-        return res.status(200).json({"res": chatResponse.substring(2, chatResponse.length-2)}) 
+    router.post('/query', async (req, res) => {
+        try {
+            const chatResponse = await query(req.body)
+            //let result = await dbConnection.insert(req.body);
+            //add to session logic
+            return res.status(200).json({"res": chatResponse})
+        } catch (error) {
+            console.log("Error when chatbot query: ", error)
+            return res.status(500).json({ "error": "Internal Server Error" });
+        }
     });
 
     //convert this to helper called by query after getting ml response

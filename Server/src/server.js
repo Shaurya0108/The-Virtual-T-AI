@@ -6,12 +6,20 @@ import {auth} from './library/auth.js';
 import AWS from 'aws-sdk'
 import dotenv from 'dotenv'
 import { UnauthorizedError } from './classes/Error.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
+const corsOptions = {
+    origin: 'http://localhost:5173',  
+    credentials: true,
+    exposedHeaders: ["Set-Cookie"]
+};
 
 var virtualTAServer = express();
-virtualTAServer.use(cors())
+virtualTAServer.use(cookieParser());
+virtualTAServer.use(cors(corsOptions));
+
 
 //AWS/NoSQL DB set up
 AWS.config.update({
@@ -30,7 +38,7 @@ virtualTAServer.get('/', (req, res)=> {
 virtualTAServer.use('/auth', routes.authroutes());
 virtualTAServer.use((req, res, next)=>{
     new Promise((resolve, reject)=> {
-        auth(req.headers, resolve, reject)
+        auth(req, resolve, reject)
     }).then(authorized =>{
         next()
     }).catch(Error =>{
