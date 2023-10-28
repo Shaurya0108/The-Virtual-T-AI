@@ -6,7 +6,6 @@ export default class Sessions extends React.Component {
     var response;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMDAyIiwiaWF0IjoxNjk3OTQ0MzgxLCJleHAiOjE2OTc5NDYxODF9.HgaZiBEhfVQXNjhqEnsKbLCqyJppnGOWrxzpvsxHpOA");
 
     var raw = JSON.stringify({
       "body": Text
@@ -16,7 +15,8 @@ export default class Sessions extends React.Component {
       method: 'GET',
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
+      credentials: 'include'
     };
 
     fetch("localhost:443/chatBot/query", requestOptions)

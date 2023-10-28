@@ -21,8 +21,6 @@ export class DynamoDBConnector{
                 else {
                     let items = []
                     data.Items.forEach(obj => {
-                        console.log(obj);
-                        console.log(AWS.DynamoDB.Converter.unmarshall(obj));
                         items.push(AWS.DynamoDB.Converter.unmarshall(obj));
                     });
                     resolve(items);

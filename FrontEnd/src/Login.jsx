@@ -14,40 +14,32 @@ export default function Login() {
 
 
   async function authorizeUser() {
-
-    var credentials = JSON.stringify({
-      "username": username,
-      "password": password
-    });
-    alert("reminder to implement user login")
-    var response = await getUser(credentials)
-    response = "place auth token" // comment out after implementation
-    sessionStorage.setItem("authToken", response)
-    alert("item in storage is "+sessionStorage.getItem("authToken"))
-    navigator('home');
-  }
-
-
-  async function getUser(credentials) {
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      body: credentials,
-      redirect: 'follow'
-    };
-
-    
-    const response = await fetch("localhost:443/auth/login", requestOptions)
-      .then(response => response.text())
-      .then(result => result)
-      .catch(error => console.log('error', error))
-    
-
-    return response;
+    try{
+      var credentials = JSON.stringify({
+        "username": username,
+        "password": password
+      });
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+  
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: credentials,
+        redirect: 'follow',
+        credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
+      };
+      const response = await fetch("http://localhost:443/auth/login", requestOptions);
+      if (response.ok) {
+        navigator('home');
+      }
+      else {
+        alert('Invalid Credentials');
+      }
+    }
+    catch (err) {
+      alert(err.message);
+    }
   }
 
 

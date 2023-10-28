@@ -37,7 +37,7 @@ export const authroutes = () => {
         }
     });
 
-    router.get('/login', async (req, res) => {
+    router.post('/login', async (req, res) => {
         try {
             var user = new User(req.body.username, req.body.password);
             let result = await user.getUserId();
@@ -46,7 +46,12 @@ export const authroutes = () => {
                 userId: result
             }, process.env.secret_access_token, {expiresIn: '30m'})
 
-            return res.status(200).json({accessToken: accessToken});
+            return res
+            .cookie("accessToken", accessToken, {
+                httpOnly: true,
+            })
+            .status(200)
+            .json({message: "Logged In"});
         } catch (error) {
             if (error instanceof UnauthorizedError) {
                 return res.status(error.statusCode).json({"error": error.message});
@@ -54,6 +59,17 @@ export const authroutes = () => {
             else {
                 return res.status(500).json({"error": "Internal Server Error"});
             }
+        }
+    });
+
+    router.get('/logout', async (req, res) => {
+        try {
+            return res
+            .clearCookie("accessToken")
+            .status(200)
+            .json({ message: "Logged Out" });
+        } catch (error) {
+            return res.status(500).json({"error": "Internal Server Error"});
         }
     });
 

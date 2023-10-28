@@ -1,25 +1,29 @@
-export async function query(Text) {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", process.env.model_key);
-    
-    var queryBody = JSON.stringify({
-        "inputs": Text.body
-    });
-    
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: queryBody,
-        redirect: 'follow'
-    };
-    
-
-    const response = await fetch(process.env.model_route,requestOptions)
-    .then(response => response.text())
-    .then( result => result)
-    .catch(error => console.log('error', error))
-    return response;
+export function query(Text) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", process.env.model_key);
+            
+            var queryBody = JSON.stringify({
+                "inputs": Text.body
+            });
+            
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: queryBody,
+                redirect: 'follow'
+            };
+            
+            const response = await fetch(process.env.model_route, requestOptions)
+            .then(response => response.json())
+            
+            resolve(response[0]);
+        } catch (error) {
+            reject(error)
+        }
+    })
 };
 
 // here we can define a function to see if the model is down and return a loading status to front end

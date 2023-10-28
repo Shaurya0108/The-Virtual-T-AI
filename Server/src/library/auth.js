@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-export const auth = ({authorization}, resolve, reject) => {
-    const token = authorization && authorization.split(' ')[1];
+export const auth = (req, resolve, reject) => {
+    const token = req.cookies.accessToken;
 
     if (!token){
         throw new UnauthorizedError("Unauthorized", 401)
