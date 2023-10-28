@@ -27,7 +27,7 @@ export default function Login() {
         headers: myHeaders,
         body: credentials,
         redirect: 'follow',
-        credentials: 'include'
+        credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
       };
       const response = await fetch("http://localhost:443/auth/login", requestOptions);
       if (response.ok) {
