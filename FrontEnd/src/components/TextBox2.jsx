@@ -21,7 +21,7 @@ export default class ChatBox extends React.Component {
                 redirect: 'follow',
                 credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
             };
-            const response = await fetch("http://localhost:443/chatBot/query", requestOptions)
+            const response = await fetch("http://18.189.195.246:443/chatBot/query", requestOptions)
             .then(response => response.json())
 
             const result = response.res.generated_text
