@@ -18,7 +18,6 @@ export function query(Text) {
             
             const response = await fetch(process.env.model_route, requestOptions)
             .then(response => response.json())
-            
             resolve(response[0]);
         } catch (error) {
             reject(error)

@@ -45,7 +45,8 @@ export const authroutes = () => {
             const accessToken = jwt.sign({
                 userId: result
             }, process.env.secret_access_token, {expiresIn: '30m'})
-
+            
+            //add cookie to store UserId
             return res
             .cookie("accessToken", accessToken, {
                 httpOnly: true,

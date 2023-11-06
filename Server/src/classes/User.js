@@ -34,20 +34,19 @@ export class User{
                     let highestUserId = 1001;
             
                     for (let item of result) {
-                        const currentUserId = parseInt(item.UserId.S, 10);
+                        const currentUserId = item.UserId.N;
                         if (currentUserId > highestUserId) {
                             highestUserId = currentUserId;
                         }
                     }
 
                     highestUserId += 1;
-                    const newUserIdStr = highestUserId.toString();
                     const salt = await bcrypt.genSalt();
                     const hashedPassword = await bcrypt.hash(this.password, salt);
                     const param = {
                         TableName: "Users",
                         Item: {
-                            UserId: { "S": newUserIdStr },
+                            UserId: { "N": newUserIdStr },
                             username: { "S": this.userName },
                             password: { "S": hashedPassword }
                         }
