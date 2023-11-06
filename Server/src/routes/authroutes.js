@@ -49,7 +49,10 @@ export const authroutes = () => {
             //add cookie to store UserId
             return res
             .cookie("accessToken", accessToken, {
-                httpOnly: true,
+                httpOnly: true
+            })
+            .cookie("UserId", result, {
+                httpOnly: true
             })
             .status(200)
             .json({message: "Logged In"});
@@ -67,6 +70,7 @@ export const authroutes = () => {
         try {
             return res
             .clearCookie("accessToken")
+            .clearCookie("UserId")
             .status(200)
             .json({ message: "Logged Out" });
         } catch (error) {

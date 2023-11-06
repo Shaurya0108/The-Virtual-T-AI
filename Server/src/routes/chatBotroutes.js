@@ -17,9 +17,9 @@ export const chatBotroutes = () => {
             
             const currentDate = new Date();
 
-            const timestamp = currentDate.getUTCDate() + "/"
-                + (currentDate.getUTCMonth()+1)  + "/" 
-                + currentDate.getUTCFullYear() + " @ "  
+            const timestamp = + currentDate.getUTCFullYear() + "-" 
+                + (currentDate.getUTCMonth()+1)  + "-"  
+                + currentDate.getUTCDate() + " "
                 + currentDate.getUTCHours() + ":"  
                 + currentDate.getUTCMinutes() + ":" 
                 + currentDate.getUTCSeconds();
@@ -27,7 +27,7 @@ export const chatBotroutes = () => {
             const params = {
                 TableName: "table-dev",
                 Item: {
-                    UserID: { S: "1002" },    //hardcoded for now, should get it from the cookie
+                    UserID: { N: req.cookies.UserId },
                     Time: { S: timestamp},   
                     sessionId: { S: "10002" },  //hardcoded for now, should be part of request
                     Query: {
