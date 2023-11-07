@@ -74,7 +74,7 @@ export default class ChatBox extends React.Component {
 
     render() {
         return (
-            <div className="flex flex-col h-screen">
+            <div className="flex flex-col ">
                 <div className="overflow-auto p-4 flex-grow">
                     <div className="flex flex-col gap-2">
                         {this.state.conversation.map((message, index) => (
@@ -92,14 +92,14 @@ export default class ChatBox extends React.Component {
                             type="text"
                             value={this.state.userMessage}
                             onChange={this.handleChange}
-                            placeholder="Ask me anything..."
+                            placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
                             className="flex-grow p-2 border rounded-md"
                         />
                         <button
                             type="submit"
                             className="p-2 bg-blue-500 text-white rounded-md"
                         >
-                            Send
+                            Query
                         </button>
                     </div>
                 </form>
