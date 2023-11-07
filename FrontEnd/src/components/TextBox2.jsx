@@ -26,7 +26,7 @@ export default class ChatBox extends React.Component {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer token_here',
+                'Authorization': 'Bearer ${process.env.BEARER_TOKEN}',
             },
             body: JSON.stringify({
                 "input": {
