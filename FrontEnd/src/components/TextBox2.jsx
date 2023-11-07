@@ -74,26 +74,34 @@ export default class ChatBox extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="chat-converstaion">
-                    {this.state.conversation.map((message, index) => (
-                        <div key={index} style={{ textAlign: message.sender === 'chatbot' ? 'left' : 'right' }}>
-                            <p>{message.text}</p>
-                        </div>
-                    ))}
+            <div className="flex flex-col h-screen">
+                <div className="overflow-auto p-4 flex-grow">
+                    <div className="flex flex-col gap-2">
+                        {this.state.conversation.map((message, index) => (
+                            <div key={index} className={`max-w-3/4 ${
+                                message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
+                            } rounded-md p-2`}>
+                                <p className="text-sm">{message.text}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <form onSubmit={this.handleSubmit} className="chat-input">
-                    <input
-                        type="text"
-                        value={this.state.userMessage}
-                        onChange={this.handleChange}
-                        placeholder="Ask me anything..."
-                        className="chat-inputField"
-                    />
-                    <button
-                        type="submit"
-                        className="chat-submit"
-                    >🔍</button>
+                <form onSubmit={this.handleSubmit} className="p-4 bg-white border-t-2">
+                    <div className="flex gap-2">
+                        <input
+                            type="text"
+                            value={this.state.userMessage}
+                            onChange={this.handleChange}
+                            placeholder="Ask me anything..."
+                            className="flex-grow p-2 border rounded-md"
+                        />
+                        <button
+                            type="submit"
+                            className="p-2 bg-blue-500 text-white rounded-md"
+                        >
+                            Send
+                        </button>
+                    </div>
                 </form>
             </div>
         );

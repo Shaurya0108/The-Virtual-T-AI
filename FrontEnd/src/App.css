@@ -1,6 +1,6 @@
-#root {
-
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .nav {
   background-color: #154734;
@@ -9,10 +9,6 @@
   width:100%;
   top: 0;
   top: 0px;
-  /* justify-content: space-between; */
-  /*align-items: center;*/
-  /*gap: 2rem;*/
-  /* padding: 0 1rem; */
 }
 
 .utd-icon {
