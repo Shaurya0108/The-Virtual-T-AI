@@ -1,87 +1,81 @@
 import React from 'react';
-import '../css/Home.css'
-
-
+import '../css/Home.css';
 
 export default class ChatBox extends React.Component {
-
-    async query(Text) {
-        
-        try {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var raw = JSON.stringify({
-                "body": Text
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow',
-                credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
-            };
-            const response = await fetch("http://localhost:443/chatBot/query", requestOptions)
-            .then(response => response.json())
-
-            const result = response.res.generated_text
-
-            return result;
-        } catch (err) {
-            alert(err.message)
-        }
-        
-    }
-
-
-
     constructor(props) {
         super(props);
         this.state = {
-            userMessage: '',
             conversation: [],
+            userMessage: '',
+        };
+    }
+
+    handleChange = (event) => {
+        this.setState({ userMessage: event.target.value });
+    };
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const prompt = this.state.userMessage;
+        const response = await this.postChatMessage(prompt);
+        this.updateConversation(prompt, response);
+    };
+
+    postChatMessage = async (prompt) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer token_here',
+            },
+            body: JSON.stringify({
+                "input": {
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.<</SYS>>Write a Binary search tree in Python[/INST]",
+                    "max_new_tokens": 500,
+                    "temperature": 0.9,
+                    "top_k": 50,
+                    "top_p": 0.7,
+                    "repetition_penalty": 1.2,
+                    "batch_size": 8,
+                    "stop": [
+                        "</s>"
+                    ]
+                }
+            })
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+        try {
+            const response = await fetch('https://api.runpod.ai/v2/tsddif1jle8o98/runsync', requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.output;
+        } catch (error) {
+            console.error('There was an error!', error);
+            return "Sorry, there was an issue getting the response.";
+        }
+    };
 
-
-    handleChange(event) {
-        this.setState({ userMessage: event.target.value });
-    }
-
-    async handleSubmit(event) {
-
-        event.preventDefault();
-
-        // Send the message to the conversation state
-        this.setState(state => {
-            const conversation = [...state.conversation, { text: state.userMessage, sender: 'user' }];
-            return {
-                conversation,
-                userMessage: '', // Clear the input box
-            };
-        });
-
-        // Make a call to backend and get the response message.
-        const chatbotResponse = await this.query(this.state.userMessage);
-        alert(chatbotResponse)
-        // Add the chatbot's response to the conversation
-        this.setState(state => {
-            const conversation = [...state.conversation, { text: chatbotResponse, sender: 'chatbot' }];
-            return {
-                conversation
-            };
-        });
-    }
+    updateConversation = (prompt, responseText) => {
+        const userMessage = { sender: 'user', text: prompt };
+        const chatbotMessage = { sender: 'chatbot', text: responseText };
+    
+        this.setState(prevState => ({
+            conversation: [...prevState.conversation, userMessage, chatbotMessage],
+            userMessage: ''
+        }));
+    
+        console.log("My input: ", userMessage);
+        console.log("Model output: ", chatbotMessage);
+    };
+    
+    
 
     render() {
-
         return (
-            <div> {/* chatContainerStyles applied here */}
+            <div>
                 <div className="chat-converstaion">
-                    {/* Render the conversation */}
                     {this.state.conversation.map((message, index) => (
                         <div key={index} style={{ textAlign: message.sender === 'chatbot' ? 'left' : 'right' }}>
                             <p>{message.text}</p>
@@ -93,14 +87,13 @@ export default class ChatBox extends React.Component {
                         type="text"
                         value={this.state.userMessage}
                         onChange={this.handleChange}
-                        placeholder="Ask me anything"
-                        className="chat-inputField" 
+                        placeholder="Ask me anything..."
+                        className="chat-inputField"
                     />
-                    <input
+                    <button
                         type="submit"
-                        value="🔍" // Search icon
                         className="chat-submit"
-                    />
+                    >🔍</button>
                 </form>
             </div>
         );

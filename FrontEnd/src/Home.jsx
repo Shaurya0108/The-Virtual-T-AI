@@ -30,13 +30,6 @@ export default function Home() {
     }
   }
 
-
-
-
-
-
-
-
   /////////////////////////////////
   // Putting together the return html object
   /////////////////////////////////
