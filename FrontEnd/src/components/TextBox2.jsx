@@ -74,9 +74,9 @@ export default class ChatBox extends React.Component {
 
     render() {
         return (
-            <div className="flex flex-col ">
-                <div className="overflow-auto p-4 flex-grow">
-                    <div className="flex flex-col gap-2">
+            <div className="chat-container">
+                <div className="message-list">
+                    <div className="flex flex-col gap-2 message-list-padding">
                         {this.state.conversation.map((message, index) => (
                             <div key={index} className={`max-w-3/4 ${
                                 message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
@@ -86,7 +86,7 @@ export default class ChatBox extends React.Component {
                         ))}
                     </div>
                 </div>
-                <form onSubmit={this.handleSubmit} className="p-4 bg-white border-t-2">
+                <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
                     <div className="flex gap-2">
                         <input
                             type="text"
@@ -105,5 +105,5 @@ export default class ChatBox extends React.Component {
                 </form>
             </div>
         );
-    }
+    }    
 }

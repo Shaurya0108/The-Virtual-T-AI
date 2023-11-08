@@ -36,3 +36,35 @@
 .hidden {
   display: none;
 }
+
+.chat-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* This will make the message list scrollable */
+.message-list {
+  overflow-y: auto;
+  margin-bottom: auto;
+}
+
+/* This will fix the form to the bottom of the viewport */
+.chat-form-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #ccc;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0.1, 0.1);
+  z-index: 1000;
+}
+
+/* This will create some space at the bottom of the message list to avoid overlap with the fixed input form */
+.message-list-padding {
+  padding-bottom: 60px;
+}
