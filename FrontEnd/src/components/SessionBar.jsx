@@ -1,6 +1,39 @@
 import React from 'react';
-import '../css/Home.css'
+import '../css/Home.css';
+import { v4 as uuidv4 } from 'uuid'; // You need to install 'uuid' module if not already
+
 export default class Sessions extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentSessionId: null,
+      previousSessions: [],
+      userMessage: '',
+      conversation: [],
+    };
+  }
+
+  // Generates a new session ID and updates the state
+  createNewSession = () => {
+    const newSessionId = uuidv4(); // Generates a unique session ID using UUID
+
+    this.setState(prevState => ({
+      currentSessionId: newSessionId,
+      previousSessions: [...prevState.previousSessions, newSessionId],
+      conversation: [], // Reset the conversation or handle as necessary
+    }));
+
+    // Here you would also post the new session ID to your backend
+    // and initialize anything else required for a new session.
+  };
+
+  // A function that allows the user to select and load a previous session
+  // This would involve retrieving the previous session data from the backend
+  selectPreviousSession = (sessionId) => {
+    // Set the current session to the selected one
+    this.setState({ currentSessionId: sessionId });
+    // Here you would also retrieve the conversation for the selected session from the backend
+  };
 
   async query(Text) {
     var response;
@@ -25,21 +58,6 @@ export default class Sessions extends React.Component {
       .catch(error => console.log('error', error));
     return response;
   }
-
-
-
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      userMessage: '',
-      conversation: [],
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
 
   handleChange(event) {
     this.setState({ userMessage: event.target.value });
@@ -70,13 +88,25 @@ export default class Sessions extends React.Component {
   }
 
   render() {
+    const { previousSessions, currentSessionId } = this.state;
 
     return (
-
       <div id="session-bar" className="SessionBar">
-        <button className="new-session">New Session</button>
+        <button onClick={this.createNewSession} className="new-session">
+          New Session
+        </button>
+        <div className="previous-sessions">
+          {previousSessions.map(sessionId => (
+            <button
+              key={sessionId}
+              onClick={() => this.selectPreviousSession(sessionId)}
+              className={`session ${sessionId === currentSessionId ? 'current-session' : ''}`}
+            >
+              {`Session ${sessionId}`}
+            </button>
+          ))}
+        </div>
       </div>
-
     );
   }
 }

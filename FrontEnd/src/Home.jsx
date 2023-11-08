@@ -3,12 +3,6 @@ import TextBox2 from './components/TextBox2';
 import Sessions from './components/SessionBar';
 import Navbar  from './components/Navbar';
 export default function Home() {
-  /////////////////////////////////
-  // handling container reactivity
-  /////////////////////////////////
-
-  //const openbtn = document.querySelector('openbtn').addEventListener('click', function(){ toggleSessionbar()} );
-
   function toggleSessions(){
     var sessionContainer = document.querySelector('.session-container');
     var chatContainer = document.querySelector('.chat-container');
@@ -30,9 +24,6 @@ export default function Home() {
     }
   }
 
-  /////////////////////////////////
-  // Putting together the return html object
-  /////////////////////////////////
   return (
     <>
     <Navbar/>

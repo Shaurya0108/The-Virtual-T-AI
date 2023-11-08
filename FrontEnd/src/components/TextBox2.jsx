@@ -69,8 +69,6 @@ export default class ChatBox extends React.Component {
         console.log("My input: ", userMessage);
         console.log("Model output: ", chatbotMessage);
     };
-    
-    
 
     render() {
         return (
