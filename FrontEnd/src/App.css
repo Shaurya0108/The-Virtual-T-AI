@@ -12,25 +12,32 @@
 }
 
 .utd-icon {
-  max-width: 15%;
-  margin-left: 7rem;
+  max-width: 10%;
+  margin-left: 2rem;
 }
 
 .navbar-caption {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 
 .navbar-cap-1 {
   margin: 0;
-  margin-left: 3rem;
-  font-size: 30px;
+  font-size: 40px;
+  width: fit-content; /* Adjust the width as needed */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .navbar-cap-2 {
   margin: 0;
-  margin-top: 1.5rem;
-  margin-left: 3rem;
-  font-size: 30px;
+  font-size: 20px;
+  width: fit-content; /* Adjust the width as needed */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hidden {
