@@ -26,19 +26,16 @@ export default function Home() {
 
   return (
     <>
-    <Navbar/>
-    <home link rel="stylesheet" type="text/css" href="./css/Home.css" >
-      
-      <div className="session-container">
-        <button type="button" className="openbtn" onClick={toggleSessions}></button>
-        <Sessions/>
-      </div>
-      <div className="chat-container">
-        <TextBox2 />
-      </div>
-  
-    </home>
+      <Navbar/>
+      <home link rel="stylesheet" type="text/css" href="./css/Home.css" >
+        <div className="session-container">
+          <button type="button" className="openbtn" onClick={toggleSessions}></button>
+          <Sessions/>
+        </div>
+        <div className="chat-container">
+          <TextBox2 />
+        </div>
+      </home>
   </>
-
   )
 }
