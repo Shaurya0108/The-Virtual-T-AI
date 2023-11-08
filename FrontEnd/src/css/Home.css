@@ -6,44 +6,33 @@ home{
     width: 0;
     flex-grow: 1;
     flex-direction: column; 
+    margin-right: 20px;
 }
 
 .chat-container {
     flex-grow: 39;
     
     flex-direction: row-reverse;
-    align-content: flex-end; /* Center vertically */
+    align-content: flex-end;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Add scrollbar when content exceeds the height */
-    min-height: 600px; /* Set a minimum height (adjust the value as needed) */
-    max-height: 1000px; /* Set a maximum height (adjust the value as needed) */
+    overflow-y: auto;
+    min-height: 600px;
+    max-height: 1000px;
 }
 
 .SessionBar {
 
     width: 0;
-    flex-grow: 1; /* Sidebar will grow to fill available space when open */
+    flex-grow: 1;
     height: 75%;
     position: fixed;
-    /* Specify a height */
-     /*0 width - change this with JavaScript */
-     /* position: absolute;  */
-    /* Stay in place */
-
-    /* Stay on top */
-
-     background-color: #d9d9d9; 
-    /* Black*/
+     background-color: #d9d9d9;
      overflow-x: hidden; 
-    /* Disable horizontal scroll */
     padding-top: 60px;
-    /* Place content 60px from the top */
      transition: 0.5s; 
-    /* 0.5 second transition effect to slide in the sidepanel */
-
     flex-grow: 1;
 }
 
@@ -64,25 +53,13 @@ home{
 
 /* Position and style the close button (top right corner) */
 .SessionBar .closebtn {
-    /* position: absolute;
-    top: 1%;
-    right: 2%;
-    font-size: 36px;
-    margin-left: 50px; */
-
     background-image: url('../images/Sidebar Icon - right.png');
     background-repeat: no-repeat;
     background-size: contain;
-    /* height: 9%;
-    width: 8%; */
 }
-
 
 /* Style the button that is used to open the sidepanel */
 .openbtn {
-    /* position: absolute; */
-
-
     cursor: pointer;
     background-color: #111;
     color: white;
@@ -91,8 +68,6 @@ home{
     background-image: url('../images/Sidebar Icon - left.png');
     background-repeat: no-repeat;
     background-size:contain;
-    /* height: 9%;
-    width: 8%; */
 }
 
 .openbtn:focus {
@@ -108,8 +83,6 @@ home{
     color: white;
 }
 
-
-
 .chat-conversation {
     justify-content: space-between; 
     overflowY: 'scroll';
@@ -118,15 +91,15 @@ home{
 
 .chat-input {
     display: flex;
-    align-items: center; /* Center items vertically */
+    align-items: center;
 }
 
 .chat-inputField {
-    flex-grow: 1; /* Expands to fill available space */
+    flex-grow: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px; /* Create space between input and button */
+    margin-right: 10px;
 }
 
 .chat-submit {
@@ -138,4 +111,25 @@ home{
     cursor: pointer;
 }
 
+.sidebar {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    background: #fff;
+    transition: left 0.3s;
+    z-index: 1000;
+  }
+  
+.sidebar.open {
+left: 0;
+}
 
+.pushed-content {
+transition: margin-left 0.3s;
+}
+
+.pushed-content.open {
+margin-left: 300px;
+}

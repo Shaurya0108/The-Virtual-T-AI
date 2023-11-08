@@ -13,14 +13,14 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
 
-  async function authorizeUser() {
-    try{
-      var credentials = JSON.stringify({
-        "username": username,
-        "password": password
-      });
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+  // async function authorizeUser() {
+  //   try{
+  //     var credentials = JSON.stringify({
+  //       "username": username,
+  //       "password": password
+  //     });
+  //     var myHeaders = new Headers();
+  //     myHeaders.append("Content-Type", "application/json");
   
       var requestOptions = {
         method: 'POST',
@@ -61,7 +61,8 @@ export default function Login() {
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)} />
-          <button className="login-button" onClick={authorizeUser}>
+          {/* <button className="login-button" onClick={authorizeUser}> */}
+          <button className="login-button" onClick={"hello"}>  
             LOGIN
           </button>
         </div>
