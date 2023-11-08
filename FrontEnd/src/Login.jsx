@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios';
 import './css/Login.css'
 import gradIcon from "./images/student-grad.png";
 import {useNavigate} from 'react-router-dom'
@@ -12,16 +11,6 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
-  // async function authorizeUser() {
-  //   try{
-  //     var credentials = JSON.stringify({
-  //       "username": username,
-  //       "password": password
-  //     });
-  //     var myHeaders = new Headers();
-  //     myHeaders.append("Content-Type", "application/json");
-  
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -36,15 +25,8 @@ export default function Login() {
       else {
         alert('Invalid Credentials');
       }
-    }
-    catch (err) {
-      alert(err.message);
-    }
-  }
-
 
   return (
-    
       <div className="Login">
         <button className="student-login">
           STUDENT LOGIN
@@ -67,7 +49,5 @@ export default function Login() {
           </button>
         </div>
       </div>
-    
-
   )
 }
