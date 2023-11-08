@@ -10,7 +10,7 @@ home{
 .session-container {
     width: 0;
     flex-grow: 1;
-    flex-direction: column; 
+    flex-direction: column;
     margin-right: 20px;
 }
 
@@ -77,6 +77,11 @@ have a scroll down or scroll up option */
 
 /* Position and style the close button (top right corner) */
 .SessionBar .closebtn {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgba(188, 35, 35, 0.862);
+    padding: 10px 15px;
+    border: none;
     background-image: url('../images/Sidebar Icon - right.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -87,7 +92,7 @@ have a scroll down or scroll up option */
 .openbtn {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0);
-    color: rgba(188, 35, 35, 0.862);
+    color: rgba(255, 255, 255, 0.862);
     padding: 10px 15px;
     border: none;
     background-image: url('../images/Sidebar Icon - left.png');
@@ -103,10 +108,16 @@ have a scroll down or scroll up option */
     border: none;
 }
 
+/* New session button */
 .new-session {
     background-color: #808080; /* 808080 on figma */
-    color: white; /* hite on figma */
+    color: white; /* white on figma */
     border-radius: 15px; /* 50% degrees on figma */
+    position: absolute;
+    top: 10px;
+    width: 50%;
+    margin-left: 25%;
+    padding: 5px 5px;
 }
 
 .chat-conversation {
