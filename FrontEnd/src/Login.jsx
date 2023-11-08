@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-export default function Login() {
+export default async function Login() {
   const navigator = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
