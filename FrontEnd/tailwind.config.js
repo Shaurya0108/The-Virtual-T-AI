@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['PT Serif', 'Roboto', 'sans-serif'],
+        sans: ['PT Sans', 'PT Serif', 'Roboto', 'sans-serif'],
       },
     },
   },
