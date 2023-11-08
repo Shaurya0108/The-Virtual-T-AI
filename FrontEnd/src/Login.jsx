@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios';
 import './css/Login.css'
 import gradIcon from "./images/student-grad.png";
 import {useNavigate} from 'react-router-dom'
@@ -6,11 +7,21 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-export default async function Login() {
+export default function Login() {
   const navigator = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+
+  // async function authorizeUser() {
+  //   try{
+  //     var credentials = JSON.stringify({
+  //       "username": username,
+  //       "password": password
+  //     });
+  //     var myHeaders = new Headers();
+  //     myHeaders.append("Content-Type", "application/json");
+  
       var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -18,7 +29,7 @@ export default async function Login() {
         redirect: 'follow',
         credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
       };
-      const response = await fetch("http://18.189.195.246:443/auth/login", requestOptions);
+      const response = fetch("http://18.189.195.246:443/auth/login", requestOptions);
       if (response.ok) {
         navigator('home');
       }
@@ -26,7 +37,9 @@ export default async function Login() {
         alert('Invalid Credentials');
       }
 
+
   return (
+    
       <div className="Login">
         <button className="student-login">
           STUDENT LOGIN
@@ -49,5 +62,7 @@ export default async function Login() {
           </button>
         </div>
       </div>
+    
+
   )
 }
