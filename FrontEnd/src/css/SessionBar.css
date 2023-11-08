@@ -1,0 +1,55 @@
+.session-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: #f3f3f3;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 20px;
+  }
+  
+  .session-bar-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .new-session-btn {
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .session-status {
+    padding: 10px;
+    color: #555;
+  }
+  
+  .session-status.active {
+    color: #4CAF50;
+  }
+  
+  .session-status.inactive {
+    color: #f44336;
+  }
+  
+  .toggle-session-btn {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 1010;
+  }

@@ -1,14 +1,13 @@
 import UTDIcon from "../images/UTD Icon.png";
-import profileIcon from "../icons/tabs/Profile Icon.svg";
+
 export default function Navbar() {
     return (
-        <nav className="nav">
-            <img src={UTDIcon} className="utd-icon" alt=""></img>
-            <div className="navbar-caption">
-                <h2 className="navbar-cap-1">The Virtual Teacher Assistant </h2>
-                <h2 className="navbar-cap-2">CS4349 Advanced Algorithms Design and Analysis</h2>
+        <nav className="nav flex items-center justify-between">
+            <img src={UTDIcon} className="utd-icon" alt="UTD Icon"></img>
+            <div className="navbar-caption text-center mx-auto">
+                <h1 className="navbar-cap-1 text-4xl font-bold">The Virtual Teacher Assistant</h1>
+                <h3 className="navbar-cap-2 text-xl">Advanced Algorithms Design and Analysis</h3>
             </div>
-            <img src {...profileIcon} className="utd-con"></img>
         </nav>
     );
 }
