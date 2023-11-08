@@ -3,6 +3,7 @@ import TextBox2 from './components/TextBox2';
 import Sessions from './components/SessionBar';
 import Navbar  from './components/Navbar';
 export default function Home() {
+  
   function toggleSessions(){
     var sessionContainer = document.querySelector('.session-container');
     var chatContainer = document.querySelector('.chat-container');
