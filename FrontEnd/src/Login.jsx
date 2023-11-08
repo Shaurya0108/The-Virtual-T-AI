@@ -13,33 +13,39 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
 
-  // async function authorizeUser() {
-  //   try{
-  //     var credentials = JSON.stringify({
-  //       "username": username,
-  //       "password": password
-  //     });
-  //     var myHeaders = new Headers();
-  //     myHeaders.append("Content-Type", "application/json");
-  
-      var requestOptions = {
+  async function authorizeUser() {
+    try {
+      const credentials = JSON.stringify({
+        username,
+        password
+      });
+      const myHeaders = {
+        "Content-Type": "application/json"
+      };
+    
+      const requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: credentials,
         redirect: 'follow',
-        credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
+        credentials: 'include'
       };
-      const response = fetch("http://18.189.195.246:443/auth/login", requestOptions);
+  
+      const response = await fetch("http://18.189.195.246:443/auth/login", requestOptions);
+  
       if (response.ok) {
-        navigator('home');
-      }
-      else {
+        navigator('/home');
+      } else {
         alert('Invalid Credentials');
       }
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+  
 
 
   return (
-    
       <div className="Login">
         <button className="student-login">
           STUDENT LOGIN
@@ -57,12 +63,11 @@ export default function Login() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)} />
           {/* <button className="login-button" onClick={authorizeUser}> */}
-          <button className="login-button" onClick={"hello"}>  
+          <button className="login-button" onClick={authorizeUser}>
             LOGIN
           </button>
+
         </div>
       </div>
-    
-
   )
 }
