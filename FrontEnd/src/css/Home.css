@@ -1,5 +1,10 @@
 home{
     display: flex;
+
+    /* NEW */
+    /* flex-direction: column; /* Aligns children (session-container and chat-container) in a column */
+    /* height: 100%; /* Ensure it takes full viewport height */
+    /* END NEW */
 }
 
 .session-container {
@@ -10,6 +15,20 @@ home{
 }
 
 .chat-container {
+    
+    /* NEW */
+    /* display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  height: calc(100% - 120px); */
+    /*END NEW */
+
+    /* OLD */
     flex-grow: 39;
     
     flex-direction: row-reverse;
@@ -23,6 +42,11 @@ home{
     max-height: 1000px;
 }
 
+
+/* SessionBar button is not connected to the session bar window.
+Needs to be connected together and user should not be able to scroll
+down the Home page. Home page should be fixed. Only chat window should
+have a scroll down or scroll up option */
 .SessionBar {
 
     width: 0;
@@ -32,7 +56,7 @@ home{
      background-color: #d9d9d9;
      overflow-x: hidden; 
     padding-top: 60px;
-     transition: 0.5s; 
+     transition: 0.5s;
     flex-grow: 1;
 }
 
@@ -41,14 +65,14 @@ home{
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #ba0f0f;
     display: block;
     transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .SessionBar a:hover {
-    color: #f1f1f1;
+    color: #d900ff;
 }
 
 /* Position and style the close button (top right corner) */
@@ -59,12 +83,13 @@ home{
 }
 
 /* Style the button that is used to open the sidepanel */
+/* Buttom needs to change to "right" or "left: icon when clicked on */
 .openbtn {
     cursor: pointer;
-    background-color: #111;
-    color: white;
+    background-color: rgba(255, 255, 255, 0);
+    color: rgba(188, 35, 35, 0.862);
     padding: 10px 15px;
-    border: none; 
+    border: none;
     background-image: url('../images/Sidebar Icon - left.png');
     background-repeat: no-repeat;
     background-size:contain;
@@ -79,13 +104,19 @@ home{
 }
 
 .new-session {
-    background-color: #808080;
-    color: white;
+    background-color: #808080; /* 808080 on figma */
+    color: white; /* hite on figma */
+    border-radius: 15px; /* 50% degrees on figma */
 }
 
 .chat-conversation {
-    justify-content: space-between; 
+    justify-content: space-between;
+    /* NEW */
+    /* overflowY: auto;
+    /* END NEW */
+    /* OLD */
     overflowY: 'scroll';
+    /* END OLD */
     flexGrow: 1;
 }
 
