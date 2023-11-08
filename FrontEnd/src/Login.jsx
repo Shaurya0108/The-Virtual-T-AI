@@ -22,25 +22,25 @@ export default function Login() {
   //     var myHeaders = new Headers();
   //     myHeaders.append("Content-Type", "application/json");
   
-  //     var requestOptions = {
-  //       method: 'POST',
-  //       headers: myHeaders,
-  //       body: credentials,
-  //       redirect: 'follow',
-  //       credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
-  //     };
-  //     const response = await fetch("http://localhost:443/auth/login", requestOptions);
-  //     if (response.ok) {
-  //       navigator('home');
-  //     }
-  //     else {
-  //       alert('Invalid Credentials');
-  //     }
-  //   }
-  //   catch (err) {
-  //     alert(err.message);
-  //   }
-  // }
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: credentials,
+        redirect: 'follow',
+        credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
+      };
+      const response = await fetch("http://18.189.195.246:443/auth/login", requestOptions);
+      if (response.ok) {
+        navigator('home');
+      }
+      else {
+        alert('Invalid Credentials');
+      }
+    }
+    catch (err) {
+      alert(err.message);
+    }
+  }
 
 
   return (

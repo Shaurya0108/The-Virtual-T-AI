@@ -2,6 +2,34 @@ import React from 'react';
 import '../css/Home.css';
 
 export default class ChatBox extends React.Component {
+    async query(Text) {
+        
+        try {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "body": Text
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow',
+                credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
+            };
+            const response = await fetch("http://18.189.195.246:443/chatBot/query", requestOptions)
+            .then(response => response.json())
+
+            const result = response.res.generated_text
+
+            return result;
+        } catch (err) {
+            alert(err.message)
+        }
+        
+    }
+  
     constructor(props) {
         super(props);
         this.state = {
@@ -103,5 +131,5 @@ export default class ChatBox extends React.Component {
                 </form>
             </div>
         );
-    }    
+    }
 }
