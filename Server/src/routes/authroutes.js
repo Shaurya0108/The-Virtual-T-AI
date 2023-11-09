@@ -49,6 +49,11 @@ export const authroutes = () => {
             return res
             .cookie("accessToken", accessToken, {
                 httpOnly: true,
+                sameSite: 'none'
+            })
+            .cookie("UserId", result, {
+                httpOnly: true,
+                sameSite: 'none'
             })
             .status(200)
             .json({message: "Logged In"});
