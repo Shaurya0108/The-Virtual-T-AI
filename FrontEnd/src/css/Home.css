@@ -185,6 +185,10 @@ margin-left: 300px;
     border-bottom-right-radius: 15px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 0;
+    /* To wrap text message boxes to new lines*/
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 80%;
   }
   
   /* Style for user message box */
@@ -193,4 +197,8 @@ margin-left: 300px;
     border-bottom-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 0;
+    /* To wrap text message boxes to new lines*/
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 80%;
   }
