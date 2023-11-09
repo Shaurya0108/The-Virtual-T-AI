@@ -179,6 +179,11 @@ transition: margin-left 0.3s;
 margin-left: 300px;
 }
 
+/* ATTENTION
+    The following code possibly overrides previous code which moved
+    the chat container to the right when the session bar is open. Modify it
+    to get back the functionality*/
+
 /* Style for chatbot message box */
 .self-start.bg-blue-100 {
     border-top-right-radius: 15px;
