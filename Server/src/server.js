@@ -11,7 +11,6 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',  
     credentials: true,
     exposedHeaders: ["Set-Cookie"],
     origin: true
