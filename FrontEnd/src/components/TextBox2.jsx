@@ -1,10 +1,7 @@
 import React from 'react';
-import '../css/Home.css'
-
-
+import '../css/Home.css';
 
 export default class ChatBox extends React.Component {
-
     async query(Text) {
         
         try {
@@ -21,7 +18,7 @@ export default class ChatBox extends React.Component {
                 redirect: 'follow',
                 credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
             };
-            const response = await fetch("http://localhost:443/chatBot/query", requestOptions)
+            const response = await fetch("http://18.189.195.246:443/chatBot/query", requestOptions)
             .then(response => response.json())
 
             const result = response.res.generated_text
@@ -32,75 +29,105 @@ export default class ChatBox extends React.Component {
         }
         
     }
-
-
-
+  
     constructor(props) {
         super(props);
         this.state = {
-            userMessage: '',
             conversation: [],
+            userMessage: '',
+        };
+    }
+
+    handleChange = (event) => {
+        this.setState({ userMessage: event.target.value });
+    };
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const prompt = this.state.userMessage;
+        const response = await this.postChatMessage(prompt);
+        this.updateConversation(prompt, response);
+    };
+
+    postChatMessage = async (prompt) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + import.meta.env.VITE_BEARER_TOKEN,
+            },
+            body: JSON.stringify({
+                "input": {
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.<</SYS>>" + prompt + "[/INST]",
+                    "max_new_tokens": 500,
+                    "temperature": 0.9,
+                    "top_k": 50,
+                    "top_p": 0.7,
+                    "repetition_penalty": 1.2,
+                    "batch_size": 8,
+                    "stop": [
+                        "</s>"
+                    ]
+                }
+            })
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+        try {
+            const response = await fetch('https://api.runpod.ai/v2/tsddif1jle8o98/runsync', requestOptions);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.output;
+        } catch (error) {
+            console.error('There was an error!', error);
+            return "Sorry, there was an issue getting the response.";
+        }
+    };
 
-
-    handleChange(event) {
-        this.setState({ userMessage: event.target.value });
-    }
-
-    async handleSubmit(event) {
-
-        event.preventDefault();
-
-        // Send the message to the conversation state
-        this.setState(state => {
-            const conversation = [...state.conversation, { text: state.userMessage, sender: 'user' }];
-            return {
-                conversation,
-                userMessage: '', // Clear the input box
-            };
-        });
-
-        // Make a call to backend and get the response message.
-        const chatbotResponse = await this.query(this.state.userMessage);
-        alert(chatbotResponse)
-        // Add the chatbot's response to the conversation
-        this.setState(state => {
-            const conversation = [...state.conversation, { text: chatbotResponse, sender: 'chatbot' }];
-            return {
-                conversation
-            };
-        });
-    }
+    updateConversation = (prompt, responseText) => {
+        const userMessage = { sender: 'user', text: prompt };
+        const chatbotMessage = { sender: 'chatbot', text: responseText };
+    
+        this.setState(prevState => ({
+            conversation: [...prevState.conversation, userMessage, chatbotMessage],
+            userMessage: ''
+        }));
+    
+        console.log("My input: ", userMessage);
+        console.log("Model output: ", chatbotMessage);
+    };
 
     render() {
-
         return (
-            <div> {/* chatContainerStyles applied here */}
-                <div className="chat-converstaion">
-                    {/* Render the conversation */}
-                    {this.state.conversation.map((message, index) => (
-                        <div key={index} style={{ textAlign: message.sender === 'chatbot' ? 'left' : 'right' }}>
-                            <p>{message.text}</p>
-                        </div>
-                    ))}
+            <div className="chat-container">
+                <div className="message-list">
+                    <div className="flex flex-col gap-2 message-list-padding">
+                        {this.state.conversation.map((message, index) => (
+                            <div key={index} className={`max-w-3/4 ${
+                                message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
+                            } rounded-md p-2`}>
+                                <p className="text-sm">{message.text}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <form onSubmit={this.handleSubmit} className="chat-input">
-                    <input
-                        type="text"
-                        value={this.state.userMessage}
-                        onChange={this.handleChange}
-                        placeholder="Ask me anything"
-                        className="chat-inputField" 
-                    />
-                    <input
-                        type="submit"
-                        value="🔍" // Search icon
-                        className="chat-submit"
-                    />
+                <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
+                    <div className="flex gap-2">
+                        <input
+                            type="text"
+                            value={this.state.userMessage}
+                            onChange={this.handleChange}
+                            placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
+                            className="flex-grow p-2 border rounded-md"
+                        />
+                        <button
+                            type="submit"
+                            className="p-2 bg-blue-500 text-white rounded-md"
+                        >
+                            Query
+                        </button>
+                    </div>
                 </form>
             </div>
         );
