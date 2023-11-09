@@ -13,7 +13,8 @@ dotenv.config();
 const corsOptions = {
     origin: 'http://localhost:5173',  
     credentials: true,
-    exposedHeaders: ["Set-Cookie"]
+    exposedHeaders: ["Set-Cookie"],
+    origin: true
 };
 
 var virtualTAServer = express();
