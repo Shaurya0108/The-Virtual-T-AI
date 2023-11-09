@@ -7,11 +7,14 @@ home{
     /* END NEW */
 }
 
+/* Session bar overlaps chat when the windows is not maximized */
+/* Session bar overlaps chat when there is a long text in the chatbox */
+/* input message is written in a single line in the chat box */
 .session-container {
     width: 0;
     flex-grow: 1;
     flex-direction: column;
-    margin-right: 20px;
+    margin-right: 25px; /* leave enough room for session icon when there in a long text in the chatbox */
 }
 
 .chat-container {
@@ -35,7 +38,7 @@ home{
     align-content: flex-end;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     min-height: 600px;
@@ -53,10 +56,10 @@ have a scroll down or scroll up option */
     flex-grow: 1;
     height: 75%;
     position: fixed;
-     background-color: #d9d9d9;
-     overflow-x: hidden; 
+    background-color: #d9d9d9;
+    overflow-x: hidden; 
     padding-top: 60px;
-     transition: 0.5s;
+    transition: 0.5s;
     flex-grow: 1;
 }
 
@@ -87,7 +90,7 @@ have a scroll down or scroll up option */
     background-size: contain;
 }
 
-/* Style the button that is used to open the sidepanel */
+/* Sidebar icon */
 /* Buttom needs to change to "right" or "left: icon when clicked on */
 .openbtn {
     cursor: pointer;

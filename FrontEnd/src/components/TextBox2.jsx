@@ -114,13 +114,16 @@ export default class ChatBox extends React.Component {
                 </div>
                 <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
                     <div className="flex gap-2">
-                        <input
-                            type="text"
+                        <textarea
+                        //<input
+                            //type="text"
                             value={this.state.userMessage}
                             onChange={this.handleChange}
                             placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
                             className="flex-grow p-2 border rounded-md"
-                        />
+                            rows="1" // This sets the initial number of rows for the textarea
+                        //</div>></input>
+                        ></textarea>
                         <button
                             type="submit"
                             className="p-2 bg-blue-500 text-white rounded-md"
