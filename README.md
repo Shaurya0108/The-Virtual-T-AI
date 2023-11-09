@@ -1,5 +1,5 @@
 # CSProject
-Virtual TA Project for Senior Design Course
+Virtual TA for Students to use for their course/classes
 
 ## Web_client
 Frontend
