@@ -76,3 +76,14 @@
 .message-list-padding {
   padding-bottom: 60px;
 }
+
+.settings-button {
+  background-image: url('../src/images/Settings button Icon.png');
+  width: 5%;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  position: relative;
+  right: 3%;
+}
