@@ -10,16 +10,16 @@ export default function Home() {
     var bar = document.getElementById('session-bar');
     //open the container
     if (sessionContainer.style.flexGrow === '1' || sessionContainer.style.flexGrow === '') {
-        sessionContainer.style.flexGrow = '9'; // Adjust the flexGrow value as needed
-        chatContainer.style.flexGrow = '31'; // Adjust the flexGrow value for the chat container
+        sessionContainer.style.flexGrow = '9';
+        chatContainer.style.flexGrow = '31';
     } else {
         sessionContainer.style.flexGrow = '1';
-        chatContainer.style.flexGrow = '40'; // Adjust the flexGrow value for the chat container
+        chatContainer.style.flexGrow = '40';
     }
 
     //open the component
     if (bar.style.width === '0px' || bar.style.width === '') {
-      bar.style.width = '250px'; // Adjust the width as needed
+      bar.style.width = '250px';
     } else {
       bar.style.width = '0';
     }
