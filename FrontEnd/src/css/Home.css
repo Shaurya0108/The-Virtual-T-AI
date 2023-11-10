@@ -15,34 +15,36 @@ home{
     flex-grow: 1;
     flex-direction: column;
     margin-right: 25px; /* leave enough room for session icon when there in a long text in the chatbox */
+    /* margin-bottom: 200px; */
 }
 
 .chat-container {
-    
+
     /* NEW */
     /* display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  height: calc(100% - 120px); */
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; */
     /*END NEW */
 
     /* OLD */
-    flex-grow: 39;
-    
-    flex-direction: row-reverse;
+    height: calc(100vh - 130px);
+    /* flex-grow: 39; */
+    /* flex-direction: row-reverse; */
     align-content: flex-end;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 0px;
+    border: 10px solid #ccc;
     border-radius: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+    width: 100%;
     overflow-y: auto;
-    min-height: 600px;
-    max-height: 1000px;
+    /* height: 100%; */
+}
+
+.session-container-open {
+    margin-left: 300px; /* Adjust based on the SessionBar's width */
+    transition: margin-left 0.3s; /* Smooth transition for the margin */
 }
 
 
@@ -54,13 +56,15 @@ have a scroll down or scroll up option */
 
     width: 0;
     flex-grow: 1;
-    height: 75%;
+    height: calc(100vh - 250px);
+    /* height: 75%; */
     position: fixed;
     background-color: #d9d9d9;
     overflow-x: hidden; 
     padding-top: 60px;
     transition: 0.5s;
     flex-grow: 1;
+    border-bottom-right-radius: 15px;
 }
 
 /* The sidepanel links */
@@ -166,7 +170,7 @@ have a scroll down or scroll up option */
     transition: left 0.3s;
     z-index: 1000;
   }
-  
+
 .sidebar.open {
 left: 0;
 }
@@ -185,7 +189,7 @@ margin-left: 300px;
     to get back the functionality*/
 
 /* Style for chatbot message box */
-.self-start.bg-blue-100 {
+.bg-blue-100 {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-top-left-radius: 15px;
@@ -197,7 +201,7 @@ margin-left: 300px;
   }
   
   /* Style for user message box */
-  .self-end.bg-gray-300 {
+  .bg-gray-300 {
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     border-top-right-radius: 15px;

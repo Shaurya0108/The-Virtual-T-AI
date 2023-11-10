@@ -99,30 +99,30 @@ export default class ChatBox extends React.Component {
     };
 
     render() {
+        const chatContainerClass = this.state.sessionBarOpen ? 'session-container-open' : '';
+
         return (
-            <div className="chat-container">
-                <div className="message-list">
-                    <div className="flex flex-col gap-2 message-list-padding">
-                        {this.state.conversation.map((message, index) => (
-                            <div key={index} className={`max-w-3/4 ${
-                                message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
-                            } rounded-md p-2`}>
+            <div className="chat-container ${chatContainerClass} flex flex-col h-full">
+                {/* Container for chat messages */}
+                <div className="message-list flex-grow overflow-auto p-4">
+                    {this.state.conversation.map((message, index) => (
+                        <div key={index} className={`flex ${message.sender === 'chatbot' ? 'justify-start' : 'justify-end'} mb-4`}>
+                            <div className={`rounded-lg p-2 ${message.sender === 'chatbot' ? 'bg-blue-100' : 'bg-gray-300'}`}>
                                 <p className="text-sm">{message.text}</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
-                <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
-                    <div className="flex gap-2">
+    
+                {/* Separate Container for input message */}
+                <div className="input-container bg-white p-4 shadow">
+                    <form onSubmit={this.handleSubmit} className="flex gap-2">
                         <textarea
-                        //<input
-                            //type="text"
                             value={this.state.userMessage}
                             onChange={this.handleChange}
                             placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
                             className="flex-grow p-2 border rounded-md"
-                            rows="1" // This sets the initial number of rows for the textarea
-                        //</div>></input>
+                            rows="1"
                         ></textarea>
                         <button
                             type="submit"
@@ -130,9 +130,48 @@ export default class ChatBox extends React.Component {
                         >
                             Query
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         );
     }
+    
+
+    //render() {
+        // return (
+        //     <div className="chat-container">
+        //         <div className="message-list">
+        //             <div className="flex flex-col gap-2 message-list-padding">
+        //                 {this.state.conversation.map((message, index) => (
+        //                     <div key={index} className={`max-w-3/4 ${
+        //                         message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
+        //                     } rounded-md p-2`}>
+        //                         <p className="text-sm">{message.text}</p>
+        //                     </div>
+        //                 ))}
+        //             </div>
+        //         </div>
+        //         <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
+        //             <div className="flex gap-2">
+        //                 <textarea
+        //                 //<input
+        //                     //type="text"
+        //                     value={this.state.userMessage}
+        //                     onChange={this.handleChange}
+        //                     placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
+        //                     className="flex-grow p-2 border rounded-md"
+        //                     rows="1" // This sets the initial number of rows for the textarea
+        //                 //</div>></input>
+        //                 ></textarea>
+        //                 <button
+        //                     type="submit"
+        //                     className="p-2 bg-blue-500 text-white rounded-md"
+        //                 >
+        //                     Query
+        //                 </button>
+        //             </div>
+        //         </form>
+        //     </div>
+        // );
+    //}
 }
