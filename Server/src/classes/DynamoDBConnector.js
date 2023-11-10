@@ -32,7 +32,6 @@ export class DynamoDBConnector{
         return new Promise((resolve, reject) => {
             this.db.putItem(params, function(err, data) {
                 if (err) {
-                    console.log(err, err.stack);
                     reject(err);
                 } else {
                     resolve(data);

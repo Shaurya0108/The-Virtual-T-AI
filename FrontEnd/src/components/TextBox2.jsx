@@ -1,34 +1,8 @@
 import React from 'react';
 import '../css/Home.css';
-
+import { BlockMath } from 'react-katex';
+import 'katex/dist/katex.min.css';
 export default class ChatBox extends React.Component {
-    async query(Text) {
-        
-        try {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var raw = JSON.stringify({
-                "body": Text
-            });
-
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow',
-                credentials: 'include' //Make sure to have this line for every Request. Or else the cookie won't be included in the requests
-            };
-            const response = await fetch("http://18.189.195.246:443/chatBot/query", requestOptions)
-            .then(response => response.json())
-
-            const result = response.res.generated_text
-
-            return result;
-        } catch (err) {
-            alert(err.message)
-        }
-        
-    }
   
     constructor(props) {
         super(props);
@@ -58,7 +32,7 @@ export default class ChatBox extends React.Component {
             },
             body: JSON.stringify({
                 "input": {
-                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.<</SYS>>" + prompt + "[/INST]",
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information. Explain your thought process step by step similar to a teacher or professor.<</SYS>>" + prompt + "[/INST]",
                     "max_new_tokens": 500,
                     "temperature": 0.9,
                     "top_k": 50,
@@ -98,6 +72,33 @@ export default class ChatBox extends React.Component {
         console.log("Model output: ", chatbotMessage);
     };
 
+    isLatex = (text) => {
+        const latexDelimiters = ['$$', '\\[', '\\(', '\\begin'];
+        return latexDelimiters.some(delimiter => text.includes(delimiter));
+    };
+
+    renderMessage = (message) => {
+        const latexRegex = /\$\$(.*?)\$\$/g;
+        let match;
+        let lastIndex = 0;
+        let resultElements = [];
+    
+        while ((match = latexRegex.exec(message.text)) !== null) {
+            if (match.index > lastIndex) {
+                resultElements.push(<span key={lastIndex}>{message.text.substring(lastIndex, match.index)}</span>);
+            }
+            resultElements.push(<BlockMath key={match.index} math={match[1]} />);
+            lastIndex = match.index + match[0].length;
+        }
+
+        if (lastIndex < message.text.length) {
+            resultElements.push(<span key={lastIndex}>{message.text.substring(lastIndex)}</span>);
+        }
+    
+        return <div>{resultElements}</div>;
+    };
+    
+
     render() {
         return (
             <div className="chat-container">
@@ -107,23 +108,20 @@ export default class ChatBox extends React.Component {
                             <div key={index} className={`max-w-3/4 ${
                                 message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
                             } rounded-md p-2`}>
-                                <p className="text-sm">{message.text}</p>
+                                {this.renderMessage(message)}
                             </div>
                         ))}
                     </div>
                 </div>
                 <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
                     <div className="flex gap-2">
-                        <textarea
-                        //<input
-                            //type="text"
+                        <input
+                            type="text"
                             value={this.state.userMessage}
                             onChange={this.handleChange}
                             placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
                             className="flex-grow p-2 border rounded-md"
-                            rows="1" // This sets the initial number of rows for the textarea
-                        //</div>></input>
-                        ></textarea>
+                        />
                         <button
                             type="submit"
                             className="p-2 bg-blue-500 text-white rounded-md"
