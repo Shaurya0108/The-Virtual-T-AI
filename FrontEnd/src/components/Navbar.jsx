@@ -1,11 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import UTDIcon from "../images/UTD Icon.png";
 
 export default function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const navigate = useNavigate();
 
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+    const handleSettingsClick = () => {
+        toggleDropdown();
+        navigate('/settings');
+    };
+
+    const handleLogoutClick = () => {
+        toggleDropdown();
+        navigate('/');
+    };
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -33,9 +45,8 @@ export default function Navbar() {
             <button className="settings-button" onClick={toggleDropdown}></button>
             {isDropdownOpen && (
                 <div ref={dropdownRef} className="dropdown-menu absolute right-0 top-20 mt-5 py-2 w-48 bg-white rounded-md shadow-xl z-50">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleSettingsClick}>Settings</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogoutClick}>Logout</a>
                 </div>
             )}
         </nav>
