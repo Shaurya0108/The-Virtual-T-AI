@@ -6,6 +6,12 @@ import Latex from './Latex'
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
+// langchain
+import { BufferMemory } from "langchain/memory";
+import { DynamoDBChatMessageHistory } from "langchain/stores/message/dynamodb";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { ConversationChain } from "langchain/chains";
+
 
 export default class ChatBox extends React.Component {
   
@@ -34,6 +40,8 @@ export default class ChatBox extends React.Component {
     };
 
     postChatMessage = async (prompt) => {
+        const conversationHistory = this.state.conversation.map(msg => msg.text).join("\n");
+
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -42,7 +50,7 @@ export default class ChatBox extends React.Component {
             },
             body: JSON.stringify({
                 "input": {
-                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Helpful answer:[/INST]<</SYS>>" + prompt + "[/INST]",
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Context: " + conversationHistory + " Question: " + prompt + " Helpful answer:[/INST]<</SYS>>",
                     "max_new_tokens": 500,
                     "temperature": 0.9,
                     "top_k": 50,
