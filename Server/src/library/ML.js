@@ -5,21 +5,32 @@ export function query(Text) {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("Authorization", process.env.model_key);
             
-            var queryBody = JSON.stringify({
-                "inputs": Text.body
-            });
-            
-            var requestOptions = {
+            const requestOptions = {
                 method: 'POST',
-                headers: myHeaders,
-                body: queryBody,
-                redirect: 'follow'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + process.env.VITE_BEARER_TOKEN,
+                },
+                body: JSON.stringify({
+                    "input": {
+                        "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information. Explain your thought process step by step similar to a teacher or professor.<</SYS>>" + Text.body + "[/INST]",
+                        "max_new_tokens": 500,
+                        "temperature": 0.9,
+                        "top_k": 50,
+                        "top_p": 0.7,
+                        "repetition_penalty": 1.2,
+                        "batch_size": 8,
+                        "stop": [
+                            "</s>"
+                        ]
+                    }
+                })
             };
             
-            const response = await fetch(process.env.model_route, requestOptions)
-            .then(response => response.json())
+            const response = await fetch('https://api.runpod.ai/v2/tsddif1jle8o98/runsync', requestOptions)
+            const data = await response.json()
             
-            resolve(response[0]);
+            resolve(data.output);
         } catch (error) {
             reject(error)
         }
