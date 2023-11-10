@@ -34,12 +34,11 @@ export class User{
                     let highestUserId = 1000;
             
                     for (let item of result) {
-                        const currentUserId = item.UserId.N;
+                        const currentUserId = parseInt(item.UserId.N);
                         if (currentUserId > highestUserId) {
                             highestUserId = currentUserId;
                         }
                     }
-
                     highestUserId += 1;
                     const newUserIdStr = highestUserId;
                     const salt = await bcrypt.genSalt();
@@ -47,7 +46,7 @@ export class User{
                     const param = {
                         TableName: "Users",
                         Item: {
-                            UserId: { "N": newUserIdStr },
+                            UserId: { "N": newUserIdStr.toString() },
                             username: { "S": this.userName },
                             password: { "S": hashedPassword }
                         }
@@ -56,7 +55,6 @@ export class User{
                     resolve(newUserIdStr);
                 }
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         })
@@ -83,7 +81,6 @@ export class User{
                     throw new UnauthorizedError("Not Allowed", 401);
                 }
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         })

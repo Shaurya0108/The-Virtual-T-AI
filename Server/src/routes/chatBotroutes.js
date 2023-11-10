@@ -39,7 +39,7 @@ export const chatBotroutes = () => {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
         } catch (error) {
-            return res.status.apply(500).json({"error": "Failed to get by session Id"})
+            return res.status(500).json({"error": "Failed to get by session Id"})
         }
     });
 
@@ -48,7 +48,7 @@ export const chatBotroutes = () => {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
         } catch (error) {
-            return res.status.apply(500).json({"error": "Failed to get by query Id"});
+            return res.status(500).json({"error": "Failed to get by query Id"});
         }
     });
 
@@ -58,7 +58,7 @@ export const chatBotroutes = () => {
             return res.status(204).json(result);
         }
         catch (error) {
-            return res.status.apply(500).json({"error": "Failed to delete by Session Id"});
+            return res.status(500).json({"error": "Failed to delete by Session Id"});
         }
     })
 
