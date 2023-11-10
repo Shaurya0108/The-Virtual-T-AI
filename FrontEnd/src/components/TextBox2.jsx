@@ -2,6 +2,11 @@ import React from 'react';
 import '../css/Home.css';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
+import Latex from './Latex'
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
+
 export default class ChatBox extends React.Component {
   
     constructor(props) {
@@ -9,6 +14,7 @@ export default class ChatBox extends React.Component {
         this.state = {
             conversation: [],
             userMessage: '',
+            latexEnabled: false,
         };
     }
 
@@ -18,7 +24,11 @@ export default class ChatBox extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        const prompt = this.state.userMessage;
+        const prompt = this.state.userMessage.trim();
+        if (!prompt) {
+            return;
+        }
+        this.updateInputBox(prompt);
         const response = await this.postChatMessage(prompt);
         this.updateConversation(prompt, response);
     };
@@ -32,7 +42,7 @@ export default class ChatBox extends React.Component {
             },
             body: JSON.stringify({
                 "input": {
-                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information. Explain your thought process step by step similar to a teacher or professor.<</SYS>>" + prompt + "[/INST]",
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Helpful answer:[/INST]<</SYS>>" + prompt + "[/INST]",
                     "max_new_tokens": 500,
                     "temperature": 0.9,
                     "top_k": 50,
@@ -72,6 +82,16 @@ export default class ChatBox extends React.Component {
         console.log("Model output: ", chatbotMessage);
     };
 
+    updateInputBox = (prompt) => {
+        const userMessage = { sender: 'user', text: prompt };
+    
+        this.setState(prevState => ({
+            userMessage: ''
+        }));
+    
+        console.log("My input: ", userMessage);
+    };
+
     isLatex = (text) => {
         const latexDelimiters = ['$$', '\\[', '\\(', '\\begin'];
         return latexDelimiters.some(delimiter => text.includes(delimiter));
@@ -97,7 +117,28 @@ export default class ChatBox extends React.Component {
     
         return <div>{resultElements}</div>;
     };
+
+    toggleLatex = () => {
+        this.setState(prevState => ({
+            latexEnabled: !prevState.latexEnabled
+        }));
+    };
     
+    renderInputField = () => {
+        if (this.state.latexEnabled) {
+            return <Latex value={this.state.userMessage} onChange={this.handleChange} />;
+        } else {
+            return (
+                <input
+                    type="text"
+                    value={this.state.userMessage}
+                    onChange={this.handleChange}
+                    placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
+                    className="flex-grow p-2 border rounded-md"
+                />
+            );
+        }
+    };
 
     render() {
         return (
@@ -114,23 +155,20 @@ export default class ChatBox extends React.Component {
                     </div>
                 </div>
                 <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
-                    <div className="flex gap-2">
-                        <input
-                            type="text"
-                            value={this.state.userMessage}
-                            onChange={this.handleChange}
-                            placeholder="Hi! I am your Virtual TA, please feel free to ask me anything you would ask a normal TA..."
-                            className="flex-grow p-2 border rounded-md"
-                        />
-                        <button
-                            type="submit"
-                            className="p-2 bg-blue-500 text-white rounded-md"
-                        >
-                            Query
-                        </button>
-                    </div>
-                </form>
-            </div>
-        );
-    }
+                <div className="flex gap-2">
+                    {this.renderInputField()}
+                    <button onClick={this.toggleLatex} className="p-2 bg-blue-500 text-white rounded-md">
+                        {this.state.latexEnabled ? "Switch to Text" : "Switch to LaTeX"}
+                    </button>
+                    <button
+                        type="submit"
+                        className="p-2 bg-blue-500 text-white rounded-md"
+                    >
+                        Query
+                    </button>
+                </div>
+            </form>
+        </div>
+    );
+}
 }
