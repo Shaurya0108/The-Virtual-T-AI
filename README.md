@@ -1,4 +1,11 @@
 # CSProject
-Virtual TA Project for Senior Design Course
+Virtual TA for Students to use for their course/classes
 
-https://main.d24d5w2nxzeh3o.amplifyapp.com/
+## Web_client
+Frontend
+
+## Server
+Backend
+
+## ML
+Llama model
