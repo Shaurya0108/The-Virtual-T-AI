@@ -58,6 +58,7 @@ export const authroutes = () => {
             .status(200)
             .json({message: "Logged In"});
         } catch (error) {
+            console.err(error);
             if (error instanceof UnauthorizedError) {
                 return res.status(error.statusCode).json({"error": error.message});
             }
