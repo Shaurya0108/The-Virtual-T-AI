@@ -63,6 +63,10 @@ have a scroll down or scroll up option */
     flex-grow: 1;
 }
 
+.toggle-latex-button {
+    padding: ;
+}
+
 /* The sidepanel links */
 .SessionBar a {
     padding: 8px 8px 8px 32px;
