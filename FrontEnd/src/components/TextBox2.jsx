@@ -3,8 +3,6 @@ import '../css/Home.css';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import Latex from './Latex'
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 
 export default class ChatBox extends React.Component {

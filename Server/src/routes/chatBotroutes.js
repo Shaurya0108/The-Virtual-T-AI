@@ -14,8 +14,33 @@ export const chatBotroutes = () => {
     router.post('/query', async (req, res) => {
         try {
             const chatResponse = await query(req.body)
-            //let result = await dbConnection.insert(req.body);
-            //add to session logic
+            
+            const currentDate = new Date();
+
+            const timestamp = + currentDate.getUTCFullYear() + "-" 
+                + (currentDate.getUTCMonth()+1)  + "-"  
+                + currentDate.getUTCDate() + " "
+                + currentDate.getUTCHours() + ":"  
+                + currentDate.getUTCMinutes() + ":" 
+                + currentDate.getUTCSeconds() + " UTC";
+            
+            const params = {
+                TableName: "table-dev",
+                Item: {
+                    UserId: { N: req.cookies.UserId },
+                    Time: { S: timestamp},   
+                    sessionId: { N: req.body.sessionId },
+                    Query: {
+                        M: {
+                            question: { S: req.body.body },
+                            answer: { S: chatResponse }
+                        }
+                    }
+                }
+            }
+
+            console.log(req.body);
+            await dbConnection.insert(params);
             return res.status(200).json({"res": chatResponse})
         } catch (error) {
             console.log("Error when chatbot query: ", error)
@@ -39,7 +64,7 @@ export const chatBotroutes = () => {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
         } catch (error) {
-            return res.status.apply(500).json({"error": "Failed to get by session Id"})
+            return res.status(500).json({"error": "Failed to get by session Id"})
         }
     });
 
@@ -48,7 +73,7 @@ export const chatBotroutes = () => {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
         } catch (error) {
-            return res.status.apply(500).json({"error": "Failed to get by query Id"});
+            return res.status(500).json({"error": "Failed to get by query Id"});
         }
     });
 
@@ -58,7 +83,7 @@ export const chatBotroutes = () => {
             return res.status(204).json(result);
         }
         catch (error) {
-            return res.status.apply(500).json({"error": "Failed to delete by Session Id"});
+            return res.status(500).json({"error": "Failed to delete by Session Id"});
         }
     })
 
