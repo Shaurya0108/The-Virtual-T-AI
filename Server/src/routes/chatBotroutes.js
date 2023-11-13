@@ -1,7 +1,9 @@
 import express from 'express';
 import  {DynamoDBConnector}  from '../classes/DynamoDBConnector.js';
-import {query} from '../library/ML.js'; 
+import {query} from '../library/ML.js';
+import { Session } from '../classes/Session.js';
 var dbConnection = new DynamoDBConnector();
+var session = new Session();
 
 export const chatBotroutes = () => {
     const router = express.Router();
@@ -14,33 +16,7 @@ export const chatBotroutes = () => {
     router.post('/query', async (req, res) => {
         try {
             const chatResponse = await query(req.body)
-            
-            const currentDate = new Date();
-
-            const timestamp = + currentDate.getUTCFullYear() + "-" 
-                + (currentDate.getUTCMonth()+1)  + "-"  
-                + currentDate.getUTCDate() + " "
-                + currentDate.getUTCHours() + ":"  
-                + currentDate.getUTCMinutes() + ":" 
-                + currentDate.getUTCSeconds() + " UTC";
-            
-            const params = {
-                TableName: "table-dev",
-                Item: {
-                    UserId: { N: req.cookies.UserId },
-                    Time: { S: timestamp},   
-                    sessionId: { N: req.body.sessionId },
-                    Query: {
-                        M: {
-                            question: { S: req.body.body },
-                            answer: { S: chatResponse }
-                        }
-                    }
-                }
-            }
-
-            console.log(req.body);
-            await dbConnection.insert(params);
+            await session.addChatResponse(req, chatResponse);
             return res.status(200).json({"res": chatResponse})
         } catch (error) {
             console.log("Error when chatbot query: ", error)
@@ -85,7 +61,7 @@ export const chatBotroutes = () => {
         catch (error) {
             return res.status(500).json({"error": "Failed to delete by Session Id"});
         }
-    })
+    });
 
     return router;
 }
