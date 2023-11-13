@@ -3,14 +3,6 @@ import '../css/Home.css';
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import Latex from './Latex'
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
-// langchain
-import { BufferMemory } from "langchain/memory";
-import { DynamoDBChatMessageHistory } from "langchain/stores/message/dynamodb";
-import { ChatOpenAI } from "langchain/chat_models/openai";
-import { ConversationChain } from "langchain/chains";
 
 
 export default class ChatBox extends React.Component {
@@ -163,20 +155,20 @@ export default class ChatBox extends React.Component {
                     </div>
                 </div>
                 <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
-                <div className="flex gap-2">
-                    {this.renderInputField()}
-                    <button onClick={this.toggleLatex} className="p-2 bg-blue-500 text-white rounded-md">
-                        {this.state.latexEnabled ? "Switch to Text" : "Switch to LaTeX"}
-                    </button>
-                    <button
-                        type="submit"
-                        className="p-2 bg-blue-500 text-white rounded-md"
-                    >
-                        Query
-                    </button>
-                </div>
-            </form>
-        </div>
-    );
-}
+                    <div className="flex gap-2">
+                        {this.renderInputField()}
+                        <button onClick={this.toggleLatex} className="p-2 bg-blue-500 text-white rounded-md ">
+                            {this.state.latexEnabled ? "Switch to Text" : "Switch to LaTeX"}
+                        </button>
+                        <button
+                            type="submit"
+                            className="p-2 bg-blue-500 text-white rounded-md"
+                        >
+                            Query
+                        </button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }
