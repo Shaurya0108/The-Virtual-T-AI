@@ -33,14 +33,6 @@ export default function Navbar() {
         navigate('/profile');
     };
 
-    const handleDarkModeClick = () => {
-        navigate('/darkmode');
-    };
-
-    const handleClearHistoryClick = () => {
-        navigate('/clearhistory');
-    };
-
     const handleLogoutClick = () => {
         navigate('/logout');
     };
@@ -92,8 +84,6 @@ export default function Navbar() {
             {isSettingsDropdownOpen && (
                 <div ref={dropdownRef} className="dropdown-menu absolute right-0 top-20 mt-5 py-2 w-48 bg-white rounded-md shadow-xl z-50">
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleProfileClick}>Profile</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleDarkModeClick}>DarkMode</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleClearHistoryClick}>ClearHistory</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogoutClick}>Logout</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleHelpClick}>Help</a>
                 </div>
