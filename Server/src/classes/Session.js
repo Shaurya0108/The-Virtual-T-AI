@@ -3,7 +3,7 @@ import AWS from "aws-sdk";
 import { UnauthorizedError, ConflictError } from "./Error.js";
 
 
-var DB = new DynamoDBConnector();
+var dbConnection = new DynamoDBConnector();
 export class Session{
 
     constructor(){
@@ -64,29 +64,22 @@ export class Session{
         //reminder to set the sesion Id
     }
     //needs filling
-    getId() {
+    getAllQueries(UserId) {
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: '', // this needs to be updated 
-                    Key: {
-                        'username': { S: this.userName } 
+                    TableName: 'table-dev',
+                    KeyConditionExpression: '#UserID = :UserIDval',
+                    ExpressionAttributeNames: {
+                        '#UserID': 'UserID'
+                    },
+                    ExpressionAttributeValues: {
+                        ':UserIDval': { N: UserId }
                     }
                 };
-                const user = await DB.getByPrimaryKey(params);
-                if (!user) {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
-                const password = res.password;
-                if (await bcrypt.compare(this.password, password)){
-                    resolve(res.UserId);
-                }
-                else {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
+                await dbConnection.getById(params);
+                resolve()
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         })
@@ -96,25 +89,51 @@ export class Session{
         return new Promise(async (resolve, reject) => {
             try{
                 var params = {
-                    TableName: '', // this needs to be updated 
-                    Key: {
-                        'sessionId': { S: this.sessionID } 
+                    TableName: 'table-dev',
+                    IndexName: 'sessionId-index',
+                    KeyConditionExpression: '#sessionId = :sessionIdVal',
+                    ExpressionAttributeNames: {
+                        '#sessionId': 'sessionId'
+                    },
+                    ExpressionAttributeValues: {
+                        ':sessionIdVal': { N: '10001' }
                     }
                 };
-                const user = await DB.getByPrimaryKey(params);
-                if (!user) {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
-                const password = res.password;
-                if (await bcrypt.compare(this.password, password)){
-                    resolve(res.UserId);
-                }
-                else {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
+
+                resolve();
             } catch (err) {
-                console.log(err);
+                reject(err);
+            }
+        })
+    }
+
+    getTenSession(userId) {
+        return new Promise(async (resolve, reject) => {
+            try{
+                const params = {
+                    TableName: "table-dev",
+                    KeyConditionExpression: "UserId = :UserIdval",
+                    ExpressionAttributeValues: {
+                        ":UserIdval": { N: userId.toString() }
+                    },
+                    ExpressionAttributeNames: {
+                        "#Time": "Time"
+                    },
+                    ScanIndexForward: false,
+                    ProjectionExpression: "sessionId, #Time"
+                };
+                const queries = await dbConnection.getById(params);
+                let result = []
+                for(const q of queries){
+                    if(!result.includes(q.sessionId)){
+                        result.push(q.sessionId);
+                    }
+                    if(result.length >= 10){
+                        break;
+                    }
+                }
+                resolve(result);
+            } catch (err) {
                 reject(err);
             }
         })
@@ -129,48 +148,42 @@ export class Session{
                         'sessionId': { S: this.sessionID } 
                     }
                 };
-                const user = await DB.getByPrimaryKey(params);
-                if (!user) {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
-                const password = res.password;
-                if (await bcrypt.compare(this.password, password)){
-                    resolve(res.UserId);
-                }
-                else {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
             } catch (err) {
                 console.log(err);
                 reject(err);
             }
         })
     }
-    //need to fill out
-    addChatResponse() {
+    addChatResponse(req, chatResponse) {
         return new Promise(async (resolve, reject) => {
             try{
-                var params = {
-                    TableName: '', // this needs to be updated 
-                    Key: {
-                        'sessionId': { S: this.sessionID } 
+            const currentDate = new Date();
+
+            const timestamp = + currentDate.getUTCFullYear() + "-" 
+                + (currentDate.getUTCMonth()+1)  + "-"  
+                + currentDate.getUTCDate() + " "
+                + currentDate.getUTCHours() + ":"  
+                + currentDate.getUTCMinutes() + ":" 
+                + currentDate.getUTCSeconds() + " UTC";
+            
+            const params = {
+                TableName: "table-dev",
+                Item: {
+                    UserId: { N: req.cookies.UserId },
+                    Time: { S: timestamp},   
+                    sessionId: { N: req.body.sessionId },
+                    Query: {
+                        M: {
+                            question: { S: req.body.body },
+                            answer: { S: chatResponse }
+                        }
                     }
-                };
-                const user = await DB.getByPrimaryKey(params);
-                if (!user) {
-                    throw new UnauthorizedError("Not Allowed", 401);
                 }
-                const res = AWS.DynamoDB.Converter.unmarshall(user);
-                const password = res.password;
-                if (await bcrypt.compare(this.password, password)){
-                    resolve(res.UserId);
-                }
-                else {
-                    throw new UnauthorizedError("Not Allowed", 401);
-                }
+            }
+
+            await dbConnection.insert(params);
+            resolve();
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         })
