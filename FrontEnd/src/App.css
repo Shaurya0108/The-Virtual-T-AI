@@ -2,28 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .nav {
   background-color: #154734;
   color: white;
-  display: flex; 
+  display: flex;
+  justify-content: space-between; /* center Align items to the center horizontally */
+  align-items: center; /* Align items to the center vertically */
   width:100%;
   top: 0;
-  top: 0px;
+  /* top: 0px; */
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the contents */
+  padding: 1%;
 }
 
 .utd-icon {
   max-width: 10%;
-  margin-left: 2rem;
+  /* margin-right: 1%; 0 auto */
 }
 
 .navbar-caption {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+   margin: 0 auto /* new */
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.navbar-cap-1,
+.navbar-cap-2 {
+  margin: 0;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .navbar-cap-1 {
+  font-size: 40px;
+}
+
+.navbar-cap-2 {
+  font-size: 20px;
+}
+
+/* .navbar-cap-1 {
   margin: 0;
   font-size: 40px;
   margin-top: 30px;
@@ -39,7 +66,7 @@
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 .hidden {
   display: none;
@@ -77,13 +104,22 @@
   padding-bottom: 60px;
 }
 
-.settings-button {
-  background-image: url('../src/images/Settings button Icon.png');
-  width: 5%;
-  height: 40px;
+.menu-button, .settings-button{
   background-repeat: no-repeat;
   background-position: center;
-  
-  position: relative;
-  right: 3%;
+  width: 60px;
+  height: 60px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  /* position: relative; */
+} 
+
+.menu-icon, .settings-icon {
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.rotate {
+  transform: rotate(90deg);
 }
