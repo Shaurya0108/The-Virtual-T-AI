@@ -107,8 +107,36 @@ export class Session{
         })
     }
 
-    getTenSession() {
-        
+    getTenSession(userId) {
+        return new Promise(async (resolve, reject) => {
+            try{
+                const params = {
+                    TableName: "table-dev",
+                    KeyConditionExpression: "UserId = :UserIdval",
+                    ExpressionAttributeValues: {
+                        ":UserIdval": { N: userId.toString() }
+                    },
+                    ExpressionAttributeNames: {
+                        "#Time": "Time"
+                    },
+                    ScanIndexForward: false,
+                    ProjectionExpression: "sessionId, #Time"
+                };
+                const queries = await dbConnection.getById(params);
+                let result = []
+                for(const q of queries){
+                    if(!result.includes(q.sessionId)){
+                        result.push(q.sessionId);
+                    }
+                    if(result.length >= 10){
+                        break;
+                    }
+                }
+                resolve(result);
+            } catch (err) {
+                reject(err);
+            }
+        })
     }
 
     deleteSession() {
