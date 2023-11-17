@@ -4,7 +4,6 @@ import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import Latex from './Latex'
 
-
 export default class ChatBox extends React.Component {
   
     constructor(props) {
