@@ -25,7 +25,7 @@ export default function SettingsButton() {
         navigate('/help');
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         function handleClickOutside(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsSettingsDropdownOpen(false);
@@ -39,7 +39,7 @@ export default function SettingsButton() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isSettingsDropdownOpen]);
+    }, [isSettingsDropdownOpen]);*/
 
     return (
         <>

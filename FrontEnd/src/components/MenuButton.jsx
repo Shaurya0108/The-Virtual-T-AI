@@ -21,7 +21,7 @@ export default function MenuButton() {
         navigate('/homework');
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         function handleClickOutside(event) {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsMenuDropdownOpen(false);
@@ -35,7 +35,7 @@ export default function MenuButton() {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isMenuDropdownOpen]);
+    }, [isMenuDropdownOpen]);*/
 
     return (
         <>
