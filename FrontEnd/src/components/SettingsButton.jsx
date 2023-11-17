@@ -9,7 +9,7 @@ export default function SettingsButton() {
     const [modalContent, setModalContent] = useState("");
     const [isSettingsIconRotated, setIsSettingsIconRotated] = useState(false);
     const dropdownRef = useRef(null);
-    /*const navigate = useNavigate();*/
+    const navigate = useNavigate();
 
     const toggleSettingsDropdown = () => {
         setIsSettingsDropdownOpen(!isSettingsDropdownOpen);
@@ -24,13 +24,13 @@ export default function SettingsButton() {
 
     /*const handleProfileClick = () => {
         navigate('/profile');
-    };
+    };*/
 
     const handleLogoutClick = () => {
-        navigate('/logout');
+        navigate('/');
     };
 
-    const handleHelpClick = () => {
+    /*const handleHelpClick = () => {
         navigate('/help');
     };*/
 
@@ -58,7 +58,7 @@ export default function SettingsButton() {
             {isSettingsDropdownOpen && (
                 <div ref={dropdownRef} className="dropdown-settingsbutton absolute right-0 top-20 mt-5 py-2 w-48 bg-white rounded-md shadow-xl z-50">
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleOptionClick("Profile")}>Profile</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleOptionClick("Logout")}>Logout</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogoutClick}>Logout</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleOptionClick("Help")}>Help</a>
                 </div>
             )}
