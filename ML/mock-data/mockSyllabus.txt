@@ -1,0 +1,13 @@
+Class: CS 4349
+Professor: Anjum Chida
+Room: ECSS 2.306
+Time: Monday & Wednesday 4:00 p.m. - 5:15 p.m.
+Office Hours: 8:00 a.m. - 4:00 p.m.
+Office: ECSS 4.619
+Grading Policy:
+	50% - Programming Assignments
+	20% - Midterm Exam
+	30% - Final Exam
+Textbook: algorithms, 4th edition by Robert Sedgewick and Kevin Wayne
+Course Website: http://www.utdallas.edu/~chida/cs4349.html
+Course Description: This course covers the design and analysis of algorithms and data structures. Topics include asymptotic analysis, recurrences, and algorithm design techniques such as divide-and-conquer, greedy method, and dynamic programming. Additional topics include graph algorithms, sorting and searching, and NP-completeness.

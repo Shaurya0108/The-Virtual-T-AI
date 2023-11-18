@@ -1,0 +1,166 @@
+Course Syllabus Fall 2023 CS 4349_001 Course Syllabus – Fall 2023 
+Course Information: Course CS 4349, Section 001 
+Course Title: Advanced Algorithm Design and Analysis 
+Term: Fall 2023 
+Days & Times: Tuesdays & Thursdays 10:00 am – 11:15 am 
+Professor Contact Information:
+	Professor Anjum Chida 
+	Office Phone: 972-883-2185 
+	Email Address: anjum.chida@utdallas.edu
+
+Office Location: ECSS 4.230 
+Office Hours:
+	In-person: 10:00 am to 12:00 noon (Mondays & Wednesdays) 
+	Online: (By appointment , additional meetings can be virtual via MS -Teams) 
+	
+Course Pre -requisites, Co- requisites, and/or Other Restrictions: CS 3305 with a grade of C or better, and CE 3345 or CS 3345 or SE 3345 or TE 3345. 
+
+Course Description: Asymptomatic analysis, recurrences, and graph algorithms. Algorithm design techniques such as greedy method, dynamic programming, and divide-and-conquer. Issues from computational complexity. Course emphasizes a theoretical approach. 
+
+Student Learning Objectives/Outcomes After successful completion of this course, the students are expected to gain these objectives:
+	1. Ability to use asymptotic notations, solve recurrences, perform algorithm analysis 
+	2. Ability to design, analyze, and prove correctness of algorithms based on Divide-and-Conquer techniques 
+	3. Ability to design, analyze, and prove correctness of algorithms based on Greedy techniques 
+	4. Ability to design, analyze, and prove correctness of algorithms based on Dynamic Programming techniques 
+	5. Ability to design, analyze and prove correctness of graph algorithms
+
+Required Textbooks and Materials: Cormen T.H., Leiserson C.E., Rivest R.L., and Stein C.,“Introduction to Algorithms”, 3rd ed., ISBN: 978- 0262033848.
+
+Academic Calendar:
+Class Date Material Covered Major Topic 
+Classes 1 & 2 is expected to be on Aug 22 & 24 and cover Chapters 1 & 2 (Topics: Introduction, Math Review)
+Classes 3 & 4 is expected to be on Aug 29 & 31 and cover Chapter 3 (Topics: Growth of Functions; Asymptotic Analysis)
+Classes 5 & 6 is expected to be on Sep 5 & 7 and cover Chapter 4 (Topics: Divide and Conquer)
+Classes 7 & 8 is expected to be on Sep 12 & 14 and cover Chapter 4 (Topics: Divide and Conquer)
+Classes 9 & 10 is expected to be on Sep 19 & 21 and cover Chapter 15 (Topics: Dynamic Programming)
+Classes 11 & 12 is expected to be on Sep 26 & 28 and cover Chapter 15 will be Review 
+Class 13 is expected to be on Oct 3, Exam 1 will be administered
+Class 14 is expected to be on Oct 5 and cover Chapter 16 (Topics: Greedy Algorithms)
+Classes 15 & 16 is expected to be on Oct 10 & 12 and cover Chapter 22 (Topics: Graph Representation, Graph Searching)
+Classes 17 & 18 is expected to be on Oct 17 & 19 and cover Chapter 23 & 24 (Topics: Minimum Spanning Tree, Single Source Shortest Path)
+Classes 19, 20 & 21 is expected to be on Oct 24, 26 & 31 and cover Chapter 25 & 26 (Topics: All pairs Shortest Path, Maximum Flow/Minimum cut, Algorithms)
+Classes 22 is expected to be on Nov 2 will be Review 
+Classes 23 is expected to be on Nov 7, Exam 2 will be administered
+Classes 24, 25 & 26 is expected to be on Nov 9, 14 & 16 and cover Chapter 34 (Topics: NP-Hardness and NP-Completeness)
+Thanksgiving Break is on Nov 20-24
+Classes 27 & 28 is expected to be on Nov 28 & 30 and cover Chapter 34 (Topics: NP-Hardness and NP-Completeness)
+Classes 29 & 30 is expected to be on Dec 5 & 7 will be Review 
+On Dec 12, Exam 3 will be administered
+
+
+Grading Policy: The grade will be determined as described below. The lowest assignment score will be dropped. No other bonus work, make -up work, dropped scores, or other means of raising your grade should be expected. At the end of the semester, it is possible that grades may be curved, but a curve should not be expected. Grades are not based on needs or consequences but are based only on performance.
+
+Grade Distribution:
+	Exam 1: 20% 
+	Exam 2: 25% 
+	Exam 3: 25% 
+	Assignments 20% 
+	Quizzes & Class Participation 10%
+
+Assignment of letter grade is as follows : 
+	Total Letter Grade 98-100 A+ 93-97 A 90-92 A- 88-89 B+ 83-87 B 80-82 B- 78-79 C+ 73-77 C 70-72 C- 60-69 D 0-59 F
+
+Tentative Test Dates: 
+	Exam 1: October 3
+	Exam 2: November 7 
+	Exam 3: December 12 
+	
+*All examinations will be at the Testing Center ( https://ets.utdallas.edu/testing-center ). Seats will fill up quickly; students are encouraged to register for ALL three exams early in advance during the first two weeks of semester. 
+*Failure to take the exam due to incorrect registration or absence will result in score of zero for that exam, NO EXCEPTIONS. 
+
+Course & Instructor Policies: 
+
+Exam Policy: All three exams will be at the Testing Center. All students are required to register and reserve seats at the center at least 48 hours before the exam . This 48-hour deadline is strictly followed by the testing center. If a student misses an exam due to not registering 48 hours prior to the exam, this will constitute a ZERO for the exam. No Exceptions will be made for missing the exam due to missed or incorrect registration. All exams could be registered in the first few weeks of the semester, once registered a confirmation email will be sent to the student. It is the student responsibility to ensure proper registration and to follow all the guidelines and dress code restrictions given in the Testing center website. Exams must be taken on time. Exceptions require advance approval by the instructor. It is up to the instructor to determine whether an exception will be made and will depend largely on proof of extraordinary circumstances. Otherwise, a missed exam will either incur a substantial penalty or be recorded as a zero. All Exams are 100% online with multiple choice and essay questions. 
+
+Make-Up Exam Policy: Make-Up exams will be administered only under extreme extenuating circumstances like hospitalization or road accidents. Proof of such incident is required to request a Make-Up and will be approved after instructors’ discretion. Make-Up exams are 100% on paper with only essay questions. 
+
+Assignment Policy: All assignments will be available via elearning and must be submitted via elearning as well. No email submission allowed. Assignments must be turned in on time. All assignments will be due on eLearning. Late submissions will be accepted, but any late submission made within 24 hours of when the assignment is due will have its score deducted by 10% , the maximum score possible. Late submissions made more than 24 but less than 48 hours after the assignment is due will have the score deducted an additional 10% (so 20% total). No points will be awarded for submissions more than 48 hours late. Even after deductions, scores cannot be negative. It is your responsibility to upload your work early enough to avoid possible problems uploading to eLearning. It is your responsibility to ensure that you have submitted the correct items. It is recommended that you double-check your submission to ensure it is correct. All Assignments are to be individual efforts. You are allowed to collaborate with other students, or to discuss solutions with other students, but make sure that the work you submit is your own and not simply copied from other students’ work. Copying of Assignments in whole or in part, from other students in this semester or previous semesters will be considered an act of scholastic dishonesty. There will be no makeup exams or other extra credit opportunities in the semester. No makeup work is possible for Assignments, but the lowest Assignment score will be dropped before calculating Assignment Total.
+
+Sample Exams: There are three sample exams corresponding to three exams, these exams are very similar in format to the actual exams. The purpose of these exams is for students to practice. These exams will be available via eLearning and will not be graded but participation credit will be given if attempted before the due date. These attempts will be considered in calculating the Class Participation credit. 
+
+Participation Quizzes: Participation Quizzes will be available via elearning multiple times throughout the semester. These quizzes will not be graded but participation credit will be given if the quizzes are attempted before the due date. Students will be able to attempt the quiz multiple times even though a single attempt per quiz is sufficient to score the participation credit for that quiz. These attempts will be considered in calculating the Class Participation credit. 
+
+Class Attendance: Regular and punctual class attendance is expected. Attendance will be taken in every class, and this will constitute a part of Class Participation credit. Attendance will be taken as an elearning Quiz, students need to login into elearning and take the Attendance Quiz in every class. Students who fail to attend class regularly are inviting scholastic difficulty . Attendance score will be used in calculating Class Participation credit. Every student is allowed up to 3 absences per semester with no excuse, more if proper documentation is given for a valid excuse.
+
+Class Participation: Regular class participation is expected. Students who fail to participate in class regularly are inviting scholastic difficulty. A portion of the grade for this course is directly tied to your participation in this class. It also includes engaging in groups or other activities during class that solicit your feedback on homework assignments, readings, or materials covered in the lectures (and/or labs). Class participation is documented by faculty. Successful participation is defined as consistently adhering to University requirements, as presented in this syllabus. Failure to comply with these University requirements is a violation of the Student Code of Conduct.
+
+Additional Videos: In addition to regular class and lecture, the student will be required to watch additional videos covering some class material or providing help with Assignments. These additional videos will be released every week. There will be at least one hour and at most 2 hours of video released every week. Students will be expected to watch these videos in timely manner and contribute to class discussions pertaining to these videos.
+
+Email Correspondence with the Instructor: Any courses related questions can be asked via email to the instructor. It is the instructor’s policy to respond to every email within 24 hours, if a response is not given in 24 hours, the student is encouraged to email again. On occasions, the instructor gets too many emails and might forget to respond or read the email, student patience is highly appreciated in this matter. 
+
+Class Assessment Surveys: There are three class assessment surveys, one at the Beginning of the Semester, one at the Middle and one at the end of the semester. The end of semester survey is the official UTD course evaluation survey taken from the website eval.utdallas.edu. The other two surveys will be via elearning. All surveys are anonymous. Surveys are considered as feedback from students which becomes essential part of course design and course conduct modifications. Feedback from students via these surveys encourages and motivates the instructor to perform optimally at teaching the course and helps in better course design. 
+
+Class Materials: The instructor may provide class materials that will be made available to all students registered for this class as they are intended to supplement the classroom experience. These materials may be downloaded during the course; however, these materials are for registered students' use only. Classroom materials may not be reproduced or shared with those not in class or uploaded to other online environments except to implement an approved Office of Student AccessAbility accommodation. Failure to comply with these University requirements is a violation of the Student Code of Conduct.
+
+Class Recordings: Students are expected to follow appropriate University policies and maintain the security of passwords used to access recorded lectures. Unless the Office of Student AccessAbility has approved the student to record the instruction, students are expressly prohibited from recording any part of this course. Recordings may not be published, reproduced, or shared with those not in the class, or uploaded to other online environments except to implement an approved Office of Student AccessAbility accommodation. Failure to comply with these University requirements is a violation of the Student Code of Conduct. The instructor may record meetings of this course. These recordings will be made available to all students registered for this class, the intent is to supplement the classroom experience. 
+
+Accommodations for Students with Disabilities: The University of Texas at Dallas is committed to providing reasonable accommodations for all persons with disabilities. The syllabus is available in alternate formats upon request. If you are seeking classroom accommodations under the Americans with Disabilities Act (2008), you are required to register with the AccessAbility Resource Center (ARC), located in the Administration Building, Suite 2.224. The AccessAbility Resource Center phone number is 972-883-2098, email is studentaccess@utdallas.edu and the website is https://accessability.utdallas.edu/. To receive academic accommodations for this class, please register and request services by completing the Request for Services form with the proper documentation and meet with the Director of ARC at the beginning of the semester. 
+
+Academic Integrity: The faculty expects from its students a high-level of responsibility and academic honesty. Because the value of an academic degree depends upon the absolute integrity of the work done by the student for that degree, it is imperative that a student demonstrates a high standard of individual honor in his or her scholastic work. See https://conduct.utdallas.edu/integrity. 
+
+Academic Dishonesty: Academic dishonesty can occur in relation to any type of work submitted for academic credit or as a requirement for a class. It can include individual work or a group project. Academic dishonesty includes plagiarism, cheating, fabrication, and collaboration/collusion. In order to avoid academic dishonesty, it is important for students to fully understand the expectations of their professors. This is best accomplished through asking clarifying questions if an individual does not completely understand the requirements of an assignment. Additional information related to academic dishonesty and tips on how to avoid dishonesty may be found here: https://conduct.utdallas.edu/dishonesty.
+
+Comet Creed: This creed was voted on by the UT Dallas student body in 2014. It is a standard that Comets choose to live by and encourage others to do the same: “As a Comet, I pledge honesty, integrity, and service in all that I do.” 
+
+Academic Support Resources: The information contained in the following link lists the University’s academic support resources for all students. Please see http://go.utdallas.edu/academic-support-resources. 
+
+UT Dallas Syllabus Policies and Procedures: The information contained in the following link constitutes the University’s policies and procedures segment of the course syllabus. Please review the catalog sections regarding the credit/no credit or pass/fail grading option and withdrawal from class. Please go to http://go.utdallas.edu/syllabus-policies for these policies.
+
+The descriptions and timelines contained in this syllabus are subject to change at the discretion of the Professor.
+
+Table of Assessments & Due Dates:
+NOTE: The due dates are subject to change at the discretion of the instructor. 
+Assignment 1 is about Chapters 1 & 2 on the topics of Introduction, Induction Proofs due on September 3 
+Participation Quiz 1 is about Chapters 1 & 2 on the topics of Introduction Induction Proofs due on September 3 
+Assignment 2 is about Chapter 3 on the topics of Asymptotic Notations Growth of Functions due on September 10 
+Participation Quiz 2 is about Chapter 3 on the topics of Asymptotic Notations Growth of Functions due on September 10 
+Assignment 3 is about Chapter 4 on the topics of Divide and Conquer due on September 24 
+Participation Quiz 3 is about Chapter 4 on the topics of Divide and Conquer due on September 24 
+Sample Exam 1 is about Chapter 1, 2, 3, 4, 9.3 (Quick Select ) & 33.4( Closest Pair of Points) due on September 29 
+Exam 1 is about Chapter 1, 2, 3, 4, 9.3 (Quick Select ) & 33.4( Closest Pair of Points ) due on October 3 
+Assignment 4 is about Chapter 15 on the topics of Dynamic Programming due on October 15
+
+Participation Quiz 4 is about Chapter 15 on the topics of Dynamic Programming due on October 15 
+Assignment 5 is about Chapter 16 & 22 on the topics of Greedy Algorithms & Elementary Graph Algorithms due on October 22 
+Participation Quiz 5 is about Chapter 16 & 22 on the topics of Greedy Algorithms & Elementary Graph Algorithms due on October 22 
+Sample Exam 2 is about Chapters 15, 16 & 22 due on October 29 
+Exam 2 is about Chapters 15, 16 & 22 due on November 7 
+Assignment 6 is about Chapter 23 & 24 on the topics of Minimum Spanning Tree & Single Source Shortest Path due on November 19 
+Participation Quiz 6 is about Chapter 23 & 24 on the topics of Minimum Spanning Tree & Single Source Shortest Paths due on November 19 
+Assignment 7 is about Chapter 25 & 26 on the topics of All Pairs Shortest Paths & Maximum Flow Algorithms due on December 3 
+Participation Quiz 7 is about Chapter 25 & 26 on the topics of All Pairs Shortest Paths & Maximum Flow Algorithms due on December 3 
+Sample Exam 3 is about Chapters 23, 24, 25, 26 & 34 ( Np Completeness) due on December 7
+Exam -3 is about Chapters 23, 24, 25, 26 & 34 ( Np Completeness) due on December 12
+
+General Exams Instructions: Exams will be at the Testing Center. The exam has a time limit of 1 hour and 15 minutes. If you have not already reserved your seat do it ASAP. Please arrive early and follow all the guidelines given in Testing Center website before going there. Exams cover the following topics
+
+Exam 1 covers the following topics:
+1. Chapter 1: The Role of Algorithms in Computing 
+2. Chapter 2: Getting Started 
+3. Chapter 3: Growth of Functions 
+4. Chapter 4: Divide and Conquer 
+5. Chapter 9.3: Quick Select 
+6. Chapter 33.4: Closest Pair of Points 
+
+Exam 2 covers the following topics: 
+1. Chapter 15: Dynamic Programming (All sections) 
+2. Chapter 16: Greedy Algorithms (Only sections 16.1, 16.2 & 16.3)
+3. Chapter 22: Elementary Graph Algorithms (All sections) 
+
+Exam 3 covers the following topics: 
+1. Chapter 23: Minimum -Spanning Trees (All sections) 
+2. Chapter 24: Single Source Shortest Paths (All sections) 
+3. Chapter 25: All Pairs Shortest Paths (All sections) 
+4. Chapter 26: Maximum Flow (Only sections 26.1, 26.2 & 26.3) 
+5. Chapter 34: NP Completeness (All sections) What to Bring
+
+What to Bring for Exams: 
+1. Scientific Calculator (Note Graphic calculators not allowed) 
+2. Book (- Cormen T.H., Leiserson C.E., Rivest R.L., and Stein C.,“Introduction to Algorithms”, 3rd ed., ISBN: 978- 0262033848.) If you have digital copy, bring the print out of the book. 
+3. Cheat Sheets , exactly 2 sheets of A4 size (approximately 8.5 inches by 11 inches) paper. The paper can have anything written or printed.
+
+Help with Exam Preparation: Keys for Assignments will be made available in eLearning 2 days before exam date. Check the “Assignment” content area for Assignment keys. Sample Exams are available a week ahead to practice. In the Lecture Notes content area, you will find documents “Practice Problems For Exam” containing some additional problem from Book exercise for extra practice. 
+
+Miscellaneous Exam Information:
+* Time management will be essential for better performance during exams.
+* Cheat Sheets will not be returned. If the student needs a copy, the student needs to make one before the exam.

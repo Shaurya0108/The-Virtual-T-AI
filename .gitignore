@@ -1,2 +1,7 @@
 node_modules
 .DS_Store
+.vscode
+ML/llama2/meta_models/*
+ML/llama2/llama/*
+ML/llama2/llama.cpp/*
+!ML/llama2/llama.cpp/models/*

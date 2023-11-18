@@ -1,0 +1,142 @@
+text,class
+When is class?,Class Time
+What days are class?,Class Time
+What time is class?,Class Time
+What is the class time?,Class Time
+What is the class schedule?,Class Time
+What is the class location?,Class Location
+Where is class?,Class Location
+Where is the class?,Class Location
+Where is the class location?,Class Location
+What is the class room?,Class Location
+What is the class room number?,Class Location
+Which building is class in?,Class Location
+What is Assignment 1 about?,Assignment Details
+What is Assignment 2 about?,Assignment Details
+What is Assignment 3 about?,Assignment Details
+What is homework 1 about?,Assignment Details
+What is homework 2 about?,Assignment Details
+What is homework 3 about?,Assignment Details
+When is Assignment 1 due?,Assignment Details
+When is Assignment 2 due?,Assignment Details
+When is Assignment 3 due?,Assignment Details
+When is homework 1 due?,Assignment Details
+When is homework 2 due?,Assignment Details
+When is homework 3 due?,Assignment Details
+What is the due date for Assignment 1?,Assignment Details
+What is the due date for Assignment 2?,Assignment Details
+What is the due date for Assignment 3?,Assignment Details
+What is the due date for homework 1?,Assignment Details
+What is the due date for homework 2?,Assignment Details
+What is the due date for homework 3?,Assignment Details
+What is the due date for the first assignment?,Assignment Details
+What is the due date for the second assignment?,Assignment Details
+What is the due date for the third assignment?,Assignment Details
+What chapters are covered in Assignment 1?,Assignment Details
+What chapters are covered in Assignment 2?,Assignment Details
+What chapters are covered in Assignment 3?,Assignment Details
+What is the grading distribution for the class?,Grading
+How much of the final is my grade?,Grading
+What is the grading scale?,Grading
+What is the grading policy?,Grading
+How much does the homework affect my grade?,Grading
+How do I contact the professor?,Professor Contact Info
+How do I contact her?,Professor Contact Info
+How do I contact him?,Professor Contact Info
+What is the professor's email?,Professor Contact Info
+What is the professor's office hours?,Professor Contact Info
+What is the professor's phone number?,Professor Contact Info
+Where should I go for help?,Professor Contact Info
+Where is the professor's office location?,Professor Contact Info
+What is her email?,Professor Contact Info
+What is his email?,Professor Contact Info
+What is her phone number?,Professor Contact Info
+What is his phone number?,Professor Contact Info
+What is her office hours?,Professor Contact Info
+What is his office hours?,Professor Contact Info
+What is her office location?,Professor Contact Info
+What is his office location?,Professor Contact Info
+What is the professor's name?,Professor Contact Info
+What is better? Bubble Sort or Merge Sort?,Sorting
+Can you explain the difference between Bubble Sort and Merge Sort?,Sorting
+Can you explain the difference between Quick Sort and Selection Sort?,Sorting
+What is the difference between Merge Sort and Insertion Sort?,Sorting
+Which is better? Quick Sort or Bubble Sort?,Sorting
+What is the difference between Heap Sort and Merge Sort?,Sorting
+Explain difference between Insertion Sort and Heap Sort?,Sorting
+What is the difference between Selection Sort and Radix Sort?,Sorting
+difference between Bubble Sort and Bucket Sort,Sorting
+What is the difference between Quick Sort and Counting Sort?,Sorting
+Can you write the code for Bubble Sort?,Sorting
+Can you write the code for Merge Sort?,Sorting
+What is proof by induction?,Proofs
+What is proof by contradiction?,Proofs
+What is proof by contrapositive?,Proofs
+What is direct proof?,Proofs
+Can you explain proof by induction?,Proofs
+Can you explain proof by contradiction?,Proofs
+Can you explain proof by contrapositive?,Proofs
+Can you explain direct proofs?,Proofs
+What is the difference between proof by induction and proof by contradiction?,Proofs
+What is the difference between proof by contradiction and proof by contrapositive?,Proofs
+What is the difference between proof by induction and direct proof?,Proofs
+What is Linear Search?,Searching
+What is Binary Search?,Searching
+What is the difference between Linear Search and Binary Search?,Searching
+Which is better between Linear Search and Binary Search?,Searching
+What is depth first search?,Searching
+what is dfs?,Searching
+What is breadth first search?,Searching
+what is bfs?,Searching
+What is the difference between depth first search and breadth first search?,Searching
+What is the difference between dfs and bfs?,Searching
+what is bidirectional search?,Searching
+can you give an example of bidirectional search?,Searching
+can you give an example of depth first search?,Searching
+can you give an example of breadth first search?,Searching
+How would I find a word in a dictionary?,Design
+How would I sort a list of numbers?,Design
+What is the difference between Dynamic Programming and Greedy Algorithms?,Design
+How would I find the shortest path between two points?,Design
+What is recursion?,Design
+What are the steps to designing a system?,Design
+What is the difference between a linked list and an array?,Data Structures
+What is the difference between a stack and a queue?,Data Structures
+What is the difference between a stack and a heap?,Data Structures
+what is a stack?,Data Structures
+what is a queue?,Data Structures
+what is a heap?,Data Structures
+what is a linked list?,Data Structures
+what is an array?,Data Structures
+Which is faster for searching? A linked list or an array?,Asymptotic Analysis
+Which is faster for sorting? A linked list or an array?,Asymptotic Analysis
+Which is more time efficient? A linked list or an array?,Asymptotic Analysis
+Which is more space efficient? A linked list or an array?,Asymptotic Analysis
+What is Big O notation?,Asymptotic Analysis
+What is Big Oh notation?,Asymptotic Analysis
+What is Big Omega notation?,Asymptotic Analysis
+What is Big Theta notation?,Asymptotic Analysis
+What is the difference between Big O and Big Omega?,Asymptotic Analysis
+What is the difference between Big O and Big Theta?,Asymptotic Analysis
+What is the difference between Big Omega and Big Theta?,Asymptotic Analysis
+What is the difference between Big O and Big Oh?,Asymptotic Analysis
+Which is faster? O(n) or O(n^2)?,Asymptotic Analysis
+Which is slower? O(n) or O(log n)?,Asymptotic Analysis
+Which is better? O(n) or O(1)?,Asymptotic Analysis
+Which is faster? O(n) or O(n log n)?,Asymptotic Analysis
+O(n) vs O(2^n),Asymptotic Analysis
+O(n) or O(n!),Asymptotic Analysis
+What is Dynamic Programming?,Dynamic Programming
+what might the subproblems be?,Dynamic Programming
+subproblems?,Dynamic Programming
+what are the steps of dynmaic programming?,Dynamic Programming
+why is dynamic programming useful?,Dynamic Programming
+how do I break fibonacci into subproblems?,Dynamic Programming
+longest common subsequence subproblems?,Dynamic Programming
+how do I break longest increasing subsequence into subproblems?,Dynamic Programming
+What are greedy algorithms?,Greedy Algorithms
+what are the steps of greedy algorithms?,Greedy Algorithms
+why are greedy algorithms useful?,Greedy Algorithms
+what would be the locally optimal choice?,Greedy Algorithms
+huffman coding?,Greedy Algorithms
+What are the subproblems of knapsack?,Greedy Algorithms
