@@ -1,12 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from "../icons/MenuIcon.svg";
+import Modal from './Modal';
 
 export default function MenuButton() {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
     const [isMenuDropdownOpen, setIsMenuDropdownOpen] = useState(false);
     const [isMenuIconRotated, setIsMenuIconRotated] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    /* For Modal Title */
+    const [modalTitle, setModalTitle] = useState("");
 
     const toggleMenuDropdown = () => {
         setIsMenuDropdownOpen(!isMenuDropdownOpen);
@@ -14,11 +19,23 @@ export default function MenuButton() {
     };
 
     const handleSyllabusClick = () => {
-        
+        //Edit src
+        setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
+        setModalTitle("Syllabus");
+        setIsModalVisible(true);
     };
 
     const handleHomeworkClick = () => {
-        
+        //Edit src
+        setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
+        setModalTitle("Homework");
+        setIsModalVisible(true);
+    };
+
+    // Clear modal content when closing
+    const closeModal = () => {
+        setIsModalVisible(false);
+        setModalContent(null);
     };
 
     useEffect(() => {
@@ -48,6 +65,13 @@ export default function MenuButton() {
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleHomeworkClick}>Homework</a>
                 </div>
             )}
+            <Modal
+                isVisible={isModalVisible}
+                onClose={closeModal}
+                title={modalTitle}
+            >
+                {modalContent}
+            </Modal>
         </>
     );
 }

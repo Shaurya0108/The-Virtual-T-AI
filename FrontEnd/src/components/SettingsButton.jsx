@@ -6,58 +6,49 @@ import Modal from './Modal';
 export default function SettingsButton() {
     const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [modalContent, setModalContent] = useState("");
+    const [modalContent, setModalContent] = useState(null);
     const [isSettingsIconRotated, setIsSettingsIconRotated] = useState(false);
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    /* For Modal Title */
+    const [modalTitle, setModalTitle] = useState("");
+
+    const userInfo = {
+        name: "John",
+        lastName: "Doe",
+        email: "john.doe@example.com"
+    };
 
     const toggleSettingsDropdown = () => {
         setIsSettingsDropdownOpen(!isSettingsDropdownOpen);
         setIsSettingsIconRotated(!isSettingsIconRotated);
     };
 
-    const handleOptionClick = (option) => {
-        let content;
-        switch (option) {
-            case "Profile":
-                content = displayProfileInfo();
-            break;
-            default:
-                content = <p>Content for {option}</p>;
-        }
-        setModalContent(content);
+    const handleProfileClick = () => {
+        setModalTitle("Profile");
+        setModalContent(
+            <div className="modal-content">
+                <p>Name: {userInfo.name}</p>
+                <p>Last Name: {userInfo.lastName}</p>
+                <p>UTD Email: {userInfo.email}</p>
+            </div>
+        );
         setIsModalVisible(true);
-        setIsSettingsDropdownOpen(false);
     };
-
-    /*const handleProfileClick = () => {
-        navigate('/profile');
-    };*/
 
     const handleLogoutClick = () => {
         navigate('/');
     };
 
-    /*const handleHelpClick = () => {
-        navigate('/help');
-    };*/
-
-    const userInfo = {
-        name: "John",
-        lastName: "Doe",
-        email: "johndoe@example.com"
+    const handleHelpClick = () => {
+        setModalTitle("Help");
+        setIsModalVisible(true);
     };
 
-    const displayProfileInfo = () => {
-        const profileContent = (
-            <div>
-                <p>Name: {userInfo.name}</p>
-                <p>Last Name: {userInfo.lastName}</p>
-                <p>Email: {userInfo.email}</p>
-            </div>
-        );
-        setModalContent(profileContent);
-        setIsModalVisible(true);
+    // Clear modal content when closing
+    const closeModal = () => {
+        setIsModalVisible(false);
+        setModalContent(null);
     };
 
     useEffect(() => {
@@ -83,24 +74,17 @@ export default function SettingsButton() {
             </button>
             {isSettingsDropdownOpen && (
                 <div ref={dropdownRef} className="dropdown-settingsbutton absolute right-0 top-20 mt-5 py-2 w-48 bg-white rounded-md shadow-xl z-50">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleOptionClick("Profile")}>Profile</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleProfileClick}>Profile</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleLogoutClick}>Logout</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleOptionClick("Help")}>Help</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleHelpClick}>Help</a>
                 </div>
             )}
             <Modal 
                 isVisible={isModalVisible} 
-                onClose={() => setIsModalVisible(false)}
-                title="User Profile"
+                onClose={closeModal}
+                title={modalTitle}
             >
-                <p className="modal-content">Content for {modalContent}</p>
-
-                <div className="profile-info" style={{ color: 'black' }}> {/* Added inline style for white text */}
-                    <p>Name: {userInfo.name}</p>
-                    <p>Last Name: {userInfo.lastName}</p>
-                    <p>Email: {userInfo.email}</p>
-                </div>
-                
+                {modalContent}
             </Modal>
         </>
     );
