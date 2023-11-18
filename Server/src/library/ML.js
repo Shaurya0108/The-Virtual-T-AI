@@ -9,7 +9,7 @@ export function query(Text) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + process.env.VITE_BEARER_TOKEN,
+                    'Authorization': 'Bearer ' + process.env.model_bearer_token,
                 },
                 body: JSON.stringify({
                     "input": {

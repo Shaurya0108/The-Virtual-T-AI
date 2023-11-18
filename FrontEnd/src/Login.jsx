@@ -31,7 +31,7 @@ export default function Login() {
         credentials: 'include'
       };
   
-      const response = await fetch("http://18.189.195.246:443/auth/login", requestOptions);
+      const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/auth/login", requestOptions);
   
       if (response.ok) {
         navigator('/home');
