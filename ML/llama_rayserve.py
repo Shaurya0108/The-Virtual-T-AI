@@ -81,15 +81,15 @@ class LlamaLlm:
         #                                     chain_type_kwargs={'prompt': prompt}) 
 
         # Set up memory and langchain for both QA and Conversation
-        memory = ConversationBufferWindowMemory(memory_key="history", k=4, return_only_outputs=True)
-        chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=True)
+        #!!! memory = ConversationBufferWindowMemory(memory_key="history", k=4, return_only_outputs=True)
+        #!!! chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=True)
 
         # question_generator_chain = LLMChain(llm=llm, prompt=qaPrompt, verbose=False)
-        qa_memory = ConversationBufferMemory(memory_key="chat_history", input_key="question", k=4, return_messages=True)
-        qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, chain_type="stuff", memory=qa_memory, retriever=retriever, verbose=False)
+        #!!! qa_memory = ConversationBufferMemory(memory_key="chat_history", input_key="question", k=4, return_messages=True)
+        #!!! qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, chain_type="stuff", memory=qa_memory, retriever=retriever, verbose=False)
 
-        self.convo = chain
-        self.qa = qa_chain
+        #!!! self.convo = chain
+        #!!! self.qa = qa_chain
         self.zsc = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
         self.candidate_labels = ["Follow-Up Description", "Sorting", "Searching", "Design", "Data Structures", "Comparison", "Proofs", "Asymptomatic analysis", "Dynamic Programming", "Greedy Methods", "Grading", "Course Description", "Class Time", "Assignment Details", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus", "Final Exam Date","Thanksgiving Break"]
         self.syllabus_labels = ["Grading", "Course Description", "Assignment Details", "Class Time", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus","Final Exam Date", "Thanksgiving Break"]
@@ -113,10 +113,12 @@ class LlamaLlm:
 
         # If the query is syllabus related, use the QA model, else use the Conversation model
         if (syllabus_related): 
-            response = self.qa({"question": query, "chat_history": ""})['answer']
+            response = "This is a default response."
+            #!!! response = self.qa({"question": query, "chat_history": ""})['answer']
             self.last_was_qa = True
         else: 
-            response = self.convo.predict(input=query)
+            response = "This is a default response."
+            #!!! response = self.convo.predict(input=query)
             self.last_was_qa = False
 
         return ("QA: " if syllabus_related else "Convo: ") + response
