@@ -65,14 +65,14 @@ class LlamaLlm:
         """
 
         # load the interpreted information from the local database
-        embeddings = HuggingFaceInstructEmbeddings(
-            model_name="sentence-transformers/all-MiniLM-L6-v2",
-            model_kwargs={'device': 'mps'}) #original value: cpu
-        db = FAISS.load_local("faiss", embeddings)
+        #!!! embeddings = HuggingFaceInstructEmbeddings(
+        #!!!     model_name="sentence-transformers/all-MiniLM-L6-v2",
+        #!!!     model_kwargs={'device': 'mps'}) #original value: cpu
+        #!!! db = FAISS.load_local("faiss", embeddings)
 
         # prepare a version of the llm pre-loaded with the local content
-        retriever = db.as_retriever(search_type="similarity", search_kwargs={'k': 2})
-        prompt = PromptTemplate(input_variables=["history", "input"], template=template)
+        #!!! retriever = db.as_retriever(search_type="similarity", search_kwargs={'k': 2})
+        #!!! prompt = PromptTemplate(input_variables=["history", "input"], template=template)
 
         #see https://python.langchain.com/docs/use_cases/question_answering/local_retrieval_qa
         # qa_llm = RetrievalQA.from_chain_type(llm=llm,
