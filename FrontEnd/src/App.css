@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.nav {
+  background-color: #154734;
+  color: white;
+  display: flex;
+  justify-content: space-between; /* center Align items to the center horizontally */
+  align-items: center; /* Align items to the center vertically */
+  width:100%;
+  top: 0;
+  /* top: 0px; */
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the contents */
+  padding: 1%;
+}
+
+.utd-icon {
+  max-width: 10%;
+  /* margin-right: 1%; 0 auto */
+}
+
+.navbar-caption {
+  display: flex;
+  flex-direction: column;
+   margin: 0 auto /* new */
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.navbar-cap-1,
+.navbar-cap-2 {
+  margin: 0;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-cap-1 {
+  font-size: 40px;
+}
+
+.navbar-cap-2 {
+  font-size: 20px;
+}
+
+/* .navbar-cap-1 {
+  margin: 0;
+  font-size: 40px;
+  margin-top: 30px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.navbar-cap-2 {
+  margin: 0;
+  font-size: 20px;
+  margin-top: 30px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+} */
+
+.hidden {
+  display: none;
+}
+
+.chat-container {
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* This will make the message list scrollable */
+.message-list {
+  overflow-y: auto;
+  margin-bottom: auto;
+}
+
+/* This will fix the form to the bottom of the viewport */
+.chat-form-container {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 1000px;
+  width: 100%;
+  background: white;
+  border-top: 1px solid #ccc;
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0.1, 0.1);
+  z-index: 1000;
+}
+
+/* This will create some space at the bottom of the message list to avoid overlap with the fixed input form */
+.message-list-padding {
+  padding-bottom: 60px;
+}
+
+.menu-button, .settings-button{
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 60px;
+  height: 60px;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  /* position: relative; */
+} 
+
+.menu-icon, .settings-icon {
+  transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}
