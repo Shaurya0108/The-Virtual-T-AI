@@ -15,7 +15,7 @@ from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.memory import ConversationBufferMemory
 from transformers import pipeline
 
-from langchain.llms import LlamaCpp
+#!!! from langchain.llms import LlamaCpp
 warnings.filterwarnings("ignore")
 
 # 1: Wrap the pretrained sentiment analysis model in a Serve deployment.
@@ -33,22 +33,23 @@ class LlamaLlm:
         max_new_tokens = 4096 #max is 4096 tokens for LLaMa 2
         # Make sure the model path is correct for your system
         
-        llm = LlamaCpp(
-            model_path=model_path ,
-            n_gpu_layers=n_gpu_layers,
-            task='text-generation',
-            return_full_text=True,
-            n_batch=n_batch,
-            n_ctx=n_context,
-            top_p=0.9,
-            top_k=40,
-            last_n_tokens_size=last_n_tokens_size,
-            max_new_tokens=max_new_tokens, #max is 4096 tokens for LLaMa 2
-            f16_kv=True,  # MUST set to True, otherwise you will run into problem after a couple of calls
-            verbose=False, # Verbose is required to pass to the callback manager
-            temperature= 0.0,
-            repetition_penalty=1.8
-        )
+        #!!!
+        # llm = LlamaCpp(
+        #     model_path=model_path ,
+        #     n_gpu_layers=n_gpu_layers,
+        #     task='text-generation',
+        #     return_full_text=True,
+        #     n_batch=n_batch,
+        #     n_ctx=n_context,
+        #     top_p=0.9,
+        #     top_k=40,
+        #     last_n_tokens_size=last_n_tokens_size,
+        #     max_new_tokens=max_new_tokens, #max is 4096 tokens for LLaMa 2
+        #     f16_kv=True,  # MUST set to True, otherwise you will run into problem after a couple of calls
+        #     verbose=False, # Verbose is required to pass to the callback manager
+        #     temperature= 0.0,
+        #     repetition_penalty=1.8
+        # )
         
         template = """[INST] <<SYS>> 
         You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. 
