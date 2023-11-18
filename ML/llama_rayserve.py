@@ -133,7 +133,7 @@ class LlamaLlm:
 
 # 2: Deploy the deployment.
 llama2_app = LlamaLlm.bind()
-serve.run(llama2_app, route_prefix="/")
+serve.run(llama2_app, route_prefix="/", port="80")
 
 # 3: Run from command like
 # serve run llama_rayserve:llama2_app 
