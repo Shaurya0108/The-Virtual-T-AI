@@ -63,5 +63,15 @@ export const chatBotroutes = () => {
         }
     });
 
+    router.get('/newSessionId', async (req, res) => {
+        try {
+            const result = await session.generateSessionId(req.cookies.UserId);
+            return res.status(200).json({res: result});
+        }
+        catch (error) {
+            return res.status(500).json({"error": "Failed to create new session"});
+        }
+    });
+
     return router;
 }
