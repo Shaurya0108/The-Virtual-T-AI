@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/Home.css';
-import { v4 as uuidv4 } from 'uuid'; // You need to install 'uuid' module if not already
 
 export default class Sessions extends React.Component {
   constructor(props) {
@@ -35,6 +34,8 @@ export default class Sessions extends React.Component {
   // Generates a new session ID and updates the state
   createNewSession = async () => {
     const newSessionId = await this.createSessionId(); // Generates a unique session ID
+
+    window.sessionStorage.setItem("currentSessionId", newSessionId);
 
     this.setState(prevState => ({
       currentSessionId: newSessionId,
