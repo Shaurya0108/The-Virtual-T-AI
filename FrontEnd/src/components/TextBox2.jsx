@@ -43,7 +43,7 @@ export default class ChatBox extends React.Component {
                 headers: myHeaders,
                 body: JSON.stringify({
                     body: prompt,
-                    sessionId: "10024"   //hardcoded for now
+                    sessionId: window.sessionStorage.getItem("currentSessionId")
                 }),
                 redirect: 'follow',
                 credentials: 'include'

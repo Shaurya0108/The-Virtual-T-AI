@@ -10,58 +10,24 @@ export class Session{
         this.sessionId = null;
     }
 
-    //needs filling
-    createSession(){
+    generateSessionId(UserId){
         return new Promise(async (resolve, reject) => {
             try{
-                var params = {
-                    TableName: 'sessions',
-                    Key: {
-                        'sessions': { S: this.userName } 
-                    }
-                };
-                const user = await DB.getByPrimaryKey(params);
-                if (user) {
-                    throw new ConflictError("Username already exist", 409);
-                }
-                else {
-                    const params = {
-                        TableName: 'Users',
-                        ProjectionExpression: 'UserId',
-                    };
-            
-                    const result = await DB.scanTable(params);
+                const currentDate = new Date();
 
-                    let highestUserId = 1001;
-            
-                    for (let item of result) {
-                        const currentUserId = parseInt(item.UserId.S, 10);
-                        if (currentUserId > highestUserId) {
-                            highestUserId = currentUserId;
-                        }
-                    }
+                const timestamp = "" + currentDate.getUTCFullYear() +
+                + (currentDate.getUTCMonth()+1) 
+                + currentDate.getUTCDate()
+                + currentDate.getUTCHours() 
+                + currentDate.getUTCMinutes()
+                + currentDate.getUTCSeconds();
 
-                    highestUserId += 1;
-                    const newUserIdStr = highestUserId.toString();
-                    const salt = await bcrypt.genSalt();
-                    const hashedPassword = await bcrypt.hash(this.password, salt);
-                    const param = {
-                        TableName: "Users",
-                        Item: {
-                            UserId: { "S": newUserIdStr },
-                            username: { "S": this.userName },
-                            password: { "S": hashedPassword }
-                        }
-                    }
-                    DB.insert(param);
-                    resolve(newUserIdStr);
-                }
+                const sessionId = UserId.toString() + timestamp;
+                resolve(sessionId);
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         })
-        //reminder to set the sesion Id
     }
     //needs filling
     getAllQueries(UserId) {
@@ -79,28 +45,6 @@ export class Session{
                 };
                 await dbConnection.getById(params);
                 resolve()
-            } catch (err) {
-                reject(err);
-            }
-        })
-    }
-    //needs filling
-    getStartDate() {
-        return new Promise(async (resolve, reject) => {
-            try{
-                var params = {
-                    TableName: 'table-dev',
-                    IndexName: 'sessionId-index',
-                    KeyConditionExpression: '#sessionId = :sessionIdVal',
-                    ExpressionAttributeNames: {
-                        '#sessionId': 'sessionId'
-                    },
-                    ExpressionAttributeValues: {
-                        ':sessionIdVal': { N: '10001' }
-                    }
-                };
-
-                resolve();
             } catch (err) {
                 reject(err);
             }
