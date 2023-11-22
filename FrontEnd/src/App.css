@@ -225,3 +225,43 @@
 .close-button:hover {
   color: #154734;
 }
+
+.modal-textarea {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  color:black;
+  border: 1px solid #808080;
+  resize: none;
+}
+
+.modal-send-button {
+  padding: 5px;
+  background-color: #808080;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  display: block;
+  background-color: #808080;
+  color: white;
+  margin: 5px 10px;
+  text-align: center;
+  box-sizing: border-box;
+  transition: #154734 0.2s;
+  width: 130px;
+}
+
+.modal-send-button:hover {
+  background-color: #154734;
+}
+
+.modal-content-container {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+}

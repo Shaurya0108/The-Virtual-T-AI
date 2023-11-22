@@ -32,6 +32,17 @@ export default function MenuButton() {
         setIsModalVisible(true);
     };
 
+    const handleContactTAClick = () => {
+        setModalContent(
+            <div className="modal-content-container">
+                <textarea placeholder="Type your message here" className="modal-textarea"></textarea>
+                <button className="modal-send-button">Send</button>
+            </div>
+        );
+        setModalTitle("Contact TA");
+        setIsModalVisible(true);
+    };
+
     // Clear modal content when closing
     const closeModal = () => {
         setIsModalVisible(false);
@@ -63,6 +74,7 @@ export default function MenuButton() {
                 <div ref={dropdownRef} className="dropdown-menubutton absolute left-0 top-20 mt-5 py-2 w-48 bg-white rounded-md shadow-xl z-50">
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleSyllabusClick}>Syllabus</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleHomeworkClick}>Homework</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleContactTAClick}>Contact TA</a>
                 </div>
             )}
             <Modal
