@@ -16,11 +16,11 @@ export const chatBotroutes = () => {
     router.post('/query', async (req, res) => {
         try {
             const chatResponse = await query(req.body)
-            await session.addChatResponse(req, chatResponse);
+            //await session.addChatResponse(req, chatResponse);
             return res.status(200).json({"res": chatResponse})
         } catch (error) {
             console.log("Error when chatbot query: ", error)
-            return res.status(500).json({ "error": "Internal Server Error" });
+            return res.status(500).json({ "res": "Internal Server Error" });
         }
     });
 

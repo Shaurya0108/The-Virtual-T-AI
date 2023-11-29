@@ -50,7 +50,13 @@ export default class ChatBox extends React.Component {
             };
             const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/chatBot/query", requestOptions)
             const data = await response.json();
-            return data.res;
+            if(data.res == undefined){
+                return "error occured"
+            }
+            else{
+                return data.res;
+            }
+            
         } catch (error) {
             console.error('There was an error!', error);
             return "Sorry, there was an issue getting the response.";

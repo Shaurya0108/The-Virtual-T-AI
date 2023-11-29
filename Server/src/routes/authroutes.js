@@ -55,14 +55,10 @@ export const authroutes = () => {
 
             return res
             .cookie("accessToken", accessToken, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true
+                httpOnly: true
             })
             .cookie("UserId", UserID, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true
+                httpOnly: true
             })
             .status(200)
             .json({
@@ -70,7 +66,6 @@ export const authroutes = () => {
                 sessions: tenSessions
             });
         } catch (error) {
-            console.err(error);
             if (error instanceof UnauthorizedError) {
                 return res.status(error.statusCode).json({"error": error.message});
             }
