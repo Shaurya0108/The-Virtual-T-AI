@@ -12,7 +12,7 @@ export default class Sessions extends React.Component {
     };
   }
 
-  createSessionId = async () => {
+  generateSessionId = async () => {
     try {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -33,18 +33,18 @@ export default class Sessions extends React.Component {
 
   // Generates a new session ID and updates the state
   createNewSession = async () => {
-    const newSessionId = await this.createSessionId(); // Generates a unique session ID
+    if (!this.state.conversation.length === 0){
+      const newSessionId = await this.generateSessionId(); // Generates a unique session ID
 
-    window.sessionStorage.setItem("currentSessionId", newSessionId);
+      window.sessionStorage.setItem("currentSessionId", newSessionId);
 
-    this.setState(prevState => ({
-      currentSessionId: newSessionId,
-      previousSessions: [...prevState.previousSessions, newSessionId],
-      conversation: [], // Reset the conversation or handle as necessary
-    }));
+      this.setState(prevState => ({
+        currentSessionId: newSessionId,
+        previousSessions: [...prevState.previousSessions, newSessionId],
+        conversation: [], // Reset the conversation or handle as necessary
+      }));
+    }
 
-    // Here you would also post the new session ID to your backend
-    // and initialize anything else required for a new session.
   };
 
   // A function that allows the user to select and load a previous session
@@ -55,56 +55,8 @@ export default class Sessions extends React.Component {
     // Here you would also retrieve the conversation for the selected session from the backend
   };
 
-  async query(Text) {
-    var response;
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      "body": Text
-    });
-
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow',
-      credentials: 'include'
-    };
-
-    fetch("localhost:443/chatBot/query", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-    return response;
-  }
-
   handleChange(event) {
     this.setState({ userMessage: event.target.value });
-  }
-
-  async handleSubmit(event) {
-
-
-    // Send the message to the conversation state
-    this.setState(state => {
-      const conversation = [...state.conversation, { text: state.userMessage, sender: 'user' }];
-      return {
-        conversation,
-        userMessage: '', // Clear the input box
-      };
-    });
-
-    // Make call to backend here
-    const response = "loading the users sessions"
-    event.preventDefault();
-    // Add the chatbot's response to the conversation
-    this.setState(state => {
-      const conversation = [...state.conversation, { text: chatbotResponse, sender: 'chatbot' }];
-      return {
-        conversation
-      };
-    });
   }
 
   render() {
