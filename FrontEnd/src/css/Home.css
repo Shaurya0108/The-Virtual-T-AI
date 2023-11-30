@@ -127,6 +127,11 @@ have a scroll down or scroll up option */
     padding: 5px 5px;
 }
 
+/* Hover effect */
+.new-session:hover {
+    background-color: #154734;
+}
+
 .chat-conversation {
     justify-content: space-between;
     /* NEW */
