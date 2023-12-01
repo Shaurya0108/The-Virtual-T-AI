@@ -4,9 +4,8 @@ Course Title: Advanced Algorithm Design and Analysis
 Term: Fall 2023 
 Days & Times: Tuesdays & Thursdays 10:00 am – 11:15 am 
 Professor Contact Information:
-	Professor Anjum Chida 
-	Office Phone: 972-883-2185 
-	Email Address: anjum.chida@utdallas.edu
+	Professor Office Phone: 972-883-2185 
+	Professor Email Address: anjum.chida@utdallas.edu
 
 Office Location: ECSS 4.230 
 Office Hours:
@@ -57,6 +56,8 @@ Grade Distribution:
 	Assignments 20% 
 	Quizzes & Class Participation 10%
 
+Note: Exam 3 is considered as Final Exam.
+
 Assignment of letter grade is as follows : 
 	Total Letter Grade 98-100 A+ 93-97 A 90-92 A- 88-89 B+ 83-87 B 80-82 B- 78-79 C+ 73-77 C 70-72 C- 60-69 D 0-59 F
 
@@ -94,8 +95,6 @@ Class Materials: The instructor may provide class materials that will be made av
 
 Class Recordings: Students are expected to follow appropriate University policies and maintain the security of passwords used to access recorded lectures. Unless the Office of Student AccessAbility has approved the student to record the instruction, students are expressly prohibited from recording any part of this course. Recordings may not be published, reproduced, or shared with those not in the class, or uploaded to other online environments except to implement an approved Office of Student AccessAbility accommodation. Failure to comply with these University requirements is a violation of the Student Code of Conduct. The instructor may record meetings of this course. These recordings will be made available to all students registered for this class, the intent is to supplement the classroom experience. 
 
-Accommodations for Students with Disabilities: The University of Texas at Dallas is committed to providing reasonable accommodations for all persons with disabilities. The syllabus is available in alternate formats upon request. If you are seeking classroom accommodations under the Americans with Disabilities Act (2008), you are required to register with the AccessAbility Resource Center (ARC), located in the Administration Building, Suite 2.224. The AccessAbility Resource Center phone number is 972-883-2098, email is studentaccess@utdallas.edu and the website is https://accessability.utdallas.edu/. To receive academic accommodations for this class, please register and request services by completing the Request for Services form with the proper documentation and meet with the Director of ARC at the beginning of the semester. 
-
 Academic Integrity: The faculty expects from its students a high-level of responsibility and academic honesty. Because the value of an academic degree depends upon the absolute integrity of the work done by the student for that degree, it is imperative that a student demonstrates a high standard of individual honor in his or her scholastic work. See https://conduct.utdallas.edu/integrity. 
 
 Academic Dishonesty: Academic dishonesty can occur in relation to any type of work submitted for academic credit or as a requirement for a class. It can include individual work or a group project. Academic dishonesty includes plagiarism, cheating, fabrication, and collaboration/collusion. In order to avoid academic dishonesty, it is important for students to fully understand the expectations of their professors. This is best accomplished through asking clarifying questions if an individual does not completely understand the requirements of an assignment. Additional information related to academic dishonesty and tips on how to avoid dishonesty may be found here: https://conduct.utdallas.edu/dishonesty.
@@ -118,7 +117,7 @@ Assignment 3 is about Chapter 4 on the topics of Divide and Conquer due on Septe
 Participation Quiz 3 is about Chapter 4 on the topics of Divide and Conquer due on September 24 
 Sample Exam 1 is about Chapter 1, 2, 3, 4, 9.3 (Quick Select ) & 33.4( Closest Pair of Points) due on September 29 
 Exam 1 is about Chapter 1, 2, 3, 4, 9.3 (Quick Select ) & 33.4( Closest Pair of Points ) due on October 3 
-Assignment 4 is about Chapter 15 on the topics of Dynamic Programming due on October 15
+Assignment 4 is about Chapter 15 on the topics of Dynamic Programming due on October  15
 
 Participation Quiz 4 is about Chapter 15 on the topics of Dynamic Programming due on October 15 
 Assignment 5 is about Chapter 16 & 22 on the topics of Greedy Algorithms & Elementary Graph Algorithms due on October 22 
@@ -130,7 +129,7 @@ Participation Quiz 6 is about Chapter 23 & 24 on the topics of Minimum Spanning 
 Assignment 7 is about Chapter 25 & 26 on the topics of All Pairs Shortest Paths & Maximum Flow Algorithms due on December 3 
 Participation Quiz 7 is about Chapter 25 & 26 on the topics of All Pairs Shortest Paths & Maximum Flow Algorithms due on December 3 
 Sample Exam 3 is about Chapters 23, 24, 25, 26 & 34 ( Np Completeness) due on December 7
-Exam -3 is about Chapters 23, 24, 25, 26 & 34 ( Np Completeness) due on December 12
+Exam 3 is about Chapters 23, 24, 25, 26 & 34 ( Np Completeness) due on December 12
 
 General Exams Instructions: Exams will be at the Testing Center. The exam has a time limit of 1 hour and 15 minutes. If you have not already reserved your seat do it ASAP. Please arrive early and follow all the guidelines given in Testing Center website before going there. Exams cover the following topics
 
@@ -156,7 +155,7 @@ Exam 3 covers the following topics:
 
 What to Bring for Exams: 
 1. Scientific Calculator (Note Graphic calculators not allowed) 
-2. Book (- Cormen T.H., Leiserson C.E., Rivest R.L., and Stein C.,“Introduction to Algorithms”, 3rd ed., ISBN: 978- 0262033848.) If you have digital copy, bring the print out of the book. 
+2. Book (- Cormen T.H., Leiserson C.E., Rivest R.L., and Stein C.,“Introduction to Algorithms”, 3rd ed., ISBN: 978-0262033848.) If you have digital copy, bring the print out of the book. 
 3. Cheat Sheets , exactly 2 sheets of A4 size (approximately 8.5 inches by 11 inches) paper. The paper can have anything written or printed.
 
 Help with Exam Preparation: Keys for Assignments will be made available in eLearning 2 days before exam date. Check the “Assignment” content area for Assignment keys. Sample Exams are available a week ahead to practice. In the Lecture Notes content area, you will find documents “Practice Problems For Exam” containing some additional problem from Book exercise for extra practice. 

@@ -3,6 +3,7 @@ import warnings
 from typing import Dict
 from starlette.requests import Request
 
+import re
 
 from ray import serve
 
@@ -15,7 +16,7 @@ from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.memory import ConversationBufferMemory
 from transformers import pipeline
 
-#!!! from langchain.llms import LlamaCpp
+from langchain.llms import LlamaCpp
 warnings.filterwarnings("ignore")
 
 # 1: Wrap the pretrained sentiment analysis model in a Serve deployment.
@@ -33,23 +34,22 @@ class LlamaLlm:
         max_new_tokens = 4096 #max is 4096 tokens for LLaMa 2
         # Make sure the model path is correct for your system
         
-        #!!!
-        # llm = LlamaCpp(
-        #     model_path=model_path ,
-        #     n_gpu_layers=n_gpu_layers,
-        #     task='text-generation',
-        #     return_full_text=True,
-        #     n_batch=n_batch,
-        #     n_ctx=n_context,
-        #     top_p=0.9,
-        #     top_k=40,
-        #     last_n_tokens_size=last_n_tokens_size,
-        #     max_new_tokens=max_new_tokens, #max is 4096 tokens for LLaMa 2
-        #     f16_kv=True,  # MUST set to True, otherwise you will run into problem after a couple of calls
-        #     verbose=False, # Verbose is required to pass to the callback manager
-        #     temperature= 0.0,
-        #     repetition_penalty=1.8
-        # )
+        llm = LlamaCpp(
+            model_path=model_path ,
+            n_gpu_layers=n_gpu_layers,
+            task='text-generation',
+            return_full_text=True,
+            n_batch=n_batch,
+            n_ctx=n_context,
+            top_p=0.9,
+            top_k=40,
+            last_n_tokens_size=last_n_tokens_size,
+            max_new_tokens=max_new_tokens, #max is 4096 tokens for LLaMa 2
+            f16_kv=True,  # MUST set to True, otherwise you will run into problem after a couple of calls
+            verbose=False, # Verbose is required to pass to the callback manager
+            temperature= 0.0,
+            repetition_penalty=1.8
+        )
         
         template = """[INST] <<SYS>> 
         You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. 
@@ -65,14 +65,14 @@ class LlamaLlm:
         """
 
         # load the interpreted information from the local database
-        #!!! embeddings = HuggingFaceInstructEmbeddings(
-        #!!!     model_name="sentence-transformers/all-MiniLM-L6-v2",
-        #!!!     model_kwargs={'device': 'mps'}) #original value: cpu
-        #!!! db = FAISS.load_local("faiss", embeddings)
+        embeddings = HuggingFaceInstructEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={'device': 'mps'}) #original value: cpu
+        db = FAISS.load_local("faiss", embeddings)
 
         # prepare a version of the llm pre-loaded with the local content
-        #!!! retriever = db.as_retriever(search_type="similarity", search_kwargs={'k': 2})
-        #!!! prompt = PromptTemplate(input_variables=["history", "input"], template=template)
+        retriever = db.as_retriever(search_type="similarity", search_kwargs={'k': 2})
+        prompt = PromptTemplate(input_variables=["history", "input"], template=template)
 
         #see https://python.langchain.com/docs/use_cases/question_answering/local_retrieval_qa
         # qa_llm = RetrievalQA.from_chain_type(llm=llm,
@@ -82,19 +82,28 @@ class LlamaLlm:
         #                                     chain_type_kwargs={'prompt': prompt}) 
 
         # Set up memory and langchain for both QA and Conversation
-        #!!! memory = ConversationBufferWindowMemory(memory_key="history", k=4, return_only_outputs=True)
-        #!!! chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=True)
+        memory = ConversationBufferWindowMemory(memory_key="history", k=4, return_only_outputs=True)
+        chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=True)
 
         # question_generator_chain = LLMChain(llm=llm, prompt=qaPrompt, verbose=False)
-        #!!! qa_memory = ConversationBufferMemory(memory_key="chat_history", input_key="question", k=4, return_messages=True)
-        #!!! qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, chain_type="stuff", memory=qa_memory, retriever=retriever, verbose=False)
+        qa_memory = ConversationBufferMemory(memory_key="chat_history", input_key="question", k=4, return_messages=True)
+        qa_chain = ConversationalRetrievalChain.from_llm(llm=llm, chain_type="stuff", memory=qa_memory, retriever=retriever, verbose=False)
 
-        #!!! self.convo = chain
-        #!!! self.qa = qa_chain
+        self.convo = chain
+        self.qa = qa_chain
         self.zsc = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
-        self.candidate_labels = ["Follow-Up Description", "Sorting", "Searching", "Design", "Data Structures", "Comparison", "Proofs", "Asymptomatic analysis", "Dynamic Programming", "Greedy Methods", "Grading", "Course Description", "Class Time", "Assignment Details", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus", "Final Exam Date","Thanksgiving Break"]
+        self.candidate_labels = ["Sorting", "Searching", "Design", "Data Structures", "Comparison", "Proofs", "Asymptomatic analysis", "Dynamic Programming", "Greedy Methods", "Grading", "Course Description", "Class Time", "Assignment Details", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus", "Final Exam Date", "Thanksgiving Break"]
         self.syllabus_labels = ["Grading", "Course Description", "Assignment Details", "Class Time", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus","Final Exam Date", "Thanksgiving Break"]
         self.last_was_qa = None
+
+
+    def preprocess(self, query: str) -> str:
+        """Function to preprocess the query"""
+
+        # make pronouns to "the professor's"
+        re.sub(' her | his |', " the professor's ", query)
+
+        return query
 
     def model(self, query: str) -> str:
 
@@ -107,31 +116,57 @@ class LlamaLlm:
         syllabus_related = (classification in self.syllabus_labels)
 
         # If the query is a follow-up question, use the last_was_qa variable to determine whether to use QA or Conversation
-        if (classification == "Follow-Up Description" and self.last_was_qa != None):
-            syllabus_related = self.last_was_qa
-        elif (classification == "Follow-Up Description"):
-            syllabus_related = classification_object['labels'][1] in self.syllabus_labels
+        # if (classification == "Follow-Up Description" and self.last_was_qa != None):
+        #     syllabus_related = self.last_was_qa
+        # elif (classification == "Follow-Up Description"):
+        #     syllabus_related = classification_object['labels'][1] in self.syllabus_labels
 
         # If the query is syllabus related, use the QA model, else use the Conversation model
         if (syllabus_related): 
             response = "This is a default response."
-            #!!! response = self.qa({"question": query, "chat_history": ""})['answer']
+            response = self.qa({"question": query, "chat_history": ""})['answer']
             self.last_was_qa = True
         else: 
             response = "This is a default response."
-            #!!! response = self.convo.predict(input=query)
+            response = self.convo.predict(input=query)
             self.last_was_qa = False
 
-        return ("QA: " if syllabus_related else "Convo: ") + response
+        # return ("QA: " if syllabus_related else "Convo: ") + response
+        return response
 
+    def postprocess(self, response: str) -> str:
+        """Function to postprocess the response"""
+
+        # Get rid of retelling of the prompt
+        temp = response.find('teaching assistant in the Computer Science Department at UT Dallas:')
+        if (temp != -1):
+            response = response[temp+71:]
+
+        return response
+    
     def __init__(self):
         self.loadllms()
+
+    # async def __call__(self, request: Request) -> Dict:
+    #     payload = await request.json()
+    #     print(payload)
+    #     question = payload["text"]
+    #     print("Question: " + question)
+    #     llm_response = self.model(question)
+    #     print("Response:\n" + llm_response)
+    #     return llm_response
 
     def __call__(self, request: Request) -> Dict:
         question = request.query_params["text"]
         print("Question: " + question)
+
+        question = self.preprocess(question)
         llm_response = self.model(question)
         print("Response:\n" + llm_response)
+
+        llm_response = self.postprocess(llm_response)
+        print("Post Processed Response:\n" + llm_response)
+        
         return llm_response
 
 # 2: Deploy the deployment.
