@@ -4,9 +4,11 @@ import {User} from '../classes/User.js';
 import { UnauthorizedError, ConflictError } from '../classes/Error.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { Session } from '../classes/Session.js';
 
 dotenv.config();
 
+var session = new Session();
 var dbConnection = new DynamoDBConnector();
 
 export const authroutes = () => {
@@ -39,26 +41,31 @@ export const authroutes = () => {
 
     router.post('/login', async (req, res) => {
         try {
+            //1. get the UserID
             var user = new User(req.body.username, req.body.password);
-            let result = await user.getUserId();
+            let UserID = await user.getUserId();
 
+            //2. Create a jwt token with accesstoken and UserID
             const accessToken = jwt.sign({
-                userId: result
+                userId: UserID
             }, process.env.secret_access_token, {expiresIn: '30m'})
+
+            //3. get ten most recent sessions
+            let tenSessions = await session.getTenSession(UserID);
 
             return res
             .cookie("accessToken", accessToken, {
-                httpOnly: true,
-                sameSite: 'none'
+                httpOnly: true
             })
-            .cookie("UserId", result, {
-                httpOnly: true,
-                sameSite: 'none'
+            .cookie("UserId", UserID, {
+                httpOnly: true
             })
             .status(200)
-            .json({message: "Logged In"});
+            .json({
+                message: "Logged In",
+                sessions: tenSessions
+            });
         } catch (error) {
-            console.err(error);
             if (error instanceof UnauthorizedError) {
                 return res.status(error.statusCode).json({"error": error.message});
             }

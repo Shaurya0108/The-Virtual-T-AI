@@ -13,6 +13,25 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
 
+  async function generateSessionId() {
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow',
+          credentials: 'include'
+      };
+      const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/chatBot/newSessionId", requestOptions)
+      const data = await response.json();
+      return data.res;
+  } catch (error) {
+      return "Sorry, there was an issue getting the response.";
+  }
+  }
+
   async function authorizeUser() {
     try {
       const credentials = JSON.stringify({
@@ -31,9 +50,11 @@ export default function Login() {
         credentials: 'include'
       };
   
-      const response = await fetch("http://18.189.195.246:443/auth/login", requestOptions);
+      const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/auth/login", requestOptions);
   
       if (response.ok) {
+        const newSessionId = await generateSessionId(); // Generates a unique session ID
+        window.sessionStorage.setItem("currentSessionId", newSessionId);
         navigator('/home');
       } else {
         alert('Invalid Credentials');
