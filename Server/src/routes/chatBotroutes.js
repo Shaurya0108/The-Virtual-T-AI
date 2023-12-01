@@ -24,6 +24,16 @@ export const chatBotroutes = () => {
         }
     });
 
+    router.post('/testRoute', async (req, res) => {
+        try {
+            const sampleText = "This is a test answer";
+            await session.addChatResponse(req, sampleText);
+            return res.status(200).json({"res": "good answer"})
+        } catch (error) {
+            return res.status(500).json({ "error": "Internal Server Error" });
+        }
+    });
+
     //convert this to helper called by query after getting ml response
     router.post('/insertQuery', async (req, res) => {
         try {
@@ -35,7 +45,7 @@ export const chatBotroutes = () => {
         }
     });
 
-    router.get('/getBySessionId', async (req, res) => {
+    router.post('/getBySessionId', async (req, res) => {
         try {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
