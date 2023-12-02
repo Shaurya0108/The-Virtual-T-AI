@@ -41,37 +41,31 @@ export default class ChatBox extends React.Component {
     }
 
     postChatMessage = async (prompt) => {
-        const conversationHistory = this.state.conversation.map(msg => msg.text).join("\n");
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + import.meta.env.VITE_BEARER_TOKEN,
-            },
-            body: JSON.stringify({
-                "input": {
-                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Context: " + conversationHistory + " Question: " + prompt + " Helpful answer:[/INST]<</SYS>>",
-                    "max_new_tokens": 500,
-                    "temperature": 0.9,
-                    "top_k": 50,
-                    "top_p": 0.7,
-                    "repetition_penalty": 1.2,
-                    "batch_size": 8,
-                    "stop": [
-                        "</s>"
-                    ]
-                }
-            })
-        };
 
         try {
-            const response = await fetch('https://api.runpod.ai/v2/tsddif1jle8o98/runsync', requestOptions);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            console.log("prompt: ", prompt)
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    body: prompt,
+                    sessionId: window.sessionStorage.getItem("currentSessionId")
+                }),
+                redirect: 'follow',
+                credentials: 'include'
+            };
+            const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/chatBot/query", requestOptions)
             const data = await response.json();
-            return data.output;
+            if(data.res == undefined){
+                return "error occured"
+            }
+            else{
+                return data.res;
+            }
+            
         } catch (error) {
             console.error('There was an error!', error);
             return "Sorry, there was an issue getting the response.";
