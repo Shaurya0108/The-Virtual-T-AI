@@ -13,6 +13,7 @@ export default class ChatBox extends React.Component {
             conversation: [],
             userMessage: '',
             latexEnabled: false,
+            isLoading: false,
         };
     }
 
@@ -27,9 +28,18 @@ export default class ChatBox extends React.Component {
             return;
         }
         this.updateInputBox(prompt);
+        this.addLoadingMessage();
         const response = await this.postChatMessage(prompt);
-        this.updateConversation(prompt, response);
+        this.updateConversation(prompt, response, true);
     };
+
+    addLoadingMessage = () => {
+        const loadingMessage = { sender: 'chatbot', text: "..." };
+        this.setState(prevState => ({
+            conversation: [...prevState.conversation, loadingMessage],
+            isLoading: true
+        }));
+    }
 
     postChatMessage = async (prompt) => {
         const conversationHistory = this.state.conversation.map(msg => msg.text).join("\n");
@@ -69,18 +79,24 @@ export default class ChatBox extends React.Component {
         }
     };
 
-    updateConversation = (prompt, responseText) => {
+    updateConversation = (prompt, responseText, removeLoading = false) => {
         const userMessage = { sender: 'user', text: prompt };
         const chatbotMessage = { sender: 'chatbot', text: responseText };
     
-        this.setState(prevState => ({
-            conversation: [...prevState.conversation, userMessage, chatbotMessage],
-            userMessage: ''
-        }));
-    
-        console.log("My input: ", userMessage);
-        console.log("Model output: ", chatbotMessage);
+        this.setState(prevState => {
+            let updatedConversation = [...prevState.conversation, userMessage];
+            if (removeLoading) {
+                updatedConversation = updatedConversation.filter(message => message.text !== "...");
+            }
+            return {
+                conversation: [...updatedConversation, chatbotMessage],
+                userMessage: '',
+                isLoading: false
+            };
+        });
     };
+    
+    
 
     updateInputBox = (prompt) => {
         const userMessage = { sender: 'user', text: prompt };
@@ -163,8 +179,9 @@ export default class ChatBox extends React.Component {
                         <button
                             type="submit"
                             className="p-2 bg-blue-500 text-white rounded-md"
+                            disabled={this.state.isLoading}
                         >
-                            Query
+                            {this.state.isLoading ? "Loading..." : "Query"}
                         </button>
                     </div>
                 </form>
