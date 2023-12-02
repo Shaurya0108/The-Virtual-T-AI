@@ -112,26 +112,31 @@ export default class ChatBox extends React.Component {
         return latexDelimiters.some(delimiter => text.includes(delimiter));
     };
 
+
+    // renders the message according to the LaTeX or code response
     renderMessage = (message) => {
-        const latexRegex = /\$\$(.*?)\$\$/g;
-        let match;
-        let lastIndex = 0;
+        const codeBlockRegex = /```([\s\S]*?)```/g;
         let resultElements = [];
-    
-        while ((match = latexRegex.exec(message.text)) !== null) {
+        let lastIndex = 0;
+        let match;
+        while ((match = codeBlockRegex.exec(message.text)) !== null) {
             if (match.index > lastIndex) {
                 resultElements.push(<span key={lastIndex}>{message.text.substring(lastIndex, match.index)}</span>);
             }
-            resultElements.push(<BlockMath key={match.index} math={match[1]} />);
+            resultElements.push(
+                <pre key={match.index}>
+                    <code>{match[1]}</code>
+                </pre>
+            );
             lastIndex = match.index + match[0].length;
         }
-
         if (lastIndex < message.text.length) {
             resultElements.push(<span key={lastIndex}>{message.text.substring(lastIndex)}</span>);
         }
-    
         return <div>{resultElements}</div>;
     };
+    
+    
 
     toggleLatex = () => {
         this.setState(prevState => ({
