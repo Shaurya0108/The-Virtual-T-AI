@@ -4,7 +4,6 @@ import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import Latex from './Latex'
 
-
 export default class ChatBox extends React.Component {
   
     constructor(props) {
@@ -13,6 +12,7 @@ export default class ChatBox extends React.Component {
             conversation: [],
             userMessage: '',
             latexEnabled: false,
+            isLoading: false,
         };
     }
 
@@ -27,11 +27,22 @@ export default class ChatBox extends React.Component {
             return;
         }
         this.updateInputBox(prompt);
+        this.addLoadingMessage();
         const response = await this.postChatMessage(prompt);
-        this.updateConversation(prompt, response);
+        this.updateConversation(prompt, response, true);
     };
 
+    addLoadingMessage = () => {
+        const loadingMessage = { sender: 'chatbot', text: "..." };
+        this.setState(prevState => ({
+            conversation: [...prevState.conversation, loadingMessage],
+            isLoading: true
+        }));
+    }
+
     postChatMessage = async (prompt) => {
+        const conversationHistory = this.state.conversation.map(msg => msg.text).join("\n");
+
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -40,7 +51,7 @@ export default class ChatBox extends React.Component {
             },
             body: JSON.stringify({
                 "input": {
-                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Helpful answer:[/INST]<</SYS>>" + prompt + "[/INST]",
+                    "prompt": "[INST] <<SYS>>You are a helpful, respectful and honest teaching assistant in the Computer Science Dept in UT Dallas. If you don't know the answer to a question, please don't share false information. Instead say 'I don't know, please contact the TA. 'Context: {history} Question: {input} Only return the helpful answer below and nothing else. Keep your response to less than 5 sentences. Context: " + conversationHistory + " Question: " + prompt + " Helpful answer:[/INST]<</SYS>>",
                     "max_new_tokens": 500,
                     "temperature": 0.9,
                     "top_k": 50,
@@ -67,18 +78,24 @@ export default class ChatBox extends React.Component {
         }
     };
 
-    updateConversation = (prompt, responseText) => {
+    updateConversation = (prompt, responseText, removeLoading = false) => {
         const userMessage = { sender: 'user', text: prompt };
         const chatbotMessage = { sender: 'chatbot', text: responseText };
     
-        this.setState(prevState => ({
-            conversation: [...prevState.conversation, userMessage, chatbotMessage],
-            userMessage: ''
-        }));
-    
-        console.log("My input: ", userMessage);
-        console.log("Model output: ", chatbotMessage);
+        this.setState(prevState => {
+            let updatedConversation = [...prevState.conversation, userMessage];
+            if (removeLoading) {
+                updatedConversation = updatedConversation.filter(message => message.text !== "...");
+            }
+            return {
+                conversation: [...updatedConversation, chatbotMessage],
+                userMessage: '',
+                isLoading: false
+            };
+        });
     };
+    
+    
 
     updateInputBox = (prompt) => {
         const userMessage = { sender: 'user', text: prompt };
@@ -158,20 +175,21 @@ export default class ChatBox extends React.Component {
                     </div>
                 </div>
                 <form onSubmit={this.handleSubmit} className="chat-form-container p-4">
-                <div className="flex gap-2">
-                    {this.renderInputField()}
-                    <button onClick={this.toggleLatex} className="p-2 bg-blue-500 text-white rounded-md">
-                        {this.state.latexEnabled ? "Switch to Text" : "Switch to LaTeX"}
-                    </button>
-                    <button
-                        type="submit"
-                        className="p-2 bg-blue-500 text-white rounded-md"
-                    >
-                        Query
-                    </button>
-                </div>
-            </form>
-        </div>
-    );
-}
+                    <div className="flex gap-2">
+                        {this.renderInputField()}
+                        <button onClick={this.toggleLatex} className="p-2 bg-blue-500 text-white rounded-md ">
+                            {this.state.latexEnabled ? "Switch to Text" : "Switch to LaTeX"}
+                        </button>
+                        <button
+                            type="submit"
+                            className="p-2 bg-blue-500 text-white rounded-md"
+                            disabled={this.state.isLoading}
+                        >
+                            {this.state.isLoading ? "Loading..." : "Query"}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
 }
