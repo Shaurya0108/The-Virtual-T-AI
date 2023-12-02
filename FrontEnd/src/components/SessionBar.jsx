@@ -78,6 +78,7 @@ export default class Sessions extends React.Component {
   // This would involve retrieving the previous session data from the backend
   selectPreviousSession = (sessionId) => {
     // Set the current session to the selected one
+    window.sessionStorage.setItem("currentSessionId", sessionId);
     this.setState({ currentSessionId: sessionId });
   };
 
