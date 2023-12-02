@@ -15,7 +15,7 @@ export class Session{
             try{
                 const currentDate = new Date();
 
-                const timestamp = "" + currentDate.getUTCFullYear() +
+                const timestamp = "" + currentDate.getUTCFullYear()
                 + (currentDate.getUTCMonth()+1) 
                 + currentDate.getUTCDate()
                 + currentDate.getUTCHours() 

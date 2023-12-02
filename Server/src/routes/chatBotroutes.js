@@ -16,11 +16,21 @@ export const chatBotroutes = () => {
     router.post('/query', async (req, res) => {
         try {
             const chatResponse = await query(req.body)
-            //await session.addChatResponse(req, chatResponse);
+            await session.addChatResponse(req, chatResponse);
             return res.status(200).json({"res": chatResponse})
         } catch (error) {
             console.log("Error when chatbot query: ", error)
             return res.status(500).json({ "res": "Internal Server Error" });
+        }
+    });
+
+    router.post('/testRoute', async (req, res) => {
+        try {
+            const sampleText = "This is a test answer";
+            await session.addChatResponse(req, sampleText);
+            return res.status(200).json({"res": "good answer"})
+        } catch (error) {
+            return res.status(500).json({ "error": "Internal Server Error" });
         }
     });
 
@@ -35,7 +45,7 @@ export const chatBotroutes = () => {
         }
     });
 
-    router.get('/getBySessionId', async (req, res) => {
+    router.post('/getBySessionId', async (req, res) => {
         try {
             let result = await dbConnection.getById(req.body);
             return res.status(200).json(result);
