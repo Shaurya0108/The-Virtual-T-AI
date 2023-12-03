@@ -6,10 +6,38 @@ export default class Sessions extends React.Component {
     super(props);
     this.state = {
       currentSessionId: null,
-      previousSessions: [],
-      userMessage: '',
-      conversation: [],
+      previousSessions: []
     };
+  }
+
+  getBySessionId = async () => {
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify({
+          TableName: "table-dev",
+          IndexName: "sessionId-index",
+          KeyConditionExpression: "#sessionId = :sessionIdVal",
+          ExpressionAttributeNames: {
+              "#sessionId": "sessionId"
+          },
+          ExpressionAttributeValues: {
+              ":sessionIdVal": { "N": window.sessionStorage.getItem("currentSessionId") }
+          }
+        }),
+        redirect: 'follow',
+        credentials: 'include'
+      };
+      const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/chatBot/getBySessionId", requestOptions);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+        return "Sorry, there was an issue getting the response.";
+    }
   }
 
   generateSessionId = async () => {
@@ -26,14 +54,15 @@ export default class Sessions extends React.Component {
       const response = await fetch(import.meta.env.VITE_SERVER_ENDPOINT + "/chatBot/newSessionId", requestOptions)
       const data = await response.json();
       return data.res;
-  } catch (error) {
+    } catch (error) {
       return "Sorry, there was an issue getting the response.";
-  }
+    }
   }
 
   // Generates a new session ID and updates the state
   createNewSession = async () => {
-    if (!this.state.conversation.length === 0){
+    const queries = await this.getBySessionId();
+    if (queries.length > 0){
       const newSessionId = await this.generateSessionId(); // Generates a unique session ID
 
       window.sessionStorage.setItem("currentSessionId", newSessionId);
@@ -41,23 +70,17 @@ export default class Sessions extends React.Component {
       this.setState(prevState => ({
         currentSessionId: newSessionId,
         previousSessions: [...prevState.previousSessions, newSessionId],
-        conversation: [], // Reset the conversation or handle as necessary
       }));
     }
-
   };
 
   // A function that allows the user to select and load a previous session
   // This would involve retrieving the previous session data from the backend
   selectPreviousSession = (sessionId) => {
     // Set the current session to the selected one
+    window.sessionStorage.setItem("currentSessionId", sessionId);
     this.setState({ currentSessionId: sessionId });
-    // Here you would also retrieve the conversation for the selected session from the backend
   };
-
-  handleChange(event) {
-    this.setState({ userMessage: event.target.value });
-  }
 
   render() {
     const { previousSessions, currentSessionId } = this.state;

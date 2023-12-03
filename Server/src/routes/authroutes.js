@@ -66,7 +66,6 @@ export const authroutes = () => {
                 sessions: tenSessions
             });
         } catch (error) {
-            console.err(error);
             if (error instanceof UnauthorizedError) {
                 return res.status(error.statusCode).json({"error": error.message});
             }

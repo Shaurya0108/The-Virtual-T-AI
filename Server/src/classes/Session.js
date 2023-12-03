@@ -15,7 +15,7 @@ export class Session{
             try{
                 const currentDate = new Date();
 
-                const timestamp = "" + currentDate.getUTCFullYear() +
+                const timestamp = "" + currentDate.getUTCFullYear()
                 + (currentDate.getUTCMonth()+1) 
                 + currentDate.getUTCDate()
                 + currentDate.getUTCHours() 
@@ -98,8 +98,8 @@ export class Session{
             }
         })
     }
-    addChatResponse(req, chatResponse) {
-        return new Promise(async (resolve, reject) => {
+    async addChatResponse(req, chatResponse) {
+        
             try{
             const currentDate = new Date();
 
@@ -126,11 +126,9 @@ export class Session{
             }
 
             await dbConnection.insert(params);
-            resolve();
             } catch (err) {
-                reject(err);
+                //add logging here
             }
-        })
     }
 
 };
