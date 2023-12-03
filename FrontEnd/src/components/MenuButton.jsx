@@ -29,6 +29,8 @@ export default function MenuButton() {
 
     const [emailMessage, setEmailMessage] = useState('');
 
+    const menuButtonRef = useRef(null);
+
     const toggleMenuDropdown = () => {
         setIsMenuDropdownOpen(!isMenuDropdownOpen);
         setIsMenuIconRotated(!isMenuIconRotated);
@@ -77,15 +79,15 @@ export default function MenuButton() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsMenuDropdownOpen(false);
+            if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
+                return;
+            } else if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsMenuDropdownOpen(false); 
             }
         }
-
         if (isMenuDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -93,7 +95,7 @@ export default function MenuButton() {
 
     return (
         <>
-            <button className="menu-button" onClick={toggleMenuDropdown}>
+            <button ref={menuButtonRef} className="menu-button" onClick={toggleMenuDropdown}>
                 <img src={MenuIcon} alt="Menu Icon" className={`menu-icon ${isMenuIconRotated ? 'rotate' : ''}`} />
             </button>
             {isMenuDropdownOpen && (
