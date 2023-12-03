@@ -1,8 +1,43 @@
-import './css/Home.css'
+import './css/Home.css';
+import { useState } from 'react'
 import TextBox2 from './components/TextBox2';
 import Sessions from './components/SessionBar';
 import Navbar  from './components/Navbar';
-export default function Home() {
+export default function Home({ sessionIds }) {
+
+  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [conversation, setConversation] = useState([]);
+
+  const addConversation = (userMessage, chatbotMessage) => {
+    setConversation(prevConversation => [...prevConversation, userMessage, chatbotMessage]);
+  };
+
+  const handleSessionChange = async (sessionId, isNewSession, queries) => {
+    setCurrentSessionId(sessionId);
+    
+    if (isNewSession) {
+      // Clear the conversation for a new session
+      setConversation([]);
+    } else {
+      // Load the conversation for the selected session
+      const loadedConversation = await loadConversationForSession(sessionId, queries);
+      console.log(loadedConversation);
+      setConversation(loadedConversation);
+    }
+  };
+
+  // Function to load conversation based on session ID
+  // Implement the logic to fetch conversation data from your backend or storage
+  const loadConversationForSession = async (sessionId, queries) => {
+    let conversation = [];
+    for(const obj of queries){
+      const userMessage = { sender: 'user', text: obj.Query.question };
+      const chatbotMessage = { sender: 'chatbot', text: obj.Query.answer };
+      conversation.push(userMessage);
+      conversation.push(chatbotMessage);
+    }
+    return conversation;
+  };
   
   function toggleSessions(){
     var sessionContainer = document.querySelector('.session-container');
@@ -31,10 +66,13 @@ export default function Home() {
       <home link rel="stylesheet" type="text/css" href="./css/Home.css" >
         <div className="session-container">
           <button type="button" className="openbtn" onClick={toggleSessions}></button>
-          <Sessions/>
+          <Sessions sessionIds={sessionIds} 
+            onSessionChange={handleSessionChange} />
         </div>
         <div className="chat-container">
-          <TextBox2 />
+          <TextBox2 currentSessionId={currentSessionId}
+            conversation={conversation}
+            addConversation={addConversation}/>
         </div>
       </home>
   </>

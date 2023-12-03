@@ -6,7 +6,7 @@ export default class Sessions extends React.Component {
     super(props);
     this.state = {
       currentSessionId: null,
-      previousSessions: []
+      previousSessions: props.sessionIds || []
     };
   }
 
@@ -69,17 +69,20 @@ export default class Sessions extends React.Component {
 
       this.setState(prevState => ({
         currentSessionId: newSessionId,
-        previousSessions: [...prevState.previousSessions, newSessionId],
+        previousSessions: [newSessionId, ...prevState.previousSessions],
       }));
+      this.props.onSessionChange(newSessionId, true);
     }
   };
 
   // A function that allows the user to select and load a previous session
   // This would involve retrieving the previous session data from the backend
-  selectPreviousSession = (sessionId) => {
+  selectPreviousSession = async (sessionId) => {
     // Set the current session to the selected one
     window.sessionStorage.setItem("currentSessionId", sessionId);
     this.setState({ currentSessionId: sessionId });
+    const queries = await this.getBySessionId();
+    this.props.onSessionChange(sessionId, false, queries);
   };
 
   render() {
