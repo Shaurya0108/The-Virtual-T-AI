@@ -1,7 +1,8 @@
 import React from 'react';
 import '../css/Home.css';
-
+import SessionCard from './SessionCard';
 export default class Sessions extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -9,6 +10,8 @@ export default class Sessions extends React.Component {
       previousSessions: props.sessionIds || []
     };
   }
+
+
 
   getBySessionId = async () => {
     try {
@@ -40,6 +43,8 @@ export default class Sessions extends React.Component {
     }
   }
 
+
+
   generateSessionId = async () => {
     try {
       var myHeaders = new Headers();
@@ -59,6 +64,8 @@ export default class Sessions extends React.Component {
     }
   }
 
+
+
   // Generates a new session ID and updates the state
   createNewSession = async () => {
     const queries = await this.getBySessionId();
@@ -75,6 +82,9 @@ export default class Sessions extends React.Component {
     }
   };
 
+
+
+
   // A function that allows the user to select and load a previous session
   // This would involve retrieving the previous session data from the backend
   selectPreviousSession = async (sessionId) => {
@@ -84,6 +94,8 @@ export default class Sessions extends React.Component {
     const queries = await this.getBySessionId();
     this.props.onSessionChange(sessionId, false, queries);
   };
+
+
 
   render() {
     const { previousSessions, currentSessionId } = this.state;
@@ -100,7 +112,7 @@ export default class Sessions extends React.Component {
               onClick={() => this.selectPreviousSession(sessionId)}
               className={`session ${sessionId === currentSessionId ? 'current-session' : ''}`}
             >
-              {`Session ${sessionId}`}
+              <SessionCard Id={this.state.sessionId}/>
             </button>
           ))}
         </div>
