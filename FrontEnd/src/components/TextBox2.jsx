@@ -17,7 +17,13 @@ export default class ChatBox extends React.Component {
     }
 
     handleChange = (event) => {
-        this.setState({ userMessage: event.target.value });
+        const userInput = event.target.value;
+        const startsWithBackslash = userInput.startsWith('\\');
+    
+        this.setState(prevState => ({
+            userMessage: userInput,
+            latexEnabled: startsWithBackslash ? true : prevState.latexEnabled,
+        }));
     };
 
     handleSubmit = async (event) => {
