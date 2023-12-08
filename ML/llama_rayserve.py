@@ -74,13 +74,6 @@ class LlamaLlm:
         retriever = db.as_retriever(search_type="similarity", search_kwargs={'k': 2})
         prompt = PromptTemplate(input_variables=["history", "input"], template=template)
 
-        #see https://python.langchain.com/docs/use_cases/question_answering/local_retrieval_qa
-        # qa_llm = RetrievalQA.from_chain_type(llm=llm,
-        #                                     chain_type='stuff',
-        #                                     retriever=retriever,
-        #                                     return_source_documents=True,
-        #                                     chain_type_kwargs={'prompt': prompt}) 
-
         # Set up memory and langchain for both QA and Conversation
         memory = ConversationBufferWindowMemory(memory_key="history", k=4, return_only_outputs=True)
         chain = ConversationChain(llm=llm, memory=memory, prompt=prompt, verbose=True)
@@ -92,8 +85,12 @@ class LlamaLlm:
         self.convo = chain
         self.qa = qa_chain
         self.zsc = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
-        self.candidate_labels = ["Sorting", "Searching", "Design", "Data Structures", "Comparison", "Proofs", "Asymptomatic analysis", "Dynamic Programming", "Greedy Methods", "Grading", "Course Description", "Class Time", "Assignment Details", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus", "Final Exam Date", "Thanksgiving Break"]
-        self.syllabus_labels = ["Grading", "Course Description", "Assignment Details", "Class Time", "Class Location", "Professor Contact Info", "Office Hours", "Syllabus","Final Exam Date", "Thanksgiving Break"]
+        self.candidate_labels = [
+            "Sorting Algorithms", "Search Algorithms", "Design", "Data Structures", "Comparison", "Proofs", "Asymptomatic analysis", "Dynamic Programming", "Greedy Methods", 
+            "Grading", "Course Description", "Class Time", "Assignment Details", "Class Location", "Comet Creed", "Professor Contact Info", "Office Hours", "Syllabus", "Final Exam Date", "Thanksgiving Break"
+            ]
+        PARTITION_INDEX = 9 # Number of labels on first row of candidate_labels (Non-syllabus related)
+        self.syllabus_labels = self.candidate_labels[PARTITION_INDEX:]
         self.last_was_qa = None
 
 
@@ -101,7 +98,11 @@ class LlamaLlm:
         """Function to preprocess the query"""
 
         # make pronouns to "the professor's"
-        re.sub(' her | his |', " the professor's ", query)
+        query = re.sub(' her | his ', " the professor's ", query)
+
+        # Hardcoded replacements
+        if re.match('who is the professor', query.lower()):
+            query = re.sub('who is the professor', "What is the professor's name", query.lower())
 
         return query
 
@@ -114,12 +115,6 @@ class LlamaLlm:
 
         response = ""
         syllabus_related = (classification in self.syllabus_labels)
-
-        # If the query is a follow-up question, use the last_was_qa variable to determine whether to use QA or Conversation
-        # if (classification == "Follow-Up Description" and self.last_was_qa != None):
-        #     syllabus_related = self.last_was_qa
-        # elif (classification == "Follow-Up Description"):
-        #     syllabus_related = classification_object['labels'][1] in self.syllabus_labels
 
         # If the query is syllabus related, use the QA model, else use the Conversation model
         if (syllabus_related): 
@@ -134,39 +129,101 @@ class LlamaLlm:
         # return ("QA: " if syllabus_related else "Convo: ") + response
         return response
 
+    def hardcodedResponse(self, query: str) -> str:
+        """Function to return hardcoded responses"""
+
+        question_answer_pairs = {
+            "what is the professor's name": "The professor is Anjum Chida",
+        }
+
+        query = query.lower()
+
+        for question in question_answer_pairs.keys():
+            if re.match(question, query):
+                return question_answer_pairs[question]
+
+        return None
+
     def postprocess(self, response: str) -> str:
         """Function to postprocess the response"""
 
         # Get rid of retelling of the prompt
         temp = response.find('teaching assistant in the Computer Science Department at UT Dallas:')
-        if (temp != -1):
-            response = response[temp+71:]
+        if (temp != -1): response = response[temp+67:]
+
+        # Get rid of qa prompt
+        temp = response.find('Based on the provided information')
+        if (temp != -1): response = response[temp+33:]
+
+        temp = response.find('Based on the provided context')
+        if (temp != -1): response = response[temp+29:]
+
+        temp = response.find('Based on the given information')
+        if (temp != -1): response = response[temp+30:]
+
+        temp = response.find('Based on the given context')
+        if (temp != -1): response = response[temp+26:]
+        
+        temp = response.find('context provided')
+        if (temp != -1): response = response[temp+16:]
+
+        # Get rid of artifacts
+        while re.match(",|\.|\?|!|:|;", response):
+            response = response[1:]
+
+        # Whitespace cleanup
+        response = re.sub(' +', ' ', response)
+        response = re.sub('\n+', '\n', response)
+        response = response.strip()
+
+        # Capitalize first letter
+        response = response[0].upper() + response[1:]
 
         return response
     
     def __init__(self):
         self.loadllms()
 
+    # # Network Server Code
     # async def __call__(self, request: Request) -> Dict:
     #     payload = await request.json()
     #     print(payload)
     #     question = payload["text"]
     #     print("Question: " + question)
+
+    #     question = self.preprocess(question)
+    #     print("Preprocessed Question: " + question)
+
+    #     response = self.hardcodedResponse(question)
+    #     print("Hardcoded?: " + str(bool(response != None)))
+    #     if response: return response
+
     #     llm_response = self.model(question)
     #     print("Response:\n" + llm_response)
+
+    #     llm_response = self.postprocess(llm_response)
+    #     print("Post Processed Response:\n" + llm_response)
+
     #     return llm_response
 
+    # Streamlit Local Code
     def __call__(self, request: Request) -> Dict:
         question = request.query_params["text"]
         print("Question: " + question)
 
         question = self.preprocess(question)
+        print("Preprocessed Question: " + question)
+
+        response = self.hardcodedResponse(question)
+        print("Hardcoded?: " + str(bool(response != None)))
+        if response: return response
+
         llm_response = self.model(question)
         print("Response:\n" + llm_response)
 
         llm_response = self.postprocess(llm_response)
         print("Post Processed Response:\n" + llm_response)
-        
+
         return llm_response
 
 # 2: Deploy the deployment.
