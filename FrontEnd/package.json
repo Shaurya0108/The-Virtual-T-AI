@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@huggingface/inference": "^2.6.4",
     "axios": "^1.5.1",
     "dot-env": "^0.0.1",
     "katex": "^0.16.9",

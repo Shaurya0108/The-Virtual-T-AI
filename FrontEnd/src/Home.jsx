@@ -3,6 +3,7 @@ import { useState } from 'react'
 import TextBox2 from './components/TextBox2';
 import Sessions from './components/SessionBar';
 import Navbar  from './components/Navbar';
+
 export default function Home({ sessionIds }) {
 
   const [currentSessionId, setCurrentSessionId] = useState(null);
