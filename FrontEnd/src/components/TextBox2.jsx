@@ -9,7 +9,6 @@ export default class ChatBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            conversation: [],
             userMessage: '',
             latexEnabled: false,
             isLoading: false,
@@ -82,17 +81,10 @@ export default class ChatBox extends React.Component {
         const userMessage = { sender: 'user', text: prompt };
         const chatbotMessage = { sender: 'chatbot', text: responseText };
     
-        this.setState(prevState => {
-            let updatedConversation = [...prevState.conversation, userMessage];
-            if (removeLoading) {
-                updatedConversation = updatedConversation.filter(message => message.text !== "...");
-            }
-            return {
-                conversation: [...updatedConversation, chatbotMessage],
-                userMessage: '',
-                isLoading: false
-            };
-        });
+        this.props.addConversation(userMessage, chatbotMessage);
+    
+        console.log("My input: ", userMessage);
+        console.log("Model output: ", chatbotMessage);
     };
 
     updateInputBox = (prompt) => {
@@ -116,6 +108,7 @@ export default class ChatBox extends React.Component {
         let resultElements = [];
         let lastIndex = 0;
         let match;
+        console.log("message: ", message)
         while ((match = codeBlockRegex.exec(message.text)) !== null) {
             if (match.index > lastIndex) {
                 resultElements.push(<span key={lastIndex}>{message.text.substring(lastIndex, match.index)}</span>);
@@ -156,11 +149,12 @@ export default class ChatBox extends React.Component {
     };
 
     render() {
+        const { conversation } = this.props;
         return (
             <div className="chat-container">
                 <div className="message-list">
                     <div className="flex flex-col gap-2 message-list-padding">
-                        {this.state.conversation.map((message, index) => (
+                        {conversation.map((message, index) => (
                             <div key={index} className={`max-w-3/4 ${
                                 message.sender === 'chatbot' ? 'self-start bg-blue-100 rounded-l-none' : 'self-end bg-gray-300 rounded-r-none'
                             } rounded-md p-2`}>
