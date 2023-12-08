@@ -8,9 +8,9 @@ export default function SettingsButton() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [isSettingsIconRotated, setIsSettingsIconRotated] = useState(false);
-    const dropdownRef = useRef(null);
     const navigate = useNavigate();
-    /* For Modal Title */
+    const dropdownRef = useRef(null);
+    const settingsButtonRef = useRef(null);
     const [modalTitle, setModalTitle] = useState("");
 
     const userInfo = {
@@ -53,15 +53,15 @@ export default function SettingsButton() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            if (settingsButtonRef.current && settingsButtonRef.current.contains(event.target)) {
+                return;
+            } else if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setIsSettingsDropdownOpen(false);
             }
         }
-
         if (isSettingsDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -69,7 +69,7 @@ export default function SettingsButton() {
 
     return (
         <>
-            <button className="settings-button" onClick={toggleSettingsDropdown}>
+            <button ref={settingsButtonRef} className="settings-button" onClick={toggleSettingsDropdown}>
                 <img src={SettingsIcon} alt="Settings Icon" className={`settings-icon ${isSettingsIconRotated ? 'rotate' : ''}`} />
             </button>
             {isSettingsDropdownOpen && (

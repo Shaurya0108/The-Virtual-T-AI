@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@huggingface/inference": "^2.6.4",
     "axios": "^1.5.1",
     "dot-env": "^0.0.1",
+    "emailjs-com": "^3.2.0",
     "katex": "^0.16.9",
     "langchain": "^0.0.185",
     "react": "^18.2.0",
