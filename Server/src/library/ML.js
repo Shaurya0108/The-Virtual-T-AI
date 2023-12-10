@@ -1,9 +1,9 @@
 export function query(Text) {
     switch(Text.modelSelection){
         case 1:
-            shuarya(Text)
+            Ruben(Text)
         case 2:
-            ruben(Text)
+            shuarya(Text)
         case 3:
             shuarya(Text) // make GPT
 
