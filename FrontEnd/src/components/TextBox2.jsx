@@ -77,6 +77,8 @@ export default class ChatBox extends React.Component {
         const chatbotMessage = { sender: 'chatbot', text: responseText };
     
         this.props.addConversation(userMessage, chatbotMessage);
+
+        this.setState({ isLoading: false });
     
         console.log("My input: ", userMessage);
         console.log("Model output: ", chatbotMessage);
