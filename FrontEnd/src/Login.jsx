@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-export default function Login() {
+export default function Login({ setTenSessionIds }) {
   const navigator = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -55,6 +55,10 @@ export default function Login() {
       if (response.ok) {
         const newSessionId = await generateSessionId(); // Generates a unique session ID
         window.sessionStorage.setItem("currentSessionId", newSessionId);
+
+        const data = await response.json();
+        console.log(data.sessions);
+        setTenSessionIds([newSessionId, ...data.sessions]);
         navigator('/home');
       } else {
         alert('Invalid Credentials');

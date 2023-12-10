@@ -1,7 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import MenuIcon from "../icons/MenuIcon.svg";
 import Modal from './Modal';
+import emailjs from 'emailjs-com';
+
+const userID = import.meta.env.VITE_EMAILJS;
+emailjs.init(userID);
+
+// Component for TA form
+const ContactTAContent = ({ emailMessage, setEmailMessage, sendEmail }) => (
+    <div className="modal-content-container">
+        <textarea 
+            placeholder="Type your message here, the message will be sent to your TA via outlook" 
+            className="modal-textarea" 
+            value={emailMessage}
+            onChange={(e) => setEmailMessage(e.target.value)}
+        ></textarea>
+        <button className="modal-send-button" onClick={sendEmail}>Send</button>
+    </div>
+);
 
 export default function MenuButton() {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -9,9 +25,11 @@ export default function MenuButton() {
     const [isMenuDropdownOpen, setIsMenuDropdownOpen] = useState(false);
     const [isMenuIconRotated, setIsMenuIconRotated] = useState(false);
     const dropdownRef = useRef(null);
-    const navigate = useNavigate();
-    /* For Modal Title */
     const [modalTitle, setModalTitle] = useState("");
+
+    const [emailMessage, setEmailMessage] = useState('');
+
+    const menuButtonRef = useRef(null);
 
     const toggleMenuDropdown = () => {
         setIsMenuDropdownOpen(!isMenuDropdownOpen);
@@ -19,31 +37,41 @@ export default function MenuButton() {
     };
 
     const handleSyllabusClick = () => {
-        //Edit src
         setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
         setModalTitle("Syllabus");
         setIsModalVisible(true);
     };
 
     const handleHomeworkClick = () => {
-        //Edit src
         setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
         setModalTitle("Homework");
         setIsModalVisible(true);
     };
 
+    // Stuff for sending an email to TA
+    // Uses handling and can take in props from the component above menuButton
     const handleContactTAClick = () => {
-        setModalContent(
-            <div className="modal-content-container">
-                <textarea placeholder="Type your message here" className="modal-textarea"></textarea>
-                <button className="modal-send-button">Send</button>
-            </div>
-        );
         setModalTitle("Contact TA");
         setIsModalVisible(true);
     };
+    
+    const sendEmail = () => {
+        const templateParams = {
+            to_email: 'sxd200087@utdallas.edu',
+            message: emailMessage,
+        };
+    
+        emailjs.send('service_ee7lqht', 'template_w7d6mgh', templateParams)
+            .then(response => {
+                console.log('SUCCESS!', response.status, response.text);
+                closeModal();
+                setEmailMessage('');
+            }, error => {
+                console.log('FAILED...', error);
+            });
+    };
 
-    // Clear modal content when closing
+
     const closeModal = () => {
         setIsModalVisible(false);
         setModalContent(null);
@@ -51,15 +79,15 @@ export default function MenuButton() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsMenuDropdownOpen(false);
+            if (menuButtonRef.current && menuButtonRef.current.contains(event.target)) {
+                return;
+            } else if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsMenuDropdownOpen(false); 
             }
         }
-
         if (isMenuDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -67,7 +95,7 @@ export default function MenuButton() {
 
     return (
         <>
-            <button className="menu-button" onClick={toggleMenuDropdown}>
+            <button ref={menuButtonRef} className="menu-button" onClick={toggleMenuDropdown}>
                 <img src={MenuIcon} alt="Menu Icon" className={`menu-icon ${isMenuIconRotated ? 'rotate' : ''}`} />
             </button>
             {isMenuDropdownOpen && (
@@ -82,6 +110,13 @@ export default function MenuButton() {
                 onClose={closeModal}
                 title={modalTitle}
             >
+                {modalTitle === "Contact TA" && 
+                    <ContactTAContent 
+                        emailMessage={emailMessage} 
+                        setEmailMessage={setEmailMessage} 
+                        sendEmail={sendEmail}
+                    />
+                }
                 {modalContent}
             </Modal>
         </>
