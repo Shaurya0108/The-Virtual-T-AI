@@ -59,6 +59,7 @@ export default function Login({ setTenSessionIds }) {
         const data = await response.json();
         console.log(data.sessions);
         setTenSessionIds([newSessionId, ...data.sessions]);
+        sessionStorage.setItem('modelSelect', 1);
         navigator('/home');
       } else {
         alert('Invalid Credentials');

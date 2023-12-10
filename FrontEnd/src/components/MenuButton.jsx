@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import MenuIcon from "../icons/MenuIcon.svg";
 import Modal from './Modal';
 import emailjs from 'emailjs-com';
-
+import ModelSelect from './ModelSelect';
 const userID = import.meta.env.VITE_EMAILJS;
 emailjs.init(userID);
 
@@ -54,6 +54,12 @@ export default function MenuButton() {
         setModalTitle("Contact TA");
         setIsModalVisible(true);
     };
+
+    const handleModelClick = () => {
+        setModalContent(<ModelSelect/>);
+        setModalTitle("Model");
+        setIsModalVisible(true);
+    };
     
     const sendEmail = () => {
         const templateParams = {
@@ -103,6 +109,7 @@ export default function MenuButton() {
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleSyllabusClick}>Syllabus</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleHomeworkClick}>Homework</a>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleContactTAClick}>Contact TA</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={handleModelClick}>Model</a>
                 </div>
             )}
             <Modal
