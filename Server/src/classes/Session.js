@@ -61,22 +61,28 @@ export class Session{
                         ":UserIdval": { N: userId.toString() }
                     },
                     ExpressionAttributeNames: {
-                        "#Time": "Time"
+                        "#Time": "Time",
+                        "#Query": "Query"
                     },
                     ScanIndexForward: false,
-                    ProjectionExpression: "sessionId, #Time"
+                    ProjectionExpression: "sessionId, #Query, #Time"
                 };
                 const queries = await dbConnection.getById(params);
                 let result = []
+                let sessions = []
                 for(const q of queries){
                     if(!result.includes(q.sessionId)){
                         result.push(q.sessionId);
+                        sessions.push({
+                            sessionId: q.sessionId,
+                            query: q.Query.question
+                        })
                     }
                     if(result.length >= 10){
                         break;
                     }
                 }
-                resolve(result);
+                resolve(sessions);
             } catch (err) {
                 reject(err);
             }

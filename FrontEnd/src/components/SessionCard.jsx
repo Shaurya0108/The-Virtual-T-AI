@@ -10,7 +10,7 @@ export default function SessionCard({Id}) {
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {`SessionId = ${Id}`}
+            {`${Id.query || "New Session"}`}
         </Typography>
       </CardContent>
     </Card>

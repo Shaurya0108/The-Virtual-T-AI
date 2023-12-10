@@ -112,7 +112,7 @@ export default class Sessions extends React.Component {
               onClick={() => this.selectPreviousSession(sessionId)}
               className={`session ${sessionId === currentSessionId ? 'current-session' : ''}`}
             >
-              <SessionCard Id={this.state.sessionId}/>
+              <SessionCard Id={sessionId}/>
             </button>
           ))}
         </div>
