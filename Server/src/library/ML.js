@@ -1,20 +1,7 @@
 export function query(Text) {
     switch(Text.modelSelection){
         case 1:
-            return shuarya(Text)
-        case 2:
-            return ruben(Text)
-        case 3:
-            return shuarya(Text) // make GPT
-
-    }
-
-};
-
-
-
-export function shuarya(Text) {
-    return new Promise(async (resolve, reject) => {
+                return new Promise(async (resolve, reject) => {
         try {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -50,10 +37,8 @@ export function shuarya(Text) {
             reject(error)
         }
     })
-};
-
-export function ruben(Text) {
-    return new Promise(async (resolve, reject) => {
+        case 2:
+                return new Promise(async (resolve, reject) => {
         try {
 
             const requestOptions = {
@@ -75,9 +60,16 @@ export function ruben(Text) {
             reject(error)
         }
     })
+        case 3:
+            return shuarya(Text) // make GPT
+
+    }
+
 };
 
-// here we can define a function to see if the model is down and return a loading status to front end
+
+
+//Here we can define a function to see if the model is down and return a loading status to front end
 // extra if we have tme
 export async function getModelStatus(Text) {
     var myHeaders = new Headers();
