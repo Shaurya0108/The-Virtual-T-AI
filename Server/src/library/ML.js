@@ -1,4 +1,19 @@
 export function query(Text) {
+    switch(Text.modelSelection){
+        case 1:
+            shuarya(Text)
+        case 2:
+            ruben(Text)
+        case 3:
+            shuarya(Text) // make GPT
+
+    }
+
+};
+
+
+
+function shuarya(Text) {
     return new Promise(async (resolve, reject) => {
         try {
             var myHeaders = new Headers();
@@ -31,6 +46,31 @@ export function query(Text) {
             const data = await response.json()
             
             resolve(data.output);
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
+
+function ruben(Text) {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: Text.body
+
+                })
+            };
+
+            const response = await fetch(process.env.localHotSpot, requestOptions)
+            const data = await response.text()
+
+            resolve(data);
         } catch (error) {
             reject(error)
         }
