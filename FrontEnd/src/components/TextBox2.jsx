@@ -12,6 +12,7 @@ export default class ChatBox extends React.Component {
             userMessage: '',
             latexEnabled: false,
             isLoading: false,
+            conversation: props.conversation
         };
     }
 
@@ -51,7 +52,8 @@ export default class ChatBox extends React.Component {
                 headers: myHeaders,
                 body: JSON.stringify({
                     body: prompt,
-                    sessionId: window.sessionStorage.getItem("currentSessionId")
+                    sessionId: window.sessionStorage.getItem("currentSessionId"),
+                    modelSelection: sessionStorage.getItem('modelSelect')
                 }),
                 redirect: 'follow',
                 credentials: 'include'
