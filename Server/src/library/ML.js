@@ -1,11 +1,11 @@
 export function query(Text) {
     switch(Text.modelSelection){
         case 1:
-            shuarya(Text)
+            return shuarya(Text)
         case 2:
-            ruben(Text)
+            return ruben(Text)
         case 3:
-            shuarya(Text) // make GPT
+            return shuarya(Text) // make GPT
 
     }
 
@@ -13,7 +13,7 @@ export function query(Text) {
 
 
 
-function shuarya(Text) {
+export function shuarya(Text) {
     return new Promise(async (resolve, reject) => {
         try {
             var myHeaders = new Headers();
@@ -52,7 +52,7 @@ function shuarya(Text) {
     })
 };
 
-function ruben(Text) {
+export function ruben(Text) {
     return new Promise(async (resolve, reject) => {
         try {
 
