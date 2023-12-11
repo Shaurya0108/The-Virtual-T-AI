@@ -3,6 +3,8 @@ import MenuIcon from "../icons/MenuIcon.svg";
 import Modal from './Modal';
 import emailjs from 'emailjs-com';
 import ModelSelect from './ModelSelect';
+import SyllabusRender from './SyllabusRender';
+import HomeworkRender from './HomeworkRender';
 const userID = import.meta.env.VITE_EMAILJS;
 emailjs.init(userID);
 
@@ -37,16 +39,18 @@ export default function MenuButton() {
     };
 
     const handleSyllabusClick = () => {
-        setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
+        setModalContent(<SyllabusRender/>)
         setModalTitle("Syllabus");
         setIsModalVisible(true);
     };
 
+
     const handleHomeworkClick = () => {
-        setModalContent(<iframe src="https://github.com/jesusjimenez32/PDF/blob/c8aeddbcff0dc05596c846d76ea8683c9050ce5a/CS%204485%20-%20FA2023%20-%20Syllabus.pdf" style={{ width: '100%', height: '100%' }} />);
+        setModalContent(<HomeworkRender/>)
         setModalTitle("Homework");
         setIsModalVisible(true);
     };
+    
 
     // Stuff for sending an email to TA
     // Uses handling and can take in props from the component above menuButton
