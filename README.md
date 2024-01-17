@@ -1,7 +1,7 @@
 # T.AI.
 Teacher Assistant built using Artificial Intelligence for Students to use for their course/classes
 
-## Web_client
+## Web Client
 
 Frontend is written in ReactJS with the ViteJS framework
 
