@@ -1,5 +1,5 @@
-# CSProject
-Virtual TA for Students to use for their course/classes
+# T.AI.
+Teacher Assistant built using Artificial Intelligence for Students to use for their course/classes
 
 ## Web_client
 
